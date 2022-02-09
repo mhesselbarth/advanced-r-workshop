@@ -23,19 +23,28 @@ navbar:
       menu:
         - text: "Exercises Topic 1"
           icon: fa-tasks
-          href: index.html
+          href: Exercise_Top_1.html
         - text: "Exercises Topic 2"
           icon: fa-tasks
-          href: index.html
+          href: Exercise_Top_2.html
+        - text: "Exercises Topic 3"
+          icon: fa-tasks
+          href: Exercise_Top_3.html
     - text: "Solutions"
       icon: fa-check
       menu:
         - text: "Solution Topic 1"
           icon: fa-clipboard-check
-          href: index.html
-        - text: "Solution Topic 1"
+          href: Solution_Top_1.html
+        - text: "Solution Topic 2"
           icon: fa-clipboard-check
-          href: index.html
+          href: Solution_Top_2.html
+        - text: "Solution Topic 3"
+          icon: fa-clipboard-check
+          href: Solution_Top_3.html
+    - text: "Resources"
+      icon: fa-ellipsis
+      href: resources.html
   right:
     - text: "Code of conduct"
       icon: fa-handshake
