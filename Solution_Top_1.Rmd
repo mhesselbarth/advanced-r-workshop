@@ -1,5 +1,5 @@
 ---
-title: "Solution Topic 1"
+title: "Solution Spatial data"
 ---
 
 ...Work-in-Progress...
