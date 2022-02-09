@@ -1,0 +1,31 @@
+---
+title: "Advanced R workshop"
+---
+
+<!-- Badges start -->
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE.html)
+
+<!-- Badges end -->
+
+This homepage contains all materials used during the **Advanced `R` workshop** taught at the University of Michigan [EEB department](https://lsa.umich.edu/eeb). The workshops is organized by Katrina Munsterman, Alden Dirks and Max Hesselbarth. 
+
+The introductory slides for each topic can be found under the "Slides" menu item as PDF files. For each topic there is an exercise and a corresponding solution , which can be found under the "Exercise" and "Solution" menu items.
+
+In case you have any questions, please contact [mhessel\<at>umich.edu](mailto:mhessel@umich.edu).
+
+### Content
+
+- Topic 1
+- Topic 2
+- Topic 3
+
+#### Code of Conduct
+
+Please note that the Advanced `R` workshop project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.html). By taking part, you agree to abide by its terms.
+
+<br>
+
+```{r index_logo, echo = FALSE, fig.align = "center", out.width = '50%'}
+knitr::include_graphics("img/UMich.png", auto_pdf = FALSE)
+```

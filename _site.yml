@@ -1,0 +1,48 @@
+name: "Advanced-R-Workshop"
+output_dir: "docs"
+output: 
+  html_document:
+    theme: lumen
+navbar:
+  title: "Advanced R workshop"
+  left:
+    - text: "Home"
+      icon: fa-home
+      href: index.html
+    - text: "Slides"
+      icon: fa-display
+      menu:
+        - text: "Slides Topic 1"
+          icon: fa-display
+          href: index.html
+        - text: "Slides Topic 2"
+          icon: fa-display
+          href: index.html
+    - text: "Exercises"
+      icon: fa-tasks
+      menu:
+        - text: "Exercises Topic 1"
+          icon: fa-tasks
+          href: index.html
+        - text: "Exercises Topic 2"
+          icon: fa-tasks
+          href: index.html
+    - text: "Solutions"
+      icon: fa-check
+      menu:
+        - text: "Solution Topic 1"
+          icon: fa-clipboard-check
+          href: index.html
+        - text: "Solution Topic 1"
+          icon: fa-clipboard-check
+          href: index.html
+  right:
+    - text: "Code of conduct"
+      icon: fa-handshake
+      href: CODE_OF_CONDUCT.html
+    - text: "Contact"
+      icon: fa-user
+      hreft: mailto:mhessel@umich.edu
+    - text: "Github" 
+      icon: fa-github fa-lg
+      href: https://github.com/mhesselbarth
