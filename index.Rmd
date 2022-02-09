@@ -12,13 +12,13 @@ This homepage contains all materials used during the **Advanced `R` workshop** t
 
 The introductory slides for each topic can be found under the "Slides" menu item as PDF files. For each topic there is an exercise and a corresponding solution , which can be found under the "Exercise" and "Solution" menu items.
 
-In case you have any questions, please contact [mhessel\<at>umich.edu](mailto:mhessel@umich.edu).
+In case you have any questions, please contact [mhessel\<at>umich.edu](mailto:mhessel@umich.edu), [kmunster@umich.edu\<at>umich.edu](mailto:kmunster@umich.edu@umich.edu), or [adirks\<at>umich.edu](mailto:adirks@umich.edu).
 
 ### Content
 
-- Topic 1
-- Topic 2
-- Topic 3
+- Spatial data
+- Tidyverse or Debugging & Performance
+- ggplot2
 
 #### Code of Conduct
 
