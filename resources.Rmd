@@ -1,0 +1,22 @@
+---
+title: "Further resources"
+---
+
+This is a collection of my favorite resources. They are all online and freely available (even though for some also book copies can be purchased). If you have a good resource currently not listed, please feel free to [contact me](mailto:mhessel@umich.edu).
+
+### General programming in R
+[R for Data Science](https://r4ds.had.co.nz): Book covering many general concepts of data science including different data types, data cleaning, exploration and wrangling.
+
+[Advanced R](https://adv-r.hadley.nz): Book covering more advanced topics of `R` programming such as Environments, Functional and Object-oriented programming, or non-standard evaluation.
+
+[Efficient R programming](https://csgillespie.github.io/efficientR/): Book about how to program more efficiently in `R` including general and specific/advanced advice.
+
+[What They Forgot to Teach You About R](https://rstats.wtf/index.html): Homepage about mainly "daily tasks" in the `R` programming language that are often not covered by courses.
+
+[Big Book of R](https://www.bigbookofr.com/index.html): Massive collection of online-available R books/homepages.
+
+### Spatial data
+
+[Geocomputation with R](https://geocompr.robinlovelace.net/index.html): Book including basics and advanced spatial data background, workflows and examples. Lots of code examples.
+
+[Spatial Data Science](https://keen-swartz-3146c4.netlify.app): Homepage explaining basics of spatial data. Strong focus on `sf` and `stars` package.
