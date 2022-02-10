@@ -17,8 +17,8 @@ In case you have any questions, please contact [mhessel\<at>umich.edu](mailto:mh
 ### Content
 
 - Spatial data
-- Tidyverse or Debugging & Performance
-- ggplot2
+- Using the _tidyverse_
+- Data visualization using _ggplot2_
 
 #### Code of Conduct
 
