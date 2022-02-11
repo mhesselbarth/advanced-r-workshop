@@ -3,3 +3,5 @@ title: "Slides"
 ---
 
 ...Work-in-Progress...
+
+[tidyverse](slides/tidyverse/tidyverse.html)
