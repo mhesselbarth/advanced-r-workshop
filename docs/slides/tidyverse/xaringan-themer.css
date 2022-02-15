@@ -18,48 +18,47 @@
  *  Version: 0.4.1
  *
  * ------------------------------------------------------- */
-@import url(https://fonts.googleapis.com/css?family=Hind&display=swap);
-@import url(https://fonts.googleapis.com/css?family=Hind&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap);
 @import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700&display=swap);
 
 
 :root {
   /* Fonts */
-  --text-font-family: Hind;
+  --text-font-family: Montserrat;
   --text-font-is-google: 1;
   --text-font-family-fallback: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial;
   --text-font-base: sans-serif;
-  --header-font-family: Hind;
+  --header-font-family: 'Abril Fatface';
   --header-font-is-google: 1;
   --header-font-family-fallback: Georgia, serif;
   --code-font-family: 'Source Code Pro';
   --code-font-is-google: 1;
   --base-font-size: 20px;
   --text-font-size: 1rem;
-  --code-font-size: 0.8rem;
+  --code-font-size: 0.9rem;
   --code-inline-font-size: 1em;
   --header-h1-font-size: 2.75rem;
   --header-h2-font-size: 2.25rem;
   --header-h3-font-size: 1.75rem;
 
   /* Colors */
-  --text-color: #272822;
-  --header-color: #002B54;
-  --background-color: #FFFFFF;
-  --link-color: #002B54;
-  --text-bold-color: #002B54;
+  --text-color: #000000;
+  --header-color: #FD6467;
+  --background-color: #E0FEFF;
+  --link-color: #000000;
+  --text-bold-color: #FD6467;
   --code-highlight-color: rgba(255,255,0,0.5);
-  --inverse-text-color: #FFFFFF;
-  --inverse-background-color: #002B54;
-  --inverse-header-color: #FFFFFF;
-  --inverse-link-color: #002B54;
-  --title-slide-background-color: #002B54;
-  --title-slide-text-color: #FFCB05;
-  --header-background-color: #002B54;
-  --header-background-text-color: #FFFFFF;
-  --base: #002B54;
-  --white: #FFFFFF;
-  --black: #272822;
+  --inverse-text-color: #E0FEFF;
+  --inverse-background-color: #FD6467;
+  --inverse-header-color: #E0FEFF;
+  --inverse-link-color: #000000;
+  --title-slide-background-color: #E0FEFF;
+  --title-slide-text-color: #FD6467;
+  --header-background-color: #FD6467;
+  --header-background-text-color: #E0FEFF;
+  --primary: #E0FEFF;
+  --secondary: #FD6467;
 }
 
 html {
@@ -100,10 +99,10 @@ h1, h2, h3 {
 }
 .remark-inline-code {
   font-size: var(--code-inline-font-size);
-  color: #002B54;
+  color: #FD6467;
 }
 .remark-slide-number {
-  color: #002B54;
+  color: #000000;
   opacity: 1;
   font-size: 0.9rem;
 }
@@ -151,10 +150,10 @@ a, a > code {
   float: left;
 }
 .left-column h2, .left-column h3 {
-  color: #002B5499;
+  color: #FD646799;
 }
 .left-column h2:last-of-type, .left-column h3:last-child {
-  color: #002B54;
+  color: #FD6467;
 }
 .right-column {
   width: 75%;
@@ -176,7 +175,7 @@ img, video, iframe {
   max-width: 100%;
 }
 blockquote {
-  border-left: solid 5px #002B5480;
+  border-left: solid 5px #FD646780;
   padding-left: 1em;
 }
 .remark-slide table {
@@ -191,7 +190,7 @@ th, td {
   padding: 5px;
 }
 .remark-slide thead, .remark-slide tfoot, .remark-slide tr:nth-child(even) {
-  background: #CCD4DC;
+  background: #FBFEFF;
 }
 table.dataTable tbody {
   background-color: var(--background-color);
@@ -201,7 +200,7 @@ table.dataTable.display tbody tr.odd {
   background-color: var(--background-color);
 }
 table.dataTable.display tbody tr.even {
-  background-color: #CCD4DC;
+  background-color: #FBFEFF;
 }
 table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   background-color: rgba(255, 255, 255, 0.5);
@@ -271,34 +270,23 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   }
 }
 
-.base {
-  color: var(--base);
+.primary {
+  color: var(--primary);
 }
-.bg-base {
-  background-color: var(--base);
+.bg-primary {
+  background-color: var(--primary);
 }
-.white {
-  color: var(--white);
+.secondary {
+  color: var(--secondary);
 }
-.bg-white {
-  background-color: var(--white);
-}
-.black {
-  color: var(--black);
-}
-.bg-black {
-  background-color: var(--black);
+.bg-secondary {
+  background-color: var(--secondary);
 }
 
 
 
 /* Extra CSS */
 .ref {
-  font-size: 75%;
-  font-style: italic;
-}
-.email {
   font-size: 65%;
   font-style: italic;
-  color: white;
 }

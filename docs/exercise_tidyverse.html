@@ -9,9 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Maximilian H.K. Hesselbarth" />
 
+<meta name="date" content="2022-03-25" />
 
-<title>Solution Topic 2</title>
+<title>Exercise Using the tidyverse</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -32,8 +34,7 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.13.0/js/script.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -250,12 +251,23 @@ $(document).ready(function () {
     Home
   </a>
 </li>
-<li>
-  <a href="slides.html">
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fa fa-display"></span>
      
     Slides
+     
+    <span class="caret"></span>
   </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="slides/tidyverse/tidyverse.html">
+        <span class="fa fa-display"></span>
+         
+        Slides tidyverse
+      </a>
+    </li>
+  </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -267,24 +279,24 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="exercise_top_1.html">
+      <a href="exercise_tidyverse.html">
         <span class="fa fa-tasks"></span>
          
-        Exercises Topic 1
+        Exercises tidyverse
       </a>
     </li>
     <li>
-      <a href="exercise_top_2.html">
+      <a href="exercise_ggplot2.html">
         <span class="fa fa-tasks"></span>
          
-        Exercises Topic 2
+        Exercises ggplot2
       </a>
     </li>
     <li>
-      <a href="exercise_top_3.html">
+      <a href="exercise_spatial.html">
         <span class="fa fa-tasks"></span>
          
-        Exercises Topic 3
+        Exercises Spatial data
       </a>
     </li>
   </ul>
@@ -299,24 +311,24 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="solution_top_1.html">
+      <a href="solution_tidyverse.html">
         <span class="fa fa-clipboard-check"></span>
          
-        Solution Topic 1
+        Solution tidyverse
       </a>
     </li>
     <li>
-      <a href="solution_top_2.html">
+      <a href="solution_ggplot2.html">
         <span class="fa fa-clipboard-check"></span>
          
-        Solution Topic 2
+        Solution ggplot2
       </a>
     </li>
     <li>
-      <a href="solution_top_3.html">
+      <a href="solution_spatial.html">
         <span class="fa fa-clipboard-check"></span>
          
-        Solution Topic 3
+        Solution Spatial data
       </a>
     </li>
   </ul>
@@ -360,12 +372,72 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Solution Topic 2</h1>
+<h1 class="title toc-ignore">Exercise <em>Using the tidyverse</em></h1>
+<h4 class="author">Maximilian H.K. Hesselbarth</h4>
+<h4 class="date">2022-03-25</h4>
 
 </div>
 
 
-<p>…Work-in-Progress…</p>
+<p><img src="img/tidy_tools.png" width="65%" style="display: block; margin: auto;" /></p>
+<a href="https://raw.githubusercontent.com/mhesselbarth/advanced-r-workshop/main/Exercise_tidyverse">
+<button class="btn btn-danger"><i class="fa fa-save"></i> Download .Rmd file</button>
+</a>
+<p><br><br></p>
+<p>First, make sure you downloaded the <code>tidyverse</code> and are able to load it. Furthermore, you need to install the <code>palmerpenguins</code> package to access.</p>
+<pre class="r"><code># Insert code here
+
+
+
+# End</code></pre>
+<p>Have a look at the class and structure of the <code>penguins_raw</code> data set. Also, make yourself familiar with the columns. Since the data set is part of a package, you can also use the corresponding help page.</p>
+<pre class="r"><code># Insert code here
+
+
+
+# End</code></pre>
+<p>Next, for easier data handling, clean the column names by removing all white spaces and special characters (e.g., brackets, units, …).</p>
+<pre class="r"><code># Insert code here
+
+
+
+# End</code></pre>
+<p>Now, remove all rows that don’t have a measure for stable isotopes (both Delta 15 N and Delta 13 C). Save this into a new <code>tibble</code>.</p>
+<pre class="r"><code># Insert code here
+
+
+
+# End</code></pre>
+<p>Filter the data set to include only the 50% smallest individuals in terms of body mass. Select the individual id, species, the culmen dimensions and the sex columns.</p>
+<pre class="r"><code># Insert code here
+
+
+
+# End</code></pre>
+<p>Create a new column (<code>culmenclass</code>) in which each male individual with a culmen length larger than 50 mm is identified by <code>1</code>, each female individual with a culmen length larger than 45 mm is identified by <code>2</code>, and all other individuals are identified by <code>0</code>.</p>
+<pre class="r"><code># Insert code here
+
+
+
+# End</code></pre>
+<p>Calculate the min, mean, and max value for each of this new classified groups and calculate the relative number (%) of individuals within each group.</p>
+<pre class="r"><code># Insert code here
+
+
+
+# End</code></pre>
+<p>Reshape the data from wide to long using the relative number, min, mean, and max as new value column. The name of the new column specifying the information should be <code>type</code>, the new cloumn containing the values should be <code>measurements</code>.</p>
+<pre class="r"><code># Insert code here
+
+
+
+# End</code></pre>
+<p>Finally, save the resulting <code>tibble</code> on your disk (e.g., your desktop) as a .csv file.</p>
+<pre class="r"><code># Insert code here
+
+
+
+# End</code></pre>
 
 
 

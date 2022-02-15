@@ -11,31 +11,35 @@ navbar:
       href: index.html
     - text: "Slides"
       icon: fa-display
+      menu:
+        - text: "Slides tidyverse"
+          icon: fa-display
+          href: slides/tidyverse/tidyverse.html
       href: slides.html
     - text: "Exercises"
       icon: fa-tasks
       menu:
-        - text: "Exercises Topic 1"
+        - text: "Exercises tidyverse"
           icon: fa-tasks
-          href: exercise_top_1.html
-        - text: "Exercises Topic 2"
+          href: exercise_tidyverse.html
+        - text: "Exercises ggplot2"
           icon: fa-tasks
-          href: exercise_top_2.html
-        - text: "Exercises Topic 3"
+          href: exercise_ggplot2.html
+        - text: "Exercises Spatial data"
           icon: fa-tasks
-          href: exercise_top_3.html
+          href: exercise_spatial.html
     - text: "Solutions"
       icon: fa-check
       menu:
-        - text: "Solution Topic 1"
+        - text: "Solution tidyverse"
           icon: fa-clipboard-check
-          href: solution_top_1.html
-        - text: "Solution Topic 2"
+          href: solution_tidyverse.html
+        - text: "Solution ggplot2"
           icon: fa-clipboard-check
-          href: solution_top_2.html
-        - text: "Solution Topic 3"
+          href: solution_ggplot2.html
+        - text: "Solution Spatial data"
           icon: fa-clipboard-check
-          href: solution_top_3.html
+          href: solution_spatial.html
     - text: "Resources"
       icon: fa-ellipsis
       href: resources.html

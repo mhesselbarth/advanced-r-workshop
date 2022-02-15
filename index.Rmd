@@ -16,9 +16,9 @@ In case you have any questions, please contact [mhessel\<at>umich.edu](mailto:mh
 
 ### Content
 
-- Spatial data
 - Using the _tidyverse_
 - Data visualization using _ggplot2_
+- Spatial data
 
 #### Code of Conduct
 

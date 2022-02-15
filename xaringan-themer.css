@@ -46,13 +46,13 @@
   --text-color: #000000;
   --header-color: #FD6467;
   --background-color: #E0FEFF;
-  --link-color: #000000;
+  --link-color: #FD6467;
   --text-bold-color: #FD6467;
   --code-highlight-color: rgba(255,255,0,0.5);
   --inverse-text-color: #E0FEFF;
   --inverse-background-color: #FD6467;
   --inverse-header-color: #E0FEFF;
-  --inverse-link-color: #000000;
+  --inverse-link-color: #FD6467;
   --title-slide-background-color: #E0FEFF;
   --title-slide-text-color: #FD6467;
   --header-background-color: #FD6467;
@@ -139,6 +139,9 @@ a, a > code {
 }
 .title-slide {
   background-color: var(--title-slide-background-color);
+  background-image: url("img/tidyverse.png");
+  background-size: 20%;
+  background-position: 95% 95%;
 }
 .title-slide .remark-slide-number {
   display: none;

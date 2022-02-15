@@ -1,0 +1,15 @@
+---
+title: "Exercise _Spatial data_"
+author: "Maximilian H.K. Hesselbarth"
+date: "2022-03-25"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE
+)
+```
+
+...Work-in-Progress...

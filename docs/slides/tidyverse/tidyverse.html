@@ -1,56 +1,81 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Using the tidyverse</title>
+    <title>tidyverse.knit</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Maximilian H.K. Hesselbarth   .email[mhessel@umich.edu]" />
-    <meta name="date" content="2022-02-10" />
     <script src="libs/header-attrs-2.11/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
-class: center, middle, inverse, title-slide
 
-# Using the <em>tidyverse</em>
-### Maximilian H.K. Hesselbarth <br/> .email[mhessel@umich.edu]
-### University of Michigan (EEB)
-### 2022-02-10
+
+
+
+class: inverse, center, middle
+background-image: url("img/tidyverse.png")
+background-position: 95% 95%
+background-size: 25%
+
+# Using the _tidyverse_
+
+### Maximilian H.K. Hesselbarth
+
+#### University of Michigan (EEB)
+
+2022-03-25
 
 ---
 
+# The _tidyverse_
 
-class: center, middle
+.pull-left[
 
+&lt;img src="img/hexlogos.png" width="75%" style="display: block; margin: auto;" /&gt;
 
+.ref[www.tidyverse.org]
 
-class: center, middle
-background-image: url("img/hexlogos.png")
-background-size: 65%
+]
 
----
+.pull-right[
 
-# Typical tasks
-
-&lt;img src="img/tasks.png" width="75%" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/tasks.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 .ref[Wickham, H., Grolemund, G., 2016. R for Data Science, 1st ed. O’Reilly, Newton (USA).]
+
+]
 
 ---
 
 # Tidy data
+
+--
+
 1. Each **variable** forms a **column**.
+
+--
 
 2. Each **observation** forms a **row**.
 
-3. Each type of observational unit forms a table.
+--
+
+3. Each **value** must have its own **cell**.
 
 .ref[Wickham, H., 2014. Tidy Data. Journal of Statistical Software 59, 1–23. https://doi.org/10.18637/jss.v059.i10]
 
+--
 
 &lt;img src="img/tidydata.png" width="75%" style="display: block; margin: auto;" /&gt;
 
-.ref[Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst]
+.ref[Illustration from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst]
+
+---
+
+# Tidy data
+
+&lt;img src="img/table.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+.ref[Wickham, H., Grolemund, G., 2016. R for Data Science, 1st ed. O’Reilly, Newton (USA).]
 
 ---
 
@@ -91,31 +116,43 @@ background-size: 25%
 
 # Core packages
 
-`readr` : Read rectangular data
+`readr`   : Read rectangular data
 
-`tibble` : Modern re-imagining of data frames
+`tibble`  : Modern re-imagining of data frames
 
 `stringr` : Functions to work with strings (i.e. sequence of characters)
 
 `forcats` : Functions to modify factors (i.e. categorical data)
 
-**`tidyr`** : Functions to tidy/reshape data
+`tidyr`   : Functions to tidy/reshape data
 
-**`dplyr`** : Functions for data manipulation
+`dplyr`   : Functions for data manipulation
 
-**`purrr`** : Functional programming
+`purrr`   : Functional programming
 
-**`ggplot2`** : Data visualization
+`ggplot2` : Data visualization
 
 ---
 
+background-image: url("img/maggritr.png")
+background-position: 95% 10%
+background-size: 10%
+
 # Pipe operator `%&gt;%`
+
+--
 
 - `f(x)` is equivalent to `x %&gt;% f`
 
+--
+
 - `f(x, y)` is equivalent to `x %&gt;% f(y)`
 
+--
+
 - `f(y, x)` is equivalent to `x %&gt;% f(y, .)`
+
+--
 
 
 ```r
@@ -132,6 +169,316 @@ set.seed(42)
 *10 %&gt;% runif() %&gt;% sort() %&gt;% log() %&gt;% min()
 ## [1] -2.004953
 ```
+
+---
+
+class: inverse
+
+# Palmer penguins dataset
+
+&lt;!-- - `palmerpenguins` dataset --&gt;
+
+&lt;!-- - Nesting observations, penguin size data, and isotope measurements from blood samples for adult Adélie, Chinstrap, and Gentoo penguins. --&gt;
+
+&lt;img src="img/penguins.png" width="65%" style="display: block; margin: auto;" /&gt;
+
+.ref[Horst A.M., Hill A.P., Gorman K.B., 2020. palmerpenguins: Palmer Archipelago (Antarctica) penguin data. R package version 0.1.0.]
+
+---
+
+background-image: url("img/readr.png")
+background-position: 95% 10%
+background-size: 10%
+
+# Read data: _readr_
+
+--
+
+- Reads automatically into `tibble`
+
+--
+
+- Different `readr::read_*()` functions for different data types
+
+--
+
+- Functions to write data `readr::write_*()`
+
+--
+
+- `readxl` as alternative for Excel data
+
+--
+
+
+```r
+*df_penguins &lt;- readr::read_csv("data/penguins_raw.csv") %&gt;%
+  magrittr::set_names(names(.) %&gt;% stringr::str_remove_all(pattern = " ") %&gt;% 
+                        stringr::str_remove_all(pattern = "\\([^()]+\\)"))
+## Rows: 344 Columns: 17
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: ","
+## chr  (9): studyName, Species, Region, Island, Stage, Individual ID, Clutch C...
+## dbl  (7): Sample Number, Culmen Length (mm), Culmen Depth (mm), Flipper Leng...
+## date (1): Date Egg
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+```
+
+---
+
+background-image: url("img/tidyr.png")
+background-position: 95% 10%
+background-size: 10%
+
+# Tidy data: _tidyr_
+
+--
+
+- Some functions to deal with `NA` values
+
+
+```r
+df_penguins &lt;- tidyr::drop_na(df_penguins, BodyMass)
+```
+
+--
+
+- `nest()`/`unnest()` to organize data
+
+
+```r
+tidyr::nest(df_penguins, data = -studyName)
+```
+
+```
+## # A tibble: 3 × 2
+##   studyName data               
+##   &lt;chr&gt;     &lt;list&gt;             
+## 1 PAL0708   &lt;tibble [109 × 16]&gt;
+## 2 PAL0809   &lt;tibble [114 × 16]&gt;
+## 3 PAL0910   &lt;tibble [119 × 16]&gt;
+```
+
+--
+
+- `pivot_longer()` &amp; `pivot_wider()` most important functions to **reshape** data
+
+---
+
+background-image: url("img/dplyr.png")
+background-position: 95% 10%
+background-size: 10%
+
+# Wrangle data: _dplyr_
+
+--
+
+- `filter()` to subset **rows**; `select()` to subset **columns**
+
+
+```r
+dplyr::filter(df_penguins, BodyMass &gt;= quantile(BodyMass, 0.75), Sex != "FEMALE") %&gt;% 
+  dplyr::select_if(is.numeric) %&gt;% head(5)
+```
+
+```
+## # A tibble: 5 × 7
+##   SampleNumber CulmenLength CulmenDepth FlipperLength BodyMass Delta15N Delta13C
+##          &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;         &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+## 1          110         43.2        19             197     4775     9.32    -25.5
+## 2            2         50          16.3           230     5700     8.15    -25.4
+## 3            4         50          15.2           218     5700     8.26    -25.4
+## 4            5         47.6        14.5           215     5400     8.23    -25.5
+## 5            8         46.7        15.3           219     5200     8.23    -25.4
+```
+
+--
+
+- `pull()` to convert **one** column as vector
+
+
+```r
+dplyr::pull(df_penguins, FlipperLength) %&gt;% head(10)
+```
+
+```
+##  [1] 181 186 195 193 190 181 195 193 190 186
+```
+
+---
+
+background-image: url("img/dplyr.png")
+background-position: 95% 10%
+background-size: 10%
+
+# Wrangle data: _dplyr_
+
+--
+
+- `mutate()` to **create/modify** columns
+
+- `case_when()` as vectorised **ifelse** statements
+
+- `slice()` to subset **rows** by position
+
+--
+
+
+```r
+dplyr::select(df_penguins, IndividualID, Species, CulmenLength) %&gt;%
+* dplyr::mutate(CulmenLength_cm = CulmenLength / 10,
+                CulmenLenth_class = 
+                  dplyr::case_when(CulmenLength &lt; 35  ~ "small",
+*                                  CulmenLength &gt;= 35 &amp; CulmenLength &lt;= 45 ~ "med",
+                                   CulmenLength &gt; 45 ~ "large")) %&gt;%
+  dplyr::slice(sample(1:nrow(.), size = 3))
+```
+
+```
+## # A tibble: 3 × 5
+##   IndividualID Species             CulmenLength CulmenLength_cm CulmenLenth_cla…
+##   &lt;chr&gt;        &lt;chr&gt;                      &lt;dbl&gt;           &lt;dbl&gt; &lt;chr&gt;           
+## 1 N62A1        Chinstrap penguin …         46.4            4.64 large           
+## 2 N13A1        Adelie Penguin (Py…         38.8            3.88 med             
+## 3 N92A1        Chinstrap penguin …         45.7            4.57 large
+```
+
+---
+
+background-image: url("img/dplyr.png")
+background-position: 95% 10%
+background-size: 10%
+
+# Wrangle data: _dplyr_
+
+--
+
+- `group_by()` to group by **column**
+
+- `summarise()` to **summarize** each group
+
+- `n()` to **count** observations within each group (context dependent)
+
+--
+
+
+```r
+*df_penguins_sum &lt;- dplyr::group_by(df_penguins, Island, Species) %&gt;%
+* dplyr::summarise(n = dplyr::n(),
+                   FlipperLength_m = mean(FlipperLength), 
+                   FlipperLength_sd = sd(FlipperLength), 
+*                  .groups = "drop")
+```
+
+---
+
+background-image: url("img/dplyr.png")
+background-position: 95% 10%
+background-size: 10%
+
+# Wrangle data: _dplyr_
+
+--
+
+- `*_join()` to combine columns from `x` and `y` using matching **keys**
+
+
+```r
+*dplyr::left_join(x = df_penguins, y = df_penguins_sum, by = c("Island", "Species")) %&gt;%
+  dplyr::select(Species, Island, tidyselect::starts_with("Flipper")) %&gt;% 
+  dplyr::slice(sample(1:nrow(.), size = 5))
+```
+
+```
+## # A tibble: 5 × 5
+##   Species                  Island FlipperLength FlipperLength_m FlipperLength_sd
+##   &lt;chr&gt;                    &lt;chr&gt;          &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;
+## 1 Adelie Penguin (Pygosce… Dream            190            190.             6.59
+## 2 Gentoo penguin (Pygosce… Biscoe           213            217.             6.48
+## 3 Adelie Penguin (Pygosce… Biscoe           198            189.             6.73
+## 4 Adelie Penguin (Pygosce… Biscoe           174            189.             6.73
+## 5 Chinstrap penguin (Pygo… Dream            187            196.             7.13
+```
+
+--
+
+&lt;img src="img/joins.png" width="30%" style="display: block; margin: auto;" /&gt;
+
+.ref[https://statisticsglobe.com/r-dplyr-join-inner-left-right-full-semi-anti]
+
+---
+
+background-image: url("img/purrr.png")
+background-position: 95% 10%
+background-size: 10%
+
+# Functional programming: _purrr_
+
+--
+
+- `map_*()` to apply function to each element (vector/list)
+
+
+```r
+species_names &lt;- unique(df_penguins$Species)
+*purrr::map(species_names, function(i) {
+  dplyr::filter(df_penguins, Species == i) %&gt;% dplyr::pull(Island) %&gt;% 
+    unique() %&gt;% stringr::str_sort() %&gt;% paste(collapse = ", ")})
+```
+
+```
+## [[1]]
+## [1] "Biscoe, Dream, Torgersen"
+## 
+## [[2]]
+## [1] "Biscoe"
+## 
+## [[3]]
+## [1] "Dream"
+```
+
+--
+
+
+```r
+*purrr::map_int(species_names, function(i) {
+  dplyr::filter(df_penguins, Species == i) %&gt;% dplyr::pull(Island) %&gt;% 
+    unique %&gt;% length})
+```
+
+```
+## [1] 3 1 1
+```
+
+---
+
+class: inverse
+
+## Thank you for your attention
+
+### Questions? 
+
+.pull-left[
+
+Further resources: https://mhesselbarth.github.io/advanced-r-workshop/resources.html
+
+Exercise: https://mhesselbarth.github.io/advanced-r-workshop/exercise_top_1.html
+
+]
+
+.pull-right[
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 64H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm0 48v40.805c-22.422 18.259-58.168 46.651-134.587 106.49-16.841 13.247-50.201 45.072-73.413 44.701-23.208.375-56.579-31.459-73.413-44.701C106.18 199.465 70.425 171.067 48 152.805V112h416zM48 400V214.398c22.914 18.251 55.409 43.862 104.938 82.646 21.857 17.205 60.134 55.186 103.062 54.955 42.717.231 80.509-37.199 103.053-54.947 49.528-38.783 82.032-64.401 104.947-82.653V400H48z"&gt;&lt;/path&gt;&lt;/svg&gt; [mhessel@umich.edu](mailto:mhessel@umich.edu)
+
+&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z"&gt;&lt;/path&gt;&lt;/svg&gt; [https://mhesselbarth.rbind.io](https://mhesselbarth.rbind.io)
+
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"&gt;&lt;/path&gt;&lt;/svg&gt; [@MHKHesselbarth](https://twitter.com/MHKHesselbarth)
+
+]
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

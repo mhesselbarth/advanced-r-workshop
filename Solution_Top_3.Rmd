@@ -1,5 +1,0 @@
----
-title: "Solution Topic 3"
----
-
-...Work-in-Progress...

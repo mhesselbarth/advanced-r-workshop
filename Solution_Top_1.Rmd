@@ -1,5 +1,0 @@
----
-title: "Solution Spatial data"
----
-
-...Work-in-Progress...

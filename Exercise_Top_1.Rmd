@@ -1,5 +1,0 @@
----
-title: "Exercise Spatial data"
----
-
-...Work-in-Progress...

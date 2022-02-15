@@ -9,9 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Maximilian H.K. Hesselbarth" />
 
+<meta name="date" content="2022-03-25" />
 
-<title>Advanced R workshop</title>
+<title>Solution Using the tidyverse</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -32,8 +34,7 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.13.0/js/script.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -371,31 +372,107 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Advanced R workshop</h1>
+<h1 class="title toc-ignore">Solution <em>Using the tidyverse</em></h1>
+<h4 class="author">Maximilian H.K. Hesselbarth</h4>
+<h4 class="date">2022-03-25</h4>
 
 </div>
 
 
-<!-- Badges start -->
-<p><a href="LICENSE.html"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg" alt="License: GPL v3" /></a></p>
-<!-- Badges end -->
-<p>This homepage contains all materials used during the <strong>Advanced <code>R</code> workshop</strong> taught at the University of Michigan <a href="https://lsa.umich.edu/eeb">EEB department</a>. The workshops is organized by Katrina Munsterman, Alden Dirks and Max Hesselbarth.</p>
-<p>The introductory slides for each topic can be found under the “Slides” menu item as PDF files. For each topic there is an exercise and a corresponding solution , which can be found under the “Exercise” and “Solution” menu items.</p>
-<p>In case you have any questions, please contact <a href="mailto:mhessel@umich.edu">mhessel&lt;at&gt;umich.edu</a>, <a href="mailto:kmunster@umich.edu@umich.edu">kmunster@umich.edu&lt;at&gt;umich.edu</a>, or <a href="mailto:adirks@umich.edu">adirks&lt;at&gt;umich.edu</a>.</p>
-<div id="content" class="section level3">
-<h3>Content</h3>
-<ul>
-<li>Using the <em>tidyverse</em></li>
-<li>Data visualization using <em>ggplot2</em></li>
-<li>Spatial data</li>
-</ul>
-<div id="code-of-conduct" class="section level4">
-<h4>Code of Conduct</h4>
-<p>Please note that the Advanced <code>R</code> workshop project is released with a <a href="CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By taking part, you agree to abide by its terms.</p>
-<p><br></p>
-<p><img src="img/UMich.png" width="50%" style="display: block; margin: auto;" /></p>
-</div>
-</div>
+<p><img src="img/tidy_tools.png" width="65%" style="display: block; margin: auto;" /></p>
+<a href="https://raw.githubusercontent.com/mhesselbarth/advanced-r-workshop/main/Solution_tidyverse">
+<button class="btn btn-danger"><i class="fa fa-save"></i> Download .Rmd file</button>
+</a>
+<p><br><br></p>
+<p>First, make sure you downloaded the <code>tidyverse</code> and are able to load it. Furthermore, you need to install the <code>palmerpenguins</code> package to access.</p>
+<pre class="r"><code>library(tidyverse)
+## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
+## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
+## ✓ tibble  3.1.6     ✓ dplyr   1.0.7
+## ✓ tidyr   1.2.0     ✓ stringr 1.4.0
+## ✓ readr   2.1.2     ✓ forcats 0.5.1
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+library(palmerpenguins)</code></pre>
+<p>Have a look at the class and structure of the <code>penguins_raw</code> data set. Also, make yourself familiar with the columns. Since the data set is part of a package, you can also use the corresponding help page.</p>
+<pre class="r"><code>class(penguins_raw)
+## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;
+str(penguins_raw)
+## tibble [344 × 17] (S3: tbl_df/tbl/data.frame)
+##  $ studyName          : chr [1:344] &quot;PAL0708&quot; &quot;PAL0708&quot; &quot;PAL0708&quot; &quot;PAL0708&quot; ...
+##  $ Sample Number      : num [1:344] 1 2 3 4 5 6 7 8 9 10 ...
+##  $ Species            : chr [1:344] &quot;Adelie Penguin (Pygoscelis adeliae)&quot; &quot;Adelie Penguin (Pygoscelis adeliae)&quot; &quot;Adelie Penguin (Pygoscelis adeliae)&quot; &quot;Adelie Penguin (Pygoscelis adeliae)&quot; ...
+##  $ Region             : chr [1:344] &quot;Anvers&quot; &quot;Anvers&quot; &quot;Anvers&quot; &quot;Anvers&quot; ...
+##  $ Island             : chr [1:344] &quot;Torgersen&quot; &quot;Torgersen&quot; &quot;Torgersen&quot; &quot;Torgersen&quot; ...
+##  $ Stage              : chr [1:344] &quot;Adult, 1 Egg Stage&quot; &quot;Adult, 1 Egg Stage&quot; &quot;Adult, 1 Egg Stage&quot; &quot;Adult, 1 Egg Stage&quot; ...
+##  $ Individual ID      : chr [1:344] &quot;N1A1&quot; &quot;N1A2&quot; &quot;N2A1&quot; &quot;N2A2&quot; ...
+##  $ Clutch Completion  : chr [1:344] &quot;Yes&quot; &quot;Yes&quot; &quot;Yes&quot; &quot;Yes&quot; ...
+##  $ Date Egg           : Date[1:344], format: &quot;2007-11-11&quot; &quot;2007-11-11&quot; ...
+##  $ Culmen Length (mm) : num [1:344] 39.1 39.5 40.3 NA 36.7 39.3 38.9 39.2 34.1 42 ...
+##  $ Culmen Depth (mm)  : num [1:344] 18.7 17.4 18 NA 19.3 20.6 17.8 19.6 18.1 20.2 ...
+##  $ Flipper Length (mm): num [1:344] 181 186 195 NA 193 190 181 195 193 190 ...
+##  $ Body Mass (g)      : num [1:344] 3750 3800 3250 NA 3450 ...
+##  $ Sex                : chr [1:344] &quot;MALE&quot; &quot;FEMALE&quot; &quot;FEMALE&quot; NA ...
+##  $ Delta 15 N (o/oo)  : num [1:344] NA 8.95 8.37 NA 8.77 ...
+##  $ Delta 13 C (o/oo)  : num [1:344] NA -24.7 -25.3 NA -25.3 ...
+##  $ Comments           : chr [1:344] &quot;Not enough blood for isotopes.&quot; NA NA &quot;Adult not sampled.&quot; ...
+##  - attr(*, &quot;spec&quot;)=
+##   .. cols(
+##   ..   studyName = col_character(),
+##   ..   `Sample Number` = col_double(),
+##   ..   Species = col_character(),
+##   ..   Region = col_character(),
+##   ..   Island = col_character(),
+##   ..   Stage = col_character(),
+##   ..   `Individual ID` = col_character(),
+##   ..   `Clutch Completion` = col_character(),
+##   ..   `Date Egg` = col_date(format = &quot;&quot;),
+##   ..   `Culmen Length (mm)` = col_double(),
+##   ..   `Culmen Depth (mm)` = col_double(),
+##   ..   `Flipper Length (mm)` = col_double(),
+##   ..   `Body Mass (g)` = col_double(),
+##   ..   Sex = col_character(),
+##   ..   `Delta 15 N (o/oo)` = col_double(),
+##   ..   `Delta 13 C (o/oo)` = col_double(),
+##   ..   Comments = col_character()
+##   .. )
+names(penguins_raw)
+##  [1] &quot;studyName&quot;           &quot;Sample Number&quot;       &quot;Species&quot;            
+##  [4] &quot;Region&quot;              &quot;Island&quot;              &quot;Stage&quot;              
+##  [7] &quot;Individual ID&quot;       &quot;Clutch Completion&quot;   &quot;Date Egg&quot;           
+## [10] &quot;Culmen Length (mm)&quot;  &quot;Culmen Depth (mm)&quot;   &quot;Flipper Length (mm)&quot;
+## [13] &quot;Body Mass (g)&quot;       &quot;Sex&quot;                 &quot;Delta 15 N (o/oo)&quot;  
+## [16] &quot;Delta 13 C (o/oo)&quot;   &quot;Comments&quot;
+?penguins_raw</code></pre>
+<p>Next, for easier data handling, clean the column names by removing all white spaces and special characters (e.g., brackets, units, …).</p>
+<pre class="r"><code>col_names &lt;- names(penguins_raw) %&gt;% 
+  stringr::str_remove_all(pattern = &quot; &quot;) %&gt;% 
+  stringr::str_remove_all(pattern = &quot;\\([^()]+\\)&quot;) %&gt;% 
+  stringr::str_to_lower()
+
+names(penguins_raw) &lt;- col_names</code></pre>
+<p>Now, remove all rows that don’t have a measure for stable isotopes (both Delta 15 N and Delta 13 C). Save this into a new <code>tibble</code>.</p>
+<pre class="r"><code>penguins_cln &lt;- tidyr::drop_na(penguins_raw, delta15n, delta13c)</code></pre>
+<p>Filter the data set to include only the 50% smallest individuals in terms of body mass. Select the individual id, species, the culmen dimensions and the sex columns.</p>
+<pre class="r"><code>penguins_small &lt;- dplyr::filter(penguins_cln, bodymass &lt;= quantile(bodymass, 0.5)) %&gt;% 
+  dplyr::select(individualid, species, tidyselect::starts_with(&quot;culmen&quot;), sex)</code></pre>
+<p>Create a new column (<code>culmenclass</code>) in which each male individual with a culmen length larger than 50 mm is identified by <code>1</code>, each female individual with a culmen length larger than 45 mm is identified by <code>2</code>, and all other individuals are identified by <code>0</code>.</p>
+<pre class="r"><code>penguins_small &lt;- dplyr::mutate(penguins_small, 
+                                clumenclass = dplyr::case_when(culmenlength &gt; 50 &amp; sex == &quot;MALE&quot; ~ 1, 
+                                                               culmenlength &gt; 45 &amp; sex == &quot;FEMALE&quot; ~ 2, 
+                                                               TRUE ~ 0))</code></pre>
+<p>Calculate the min, mean, and max value for each of this new classified groups and calculate the relative number (%) of individuals within each group.</p>
+<pre class="r"><code>penguins_small &lt;- dplyr::group_by(penguins_small, clumenclass) %&gt;% 
+  dplyr::summarise(n_rel = dplyr::n() / nrow(penguins_small) * 100, 
+                   min = min(culmenlength), 
+                   mean = mean(culmenlength), 
+                   max = max(culmenlength))</code></pre>
+<p>Reshape the data from wide to long using the relative number, min, mean, and max as new value column. The name of the new column specifying the information should be <code>type</code>, the new cloumn containing the values should be <code>measurements</code>.</p>
+<pre class="r"><code>penguins_small_long &lt;- tidyr::pivot_longer(penguins_small, -clumenclass,
+                                           values_to = &quot;measurement&quot;, names_to = &quot;type&quot;)</code></pre>
+<p>Finally, save the resulting <code>tibble</code> on your disk (e.g., your desktop) as a .csv file.</p>
+<pre class="r"><code>readr::write_csv(x = penguins_small_long, file = &quot;~/Desktop/penguins.csv&quot;)</code></pre>
 
 
 

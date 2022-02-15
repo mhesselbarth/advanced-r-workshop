@@ -1,0 +1,99 @@
+---
+title: "Solution _Using the tidyverse_"
+author: "Maximilian H.K. Hesselbarth"
+date: "2022-03-25"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE
+)
+
+library(downloadthis)
+```
+
+```{r tidyfigure, echo = FALSE, fig.align = "center", out.width = '65%'}
+knitr::include_graphics("img/tidy_tools.png", auto_pdf = FALSE)
+```
+
+```{r download, echo = FALSE}
+download_link(link = "https://raw.githubusercontent.com/mhesselbarth/advanced-r-workshop/main/Solution_tidyverse",
+              button_label = "Download .Rmd file", 
+              button_type = "danger")
+```
+
+<br><br>
+
+First, make sure you downloaded the `tidyverse` and are able to load it. Furthermore, you need to install the `palmerpenguins` package to access.
+
+```{r load_libs}
+library(tidyverse)
+library(palmerpenguins)
+```
+
+Have a look at the class and structure of the `penguins_raw` data set. Also, make yourself familiar with the columns. Since the data set is part of a package, you can also use the corresponding help page. 
+
+```{r class} 
+class(penguins_raw)
+str(penguins_raw)
+names(penguins_raw)
+?penguins_raw
+```
+
+Next, for easier data handling, clean the column names by removing all white spaces and special characters (e.g., brackets, units, ...). 
+
+```{r names}
+col_names <- names(penguins_raw) %>% 
+  stringr::str_remove_all(pattern = " ") %>% 
+  stringr::str_remove_all(pattern = "\\([^()]+\\)") %>% 
+  stringr::str_to_lower()
+
+names(penguins_raw) <- col_names
+```
+
+Now, remove all rows that don't have a measure for stable isotopes (both Delta 15 N and Delta 13 C). Save this into a new `tibble`.
+
+```{r dropna}
+penguins_cln <- tidyr::drop_na(penguins_raw, delta15n, delta13c)
+```
+
+Filter the data set to include only the 50% smallest individuals in terms of body mass. Select the individual id, species, the culmen dimensions and the sex columns.
+
+```{r filter}
+penguins_small <- dplyr::filter(penguins_cln, bodymass <= quantile(bodymass, 0.5)) %>% 
+  dplyr::select(individualid, species, tidyselect::starts_with("culmen"), sex)
+```
+
+Create a new column (`culmenclass`) in which each male individual with a culmen length larger than 50 mm is identified by `1`, each female individual with a culmen length larger than 45 mm is identified by `2`, and all other individuals are identified by `0`.
+
+```{r casewhen}
+penguins_small <- dplyr::mutate(penguins_small, 
+                                clumenclass = dplyr::case_when(culmenlength > 50 & sex == "MALE" ~ 1, 
+                                                               culmenlength > 45 & sex == "FEMALE" ~ 2, 
+                                                               TRUE ~ 0))
+```
+
+Calculate the min, mean, and max value for each of this new classified groups and calculate the relative number (%) of individuals within each group.
+
+```{r groupby}
+penguins_small <- dplyr::group_by(penguins_small, clumenclass) %>% 
+  dplyr::summarise(n_rel = dplyr::n() / nrow(penguins_small) * 100, 
+                   min = min(culmenlength), 
+                   mean = mean(culmenlength), 
+                   max = max(culmenlength))
+```
+
+Reshape the data from wide to long using the relative number, min, mean, and max as new value column. The name of the new column specifying the information should be `type`, the new cloumn containing the values should be `measurements`.
+
+```{r privot}
+penguins_small_long <- tidyr::pivot_longer(penguins_small, -clumenclass,
+                                           values_to = "measurement", names_to = "type")
+```
+
+Finally, save the resulting `tibble` on your disk (e.g., your desktop) as a .csv file.
+
+```{r writecsv, eval = FALSE}
+readr::write_csv(x = penguins_small_long, file = "~/Desktop/penguins.csv")
+```
