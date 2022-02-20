@@ -1,0 +1,108 @@
+---
+title: ggplot2
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    seal: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: 16:10
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r xaringan-themer, include = FALSE, warning = FALSE}
+library(xaringanthemer)
+
+xaringanthemer::style_duo(
+  header_font_google = google_font("Abril Fatface"),
+  text_font_google   = google_font("Montserrat"), # Ubuntu
+  
+  background_color = "#E0FEFF", text_color = "#000000",
+  primary_color = "#E0FEFF", secondary_color = "#FD6467", 
+  link_color = "#000000")
+
+extra_css <- list(
+  ".ref" = list("font-size" = "65%", "font-style" = "italic")
+  )
+
+style_extra_css(css = extra_css)
+```
+
+class: inverse, center, middle
+background-image: url("img/ggplot2.png")
+background-position: 95% 95%
+background-size: 25%
+
+# Data vizualisation using _ggplot2_
+
+### Maximilian H.K. Hesselbarth
+
+#### University of Michigan (EEB)
+
+2022-03-25
+
+---
+
+# ggplot2
+
+```{r tidydata, echo = FALSE, fig.align= "center", out.width = "65%"} 
+knitr::include_graphics("img/masterpiece.png")
+```
+
+.ref[Illustration from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst]
+
+---
+
+# Grammar of Graphics
+
+--
+
+- Based on Grammar of Graphics .ref[Wilkinson, L., 2012. The grammar of graphics. In Handbook of computational statistics (pp. 375-414). Springer, Berlin, Heidelberg.]
+
+--
+
+- Allows to create many different plots once understood
+
+--
+
+- Elements of all ggplots:
+
+    **data**: Information to visualize
+
+    **geometry**: Shapes to represent the data (points, lines, polygons, ...)
+
+    **aesthetic**: Mappings of data to plot coordinates (position, color, size, ...)
+
+    **scaling**: Relates data values space to aesthetic values space 
+  
+---
+
+class: inverse
+
+## Thank you for your attention
+
+### Questions? 
+
+.pull-left[
+
+Further resources: https://mhesselbarth.github.io/advanced-r-workshop/resources.html
+
+Exercise: https://mhesselbarth.github.io/advanced-r-workshop/exercise_top_1.html
+
+]
+
+.pull-right[
+
+`r icons::fontawesome("envelope")` [mhessel@umich.edu](mailto:mhessel@umich.edu)
+
+`r icons::fontawesome("globe")` [https://mhesselbarth.rbind.io](https://mhesselbarth.rbind.io)
+
+
+`r icons::fontawesome("twitter")` [@MHKHesselbarth](https://twitter.com/MHKHesselbarth)
+
+]
+
