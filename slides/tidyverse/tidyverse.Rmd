@@ -1,4 +1,5 @@
 ---
+title: ggplot2
 output:
   xaringan::moon_reader:
     css: xaringan-themer.css
