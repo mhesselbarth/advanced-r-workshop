@@ -15,6 +15,9 @@ navbar:
         - text: "Slides tidyverse"
           icon: fa-display
           href: slides/tidyverse/tidyverse.html
+        - text: "Slides ggplot2"
+          icon: fa-display
+          href: slides/ggplot2/ggplot2.html
       href: slides.html
     - text: "Exercises"
       icon: fa-tasks
