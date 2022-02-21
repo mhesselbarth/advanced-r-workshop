@@ -393,9 +393,9 @@ class: inverse
 
 .pull-left[
 
-Further resources: https://mhesselbarth.github.io/advanced-r-workshop/resources.html
+Further resources: [https://mhesselbarth.github.io/advanced-r-workshop/resources](https://mhesselbarth.github.io/advanced-r-workshop/resources)
 
-Exercise: https://mhesselbarth.github.io/advanced-r-workshop/exercise_top_1.html
+Exercise: [https://mhesselbarth.github.io/advanced-r-workshop/exercise_tidyverse](https://mhesselbarth.github.io/advanced-r-workshop/exercise_tidyverse)
 
 ]
 
@@ -405,8 +405,6 @@ Exercise: https://mhesselbarth.github.io/advanced-r-workshop/exercise_top_1.html
 
 `r icons::fontawesome("globe")` [https://mhesselbarth.rbind.io](https://mhesselbarth.rbind.io)
 
-
 `r icons::fontawesome("twitter")` [@MHKHesselbarth](https://twitter.com/MHKHesselbarth)
 
 ]
-
