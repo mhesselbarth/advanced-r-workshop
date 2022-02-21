@@ -47,28 +47,356 @@ background-size: 25%
 
 ---
 
-# ggplot2
+background-image: url("img/masterpiece.png")
+background-position: 95% 5%
+background-size: 25%
 
-```{r tidydata, echo = FALSE, fig.align= "center", out.width = "50%"} 
-knitr::include_graphics("img/masterpiece.png")
+# Grammar of Graphics
+
+--
+
+- Based on Grammar of Graphics 
+
+.ref[Wilkinson, L., 2012. The grammar of graphics. In Handbook of computational statistics (pp. 375-414). Springer, Berlin, Heidelberg.]
+
+--
+
+- Elements of all _ggplots_:
+
+  1. **data** Information to visualize
+  
+  2. **aesthetic** Mappings of data to plot coordinates (position, color, size, ...)
+  
+  3. **geometry** Shapes to represent the data (points, lines, polygons, ...)
+
+.ref[Wickham, H., 2016. ggplot2: Elegant graphics for data analysis. Springer, New York, USA.]  
+.ref[Illustration from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst]
+
+---
+
+# Data and mapping layer
+
+.pull-left[
+
+- Map body mass to **x** axis and bill length to **y** axis
+
+```{r, eval = FALSE}
+ggplot(data = penguins, 
+  mapping = aes(x = body_mass_g, 
+                y = bill_length_mm))
+```
+
+]
+
+.pull-right[
+
+```{r echo = FALSE, fig.align= "center", out.width = "100%"}
+library(ggplot2)
+library(palmerpenguins)
+
+ggplot(data = penguins, 
+  mapping = aes(x = body_mass_g, 
+                y = bill_length_mm))
+```
+
+]
+
+---
+
+# Geometry layer
+
+.pull-left[
+
+- Adding a geometric **point** layer
+
+```{r, eval = FALSE}
+ggplot(data = penguins, 
+  mapping = aes(x = body_mass_g, 
+                y = bill_length_mm)) + 
+  geom_point() #<<
+```
+
+]
+
+.pull-right[
+
+```{r, echo = FALSE, fig.align= "center", out.width = "100%", warning = FALSE}
+ggplot(data = penguins,  mapping = aes(x = body_mass_g, 
+                                       y = bill_length_mm)) + 
+  geom_point()
+```
+
+]
+
+---
+
+# Advanced mapping layer
+
+.pull-left[
+
+- Add *color* mapping and change **size** and **shape**
+
+```{r, eval = FALSE}
+ggplot(data = penguins, 
+  mapping = aes(x = body_mass_g, 
+                y = bill_length_mm)) + 
+  geom_point(aes(col = species), #<<
+             size = 2.5, shape = 1) #<<
+```
+
+]
+
+.pull-right[
+
+```{r, echo = FALSE, fig.align= "center", out.width = "100%", warning = FALSE}
+ggplot(data = penguins, mapping = aes(x = body_mass_g, 
+                                      y = bill_length_mm)) + 
+  geom_point(aes(col = species), size = 2.5, shape = 1)
+```
+
+]
+
+
+---
+
+# Scaling layer
+
+.pull-left[
+
+- **Scaling** relates data values space to aesthetic values space  
+
+```{r, eval = FALSE}
+ggplot(data = penguins, 
+  mapping = aes(x = body_mass_g, 
+                y = bill_length_mm)) + 
+  geom_point(aes(col = species), 
+             size = 2.5, shape = 1) +
+  scale_color_viridis_d(option = "C") #<<
+```
+
+]
+
+.pull-right[
+
+```{r, echo = FALSE, fig.align= "center", out.width = "100%", warning = FALSE}
+ggplot(data = penguins, mapping = aes(x = body_mass_g, y = bill_length_mm)) + 
+  geom_point(aes(col = species), size = 2.5, shape = 1) +
+  scale_color_viridis_d(option = "C")
+```
+
+]
+
+---
+
+# Using different themes
+
+.pull-left[
+
+- Customize layout using **themes**
+
+```{r, eval = FALSE}
+ggplot(data = penguins, 
+  mapping = aes(x = body_mass_g, 
+                y = bill_length_mm)) + 
+  geom_point(aes(col = species), 
+             size = 2.5, shape = 1) +
+  scale_color_viridis_d(option = "C") + 
+  labs(x = "Body mass [cm]", y = "Bill length [mm]",
+       title = "Body - Bill Relationship") + 
+  theme_bw() + #<<
+  theme(legend.position = "bottom", #<<
+        plot.title = element_text( #<<
+          face = "bold", size = 16)) #<<
+```
+
+]
+
+.pull-right[
+
+```{r, echo = FALSE, fig.align= "center", out.width = "100%", warning = FALSE}
+ggplot(data = penguins, mapping = aes(x = body_mass_g, y = bill_length_mm)) + 
+  geom_point(aes(col = species), size = 2.5, shape = 1) +
+  scale_color_viridis_d(option = "C") + 
+  labs(x = "Body mass [cm]", y = "Bill length [mm]", title = "Body - Bill Relationship") + 
+  theme_bw() + #<<
+  theme(legend.position = "bottom", plot.title = element_text(face = "bold", size = 16))
+```
+
+]
+
+---
+
+# Adding geoms
+
+.pull-left[
+
+- Adding further **geometries**
+
+```{r, eval = FALSE}
+ggplot(data = penguins, 
+  mapping = aes(x = body_mass_g, 
+                y = bill_length_mm)) + 
+  geom_point(aes(col = species), 
+             size = 2.5, shape = 1) +
+  geom_smooth(aes(col = species), #<<
+              method = "lm", se = FALSE) + #<<
+  geom_label(data = df_text, #<<
+    aes(x = mass_mean, y = bill_mean, #<<
+        label = species)) + #<<
+  scale_color_viridis_d(option = "C") + 
+  labs(x = "Body mass [cm]", y = "Bill length [mm]",
+       title = "Body - Bill Relationship") + 
+  theme_bw() +
+  theme(legend.position = "none", #<<
+        plot.title = element_text(
+          face = "bold", size = 16))
+```
+
+]
+
+.pull-right[
+```{r, echo = FALSE, fig.align= "center", out.width = "100%", message = FALSE, warning = FALSE}
+library(dplyr)
+
+df_text <- dplyr::group_by(penguins, species) %>% 
+  dplyr::summarise(mass_mean = mean(body_mass_g, na.rm = TRUE), 
+                   bill_mean = mean(bill_length_mm, na.rm = TRUE))
+
+ggplot(data = penguins, mapping = aes(x = body_mass_g, y = bill_length_mm)) + 
+  geom_point(aes(col = species), size = 2.5, shape = 1) + 
+  geom_smooth(aes(col = species), method = "lm", se = FALSE) +
+  geom_label(data = df_text, aes(x = mass_mean, y = bill_mean, label = species)) +
+  scale_color_viridis_d(option = "C") + 
+  labs(x = "Body mass [cm]", y = "Bill length [mm]", title = "Body - Bill Relationship") + 
+  theme_bw() +
+  theme(legend.position = "none", plot.title = element_text(face = "bold", size = 16))
+```
+]
+
+
+---
+
+# Facet wrapping
+
+.pull-left[
+
+- Split into **panels** using grouping
+
+```{r, eval = FALSE}
+ggplot(data = penguins, 
+  mapping = aes(x = body_mass_g, 
+                y = bill_length_mm)) + 
+  geom_point(aes(col = species), 
+             size = 2.5, shape = 1) +
+  geom_smooth(aes(col = species),
+              method = "lm", se = FALSE) +
+  facet_wrap(. ~ island) + #<<
+  scale_color_viridis_d(option = "C") + 
+  labs(x = "Body mass [cm]", y = "Bill length [mm]",
+       title = "Body - Bill Relationship") + 
+  theme_bw() +
+  theme(legend.position = "bottom",
+        plot.title = element_text(
+          face = "bold", size = 16))
+```
+
+]
+
+.pull-right[
+
+```{r, echo = FALSE, fig.align= "center", out.width = "100%", message = FALSE, warning = FALSE}
+ggplot(data = penguins, mapping = aes(x = body_mass_g, y = bill_length_mm)) + 
+  geom_point(aes(col = species), size = 2.5, shape = 1) + 
+  geom_smooth(aes(col = species), method = "lm", se = FALSE) +
+  facet_wrap(. ~ island) +
+  scale_color_viridis_d(option = "C") + 
+  labs(x = "Body mass [cm]", y = "Bill length [mm]", title = "Body - Bill Relationship") + 
+  theme_bw() +
+  theme(legend.position = "bottom", plot.title = element_text(face = "bold", size = 16))
+```
+
+]
+
+---
+
+# Combining figures
+
+.pull-left[
+
+- Figures can be stored in **variables**
+
+```{r}
+p1 <- ggplot(penguins, 
+  aes(x = species, body_mass_g)) + 
+  geom_jitter()
+
+p2 <- ggplot(penguins, 
+  aes(x = species, body_mass_g)) + 
+  geom_boxplot()
+
+p3 <- ggplot(penguins, 
+  aes(x = species, body_mass_g)) +
+  geom_violin()
+```
+
+]
+
+.pull-right[
+
+```{r, warning = FALSE, fig.align = "center", out.width = "85%"}
+library(cowplot)
+cowplot::plot_grid(p1, p2, p3, nrow = 3)
+```
+
+]
+
+---
+
+class: inverse, middle
+
+```{r, echo = FALSE, fig.align= "center", out.width = "100%"} 
+knitr::include_graphics("img/gganimate.png")
 ```
 
 .ref[Illustration from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst]
 
 ---
 
-# Grammar of Graphics
+# Animated figures
 
---
+.pull-left[
 
-- Based on Grammar of Graphics .ref[Wilkinson, L., 2012. The grammar of graphics. In Handbook of computational statistics (pp. 375-414). Springer, Berlin, Heidelberg.]
+- `gganimate` allows all kind of **dynamic** figures
 
----
+```{r}
+library(gganimate)
 
-data
-+ geometry to represent the data,
-+ aesthetic mappings of data to plot coordinates like position, color and size
-+ scaling of ranges of the data to ranges of the aesthetics
+p <- ggplot(penguins, 
+    aes(x = body_mass_g, 
+        y = bill_length_mm)) + 
+  geom_point(aes(color = species)) + 
+  geom_label(data = df_text, 
+    aes(x = mass_mean, y = bill_mean, 
+        label = species)) +
+  scale_color_viridis_d(option = "C") + 
+  transition_states(states = species, #<<
+    transition_length = 2, #<<
+    state_length = 1) + #<<
+  enter_fade() + #<<
+  exit_fade() + #<<
+  theme_classic() + 
+  theme(legend.position = "none")
+```
+
+]
+
+.pull-right[
+
+```{r, warning = FALSE, fig.align = "center", out.width = "85%"}
+gganimate::animate(p)
+```
+
+]
 
 ---
 
@@ -80,9 +408,9 @@ class: inverse
 
 .pull-left[
 
-Further resources: https://mhesselbarth.github.io/advanced-r-workshop/resources.html
+Further resources: [https://mhesselbarth.github.io/advanced-r-workshop/resources](https://mhesselbarth.github.io/advanced-r-workshop/resources)
 
-Exercise: https://mhesselbarth.github.io/advanced-r-workshop/exercise_top_1.html
+Exercise: [https://mhesselbarth.github.io/advanced-r-workshop/exercise_ggplot2](https://mhesselbarth.github.io/advanced-r-workshop/resources)
 
 ]
 
@@ -92,8 +420,6 @@ Exercise: https://mhesselbarth.github.io/advanced-r-workshop/exercise_top_1.html
 
 `r icons::fontawesome("globe")` [https://mhesselbarth.rbind.io](https://mhesselbarth.rbind.io)
 
-
 `r icons::fontawesome("twitter")` [@MHKHesselbarth](https://twitter.com/MHKHesselbarth)
 
 ]
-

@@ -27,26 +27,319 @@ background-size: 25%
 
 ---
 
-# ggplot2
-
-&lt;img src="img/masterpiece.png" width="50%" style="display: block; margin: auto;" /&gt;
-
-.ref[Illustration from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst]
-
----
+background-image: url("img/masterpiece.png")
+background-position: 95% 5%
+background-size: 25%
 
 # Grammar of Graphics
 
 --
 
-- Based on Grammar of Graphics .ref[Wilkinson, L., 2012. The grammar of graphics. In Handbook of computational statistics (pp. 375-414). Springer, Berlin, Heidelberg.]
+- Based on Grammar of Graphics 
+
+.ref[Wilkinson, L., 2012. The grammar of graphics. In Handbook of computational statistics (pp. 375-414). Springer, Berlin, Heidelberg.]
+
+--
+
+- Elements of all _ggplots_:
+
+  1. **data** Information to visualize
+  
+  2. **aesthetic** Mappings of data to plot coordinates (position, color, size, ...)
+  
+  3. **geometry** Shapes to represent the data (points, lines, polygons, ...)
+
+.ref[Wickham, H., 2016. ggplot2: Elegant graphics for data analysis. Springer, New York, USA.]  
+.ref[Illustration from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst]
 
 ---
 
-data
-+ geometry to represent the data,
-+ aesthetic mappings of data to plot coordinates like position, color and size
-+ scaling of ranges of the data to ranges of the aesthetics
+# Data and mapping layer
+
+.pull-left[
+
+- Map body mass to **x** axis and bill length to **y** axis
+
+
+```r
+ggplot(data = penguins, 
+  mapping = aes(x = body_mass_g, 
+                y = bill_length_mm))
+```
+
+]
+
+.pull-right[
+
+&lt;img src="ggplot2_files/figure-html/unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+# Geometry layer
+
+.pull-left[
+
+- Adding a geometric **point** layer
+
+
+```r
+ggplot(data = penguins, 
+  mapping = aes(x = body_mass_g, 
+                y = bill_length_mm)) + 
+* geom_point()
+```
+
+]
+
+.pull-right[
+
+&lt;img src="ggplot2_files/figure-html/unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+# Advanced mapping layer
+
+.pull-left[
+
+- Add *color* mapping and change **size** and **shape**
+
+
+```r
+ggplot(data = penguins, 
+  mapping = aes(x = body_mass_g, 
+                y = bill_length_mm)) + 
+* geom_point(aes(col = species),
+*            size = 2.5, shape = 1)
+```
+
+]
+
+.pull-right[
+
+&lt;img src="ggplot2_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+---
+
+# Scaling layer
+
+.pull-left[
+
+- **Scaling** relates data values space to aesthetic values space  
+
+
+```r
+ggplot(data = penguins, 
+  mapping = aes(x = body_mass_g, 
+                y = bill_length_mm)) + 
+  geom_point(aes(col = species), 
+             size = 2.5, shape = 1) +
+* scale_color_viridis_d(option = "C")
+```
+
+]
+
+.pull-right[
+
+&lt;img src="ggplot2_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+# Using different themes
+
+.pull-left[
+
+- Customize layout using **themes**
+
+
+```r
+ggplot(data = penguins, 
+  mapping = aes(x = body_mass_g, 
+                y = bill_length_mm)) + 
+  geom_point(aes(col = species), 
+             size = 2.5, shape = 1) +
+  scale_color_viridis_d(option = "C") + 
+  labs(x = "Body mass [cm]", y = "Bill length [mm]",
+       title = "Body - Bill Relationship") + 
+* theme_bw() +
+* theme(legend.position = "bottom",
+*       plot.title = element_text(
+*         face = "bold", size = 16))
+```
+
+]
+
+.pull-right[
+
+&lt;img src="ggplot2_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+# Adding geoms
+
+.pull-left[
+
+- Adding further **geometries**
+
+
+```r
+ggplot(data = penguins, 
+  mapping = aes(x = body_mass_g, 
+                y = bill_length_mm)) + 
+  geom_point(aes(col = species), 
+             size = 2.5, shape = 1) +
+* geom_smooth(aes(col = species),
+*             method = "lm", se = FALSE) +
+* geom_label(data = df_text,
+*   aes(x = mass_mean, y = bill_mean,
+*       label = species)) +
+  scale_color_viridis_d(option = "C") + 
+  labs(x = "Body mass [cm]", y = "Bill length [mm]",
+       title = "Body - Bill Relationship") + 
+  theme_bw() +
+* theme(legend.position = "none",
+        plot.title = element_text(
+          face = "bold", size = 16))
+```
+
+]
+
+.pull-right[
+&lt;img src="ggplot2_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+
+# Facet wrapping
+
+.pull-left[
+
+- Split into **panels** using grouping
+
+
+```r
+ggplot(data = penguins, 
+  mapping = aes(x = body_mass_g, 
+                y = bill_length_mm)) + 
+  geom_point(aes(col = species), 
+             size = 2.5, shape = 1) +
+  geom_smooth(aes(col = species),
+              method = "lm", se = FALSE) +
+* facet_wrap(. ~ island) +
+  scale_color_viridis_d(option = "C") + 
+  labs(x = "Body mass [cm]", y = "Bill length [mm]",
+       title = "Body - Bill Relationship") + 
+  theme_bw() +
+  theme(legend.position = "bottom",
+        plot.title = element_text(
+          face = "bold", size = 16))
+```
+
+]
+
+.pull-right[
+
+&lt;img src="ggplot2_files/figure-html/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+# Combining figures
+
+.pull-left[
+
+- Figures can be stored in **variables**
+
+
+```r
+p1 &lt;- ggplot(penguins, 
+  aes(x = species, body_mass_g)) + 
+  geom_jitter()
+
+p2 &lt;- ggplot(penguins, 
+  aes(x = species, body_mass_g)) + 
+  geom_boxplot()
+
+p3 &lt;- ggplot(penguins, 
+  aes(x = species, body_mass_g)) +
+  geom_violin()
+```
+
+]
+
+.pull-right[
+
+
+```r
+library(cowplot)
+cowplot::plot_grid(p1, p2, p3, nrow = 3)
+```
+
+&lt;img src="ggplot2_files/figure-html/unnamed-chunk-16-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+class: inverse, middle
+
+&lt;img src="img/gganimate.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+.ref[Illustration from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst]
+
+---
+
+# Animated figures
+
+.pull-left[
+
+- `gganimate` allows all kind of **dynamic** figures
+
+
+```r
+library(gganimate)
+
+p &lt;- ggplot(penguins, 
+    aes(x = body_mass_g, 
+        y = bill_length_mm)) + 
+  geom_point(aes(color = species)) + 
+  geom_label(data = df_text, 
+    aes(x = mass_mean, y = bill_mean, 
+        label = species)) +
+  scale_color_viridis_d(option = "C") + 
+* transition_states(states = species,
+*   transition_length = 2,
+*   state_length = 1) +
+* enter_fade() +
+* exit_fade() +
+  theme_classic() + 
+  theme(legend.position = "none")
+```
+
+]
+
+.pull-right[
+
+
+```r
+gganimate::animate(p)
+```
+
+&lt;img src="ggplot2_files/figure-html/unnamed-chunk-19-1.gif" width="85%" style="display: block; margin: auto;" /&gt;
+
+]
 
 ---
 
@@ -58,9 +351,9 @@ class: inverse
 
 .pull-left[
 
-Further resources: https://mhesselbarth.github.io/advanced-r-workshop/resources.html
+Further resources: [https://mhesselbarth.github.io/advanced-r-workshop/resources](https://mhesselbarth.github.io/advanced-r-workshop/resources)
 
-Exercise: https://mhesselbarth.github.io/advanced-r-workshop/exercise_top_1.html
+Exercise: [https://mhesselbarth.github.io/advanced-r-workshop/exercise_ggplot2](https://mhesselbarth.github.io/advanced-r-workshop/resources)
 
 ]
 
@@ -70,11 +363,9 @@ Exercise: https://mhesselbarth.github.io/advanced-r-workshop/exercise_top_1.html
 
 &lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z"&gt;&lt;/path&gt;&lt;/svg&gt; [https://mhesselbarth.rbind.io](https://mhesselbarth.rbind.io)
 
-
 &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"&gt;&lt;/path&gt;&lt;/svg&gt; [@MHKHesselbarth](https://twitter.com/MHKHesselbarth)
 
 ]
-
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
