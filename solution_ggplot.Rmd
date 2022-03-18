@@ -1,5 +1,109 @@
 ---
 title: "Solution _Data visualization using ggplot2_"
+author: "Maximilian H.K. Hesselbarth"
+date: "2022-03-25"
+editor_options: 
+  chunk_output_type: console
 ---
 
-...Work-in-Progress...
+```{r, setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE
+)
+
+library(downloadthis)
+```
+
+```{r tidyfigure, echo = FALSE, fig.align = "center", out.width = '65%'}
+knitr::include_graphics("img/ggplot2_exploratory.png", auto_pdf = FALSE)
+```
+
+```{r download, echo = FALSE}
+download_link(link = "https://raw.githubusercontent.com/mhesselbarth/advanced-r-workshop/main/Solution_ggplot",
+              button_label = "Download .Rmd file", 
+              button_type = "danger")
+```
+
+<br><br>
+
+Again, we are using the `palmerpenguins` package again, as well as the `ggplot2` package. Since `ggplot2` is part of the tidyverse, you can just load the entire `tidyverse` again. 
+
+```{r load_libs}
+library(tidyverse)
+library(cowplot)
+library(palmerpenguins)
+```
+
+Take either the `penguins` or the `penguins_raw` dataset and create a scatterplot using two continuous variables. Make sure to use nicely formatted lab titles and add a figure title.
+
+```{r}
+ggplot(data = penguins) + 
+  geom_point(aes(x = flipper_length_mm, y = bill_length_mm)) + 
+  labs(x = "Flipper length [mm]", y = "Bill length [mm]", title = "Penguins can't fly")
+```
+
+Next, change, the overall theme, use a different point shape, size and point color. 
+
+```{r}
+ggplot(data = penguins) + 
+  geom_point(aes(x = flipper_length_mm, y = bill_length_mm), shape = 5, size = 2.5, color = "#45ACC8") + 
+  labs(x = "Flipper length [mm]", y = "Bill length [mm]", title = "Penguins can't fly") +
+  theme_minimal()
+```
+
+Next, use at least one of the discrete variables in the data set and use it to a) set different point colors and b) wrap the plot using facets. Try to use different colors than the default color scheme.
+
+```{r}
+ggplot(data = penguins) + 
+  geom_point(aes(x = flipper_length_mm, y = bill_length_mm, col = species), shape = 19) + 
+  scale_color_viridis_d(name = "Species", option = "C") +
+  labs(x = "Flipper length [mm]", y = "Bill length [mm]", title = "Penguins can't fly") +
+  theme_minimal()
+```
+
+```{r}
+ggplot(data = penguins) + 
+  geom_point(aes(x = flipper_length_mm, y = bill_length_mm, col = species), shape = 1) + 
+  facet_grid(. ~ island) +
+  labs(x = "Flipper length [mm]", y = "Bill length [mm]", title = "Penguins can't fly") +
+  theme_minimal()
+```
+
+Try to make a histogram of the bill depth separated by species and sex. You can use colors, fills, facets or any other idea you have to separate the discrete classes. Try out different bin widths and see how much the plots changes. Last, can you add a density curve to the histogram?
+
+```{r}
+bins <- c(0.1, 0.25, 0.5, 1.0)
+
+gg_list <- purrr::map(bins, function(i) {
+  ggplot(data = dplyr::filter(penguins, !is.na(sex)), 
+         aes(x = bill_depth_mm)) +
+    geom_histogram(aes(y = ..count.., fill = species), alpha = 0.5, binwidth = i) +
+    geom_density(aes(x = bill_depth_mm, y = i * ..count.., col = species)) +
+    facet_wrap(. ~ sex) + 
+    scale_fill_manual(name = "", values = c("#F1BB7B", "#FD6467", "#5B1A18")) +
+    scale_color_manual(name = "", values = c("#F1BB7B", "#FD6467", "#5B1A18")) +
+    labs(x = "Bill depth [mm]", y = "Count", title = paste("Binwidth: ", i)) + 
+    theme_bw() +
+    theme(legend.position = "bottom")
+  })
+
+cowplot::plot_grid(plotlist = gg_list)
+```
+
+Visualize the body mass of all species using a boxplot. Additionally, to the boxplot, also add the raw data distribution, the number of individuals for each species and some information about the sex differences. 
+
+```{r}
+pengs_n <- dplyr::group_by(penguins, species) %>% 
+  dplyr::summarise(n = dplyr::n(), 
+                   body_max = max(body_mass_g, na.rm = TRUE) * 1.05)
+
+ggplot(data = penguins, aes(x = species, y = body_mass_g)) + 
+  geom_boxplot(aes(fill = species), alpha = 0.5) + 
+  geom_jitter(aes(shape = sex), width = 0.25, fill = "grey", col = "black", alpha = 0.5) +
+  geom_label(data = pengs_n, aes(x = species, y = body_max, label = paste0("n=", n))) +
+  scale_shape_manual(name = "Sex", values = c(1, 19), na.translate = FALSE) +
+  labs(x = "", y = "Body mass [g]") + 
+  theme_classic() +
+  guides(fill = "none") +
+  theme(legend.position = "top")
+```

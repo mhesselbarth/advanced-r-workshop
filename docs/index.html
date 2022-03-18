@@ -13,7 +13,7 @@
 
 <title>Advanced R workshop</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
@@ -62,6 +62,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -82,6 +83,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -234,7 +238,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -251,7 +255,7 @@ $(document).ready(function () {
   </a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-display"></span>
      
     Slides
@@ -276,7 +280,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-tasks"></span>
      
     Exercises
@@ -308,7 +312,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-check"></span>
      
     Solutions
@@ -324,7 +328,7 @@ $(document).ready(function () {
       </a>
     </li>
     <li>
-      <a href="solution_ggplot2.html">
+      <a href="solution_ggplot.html">
         <span class="fa fa-clipboard-check"></span>
          
         Solution ggplot2
@@ -384,11 +388,22 @@ $(document).ready(function () {
 
 
 <!-- Badges start -->
-<p><a href="LICENSE.html"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg" alt="License: GPL v3" /></a></p>
+<p><a href="LICENSE.html"><img
+src="https://img.shields.io/badge/License-GPLv3-blue.svg"
+alt="License: GPL v3" /></a></p>
 <!-- Badges end -->
-<p>This homepage contains all materials used during the <strong>Advanced <code>R</code> workshop</strong> taught at the University of Michigan <a href="https://lsa.umich.edu/eeb">EEB department</a>. The workshops is organized by Katrina Munsterman, Alden Dirks and Max Hesselbarth.</p>
-<p>The introductory slides for each topic can be found under the “Slides” menu item as PDF files. For each topic there is an exercise and a corresponding solution , which can be found under the “Exercise” and “Solution” menu items.</p>
-<p>In case you have any questions, please contact <a href="mailto:mhessel@umich.edu">mhessel&lt;at&gt;umich.edu</a>, <a href="mailto:kmunster@umich.edu@umich.edu">kmunster@umich.edu&lt;at&gt;umich.edu</a>, or <a href="mailto:adirks@umich.edu">adirks&lt;at&gt;umich.edu</a>.</p>
+<p>This homepage contains all materials used during the <strong>Advanced
+<code>R</code> workshop</strong> taught at the University of Michigan <a
+href="https://lsa.umich.edu/eeb">EEB department</a>. The workshops is
+organized by Katrina Munsterman, Alden Dirks and Max Hesselbarth.</p>
+<p>The introductory slides for each topic can be found under the
+“Slides” menu item as PDF files. For each topic there is an exercise and
+a corresponding solution , which can be found under the “Exercise” and
+“Solution” menu items.</p>
+<p>In case you have any questions, please contact <a
+href="mailto:mhessel@umich.edu">mhessel&lt;at&gt;umich.edu</a>, <a
+href="mailto:kmunster@umich.edu@umich.edu">kmunster@umich.edu&lt;at&gt;umich.edu</a>,
+or <a href="mailto:adirks@umich.edu">adirks&lt;at&gt;umich.edu</a>.</p>
 <div id="content" class="section level3">
 <h3>Content</h3>
 <ul>
@@ -398,7 +413,9 @@ $(document).ready(function () {
 </ul>
 <div id="code-of-conduct" class="section level4">
 <h4>Code of Conduct</h4>
-<p>Please note that the Advanced <code>R</code> workshop project is released with a <a href="CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By taking part, you agree to abide by its terms.</p>
+<p>Please note that the Advanced <code>R</code> workshop project is
+released with a <a href="CODE_OF_CONDUCT.html">Contributor Code of
+Conduct</a>. By taking part, you agree to abide by its terms.</p>
 <p><br></p>
 <p><img src="img/UMich.png" width="50%" style="display: block; margin: auto;" /></p>
 </div>

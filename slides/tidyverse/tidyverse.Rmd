@@ -2,6 +2,7 @@
 title: ggplot2
 output:
   xaringan::moon_reader:
+    self_contained: true
     css: xaringan-themer.css
     lib_dir: libs
     seal: false

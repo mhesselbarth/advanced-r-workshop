@@ -39,7 +39,7 @@ navbar:
           href: solution_tidyverse.html
         - text: "Solution ggplot2"
           icon: fa-clipboard-check
-          href: solution_ggplot2.html
+          href: solution_ggplot.html
         - text: "Solution Spatial data"
           icon: fa-clipboard-check
           href: solution_spatial.html

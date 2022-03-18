@@ -13,7 +13,7 @@
 
 <title>Further resources</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
@@ -62,6 +62,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -82,6 +83,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -234,7 +238,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -251,7 +255,7 @@ $(document).ready(function () {
   </a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-display"></span>
      
     Slides
@@ -276,7 +280,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-tasks"></span>
      
     Exercises
@@ -308,7 +312,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-check"></span>
      
     Solutions
@@ -324,7 +328,7 @@ $(document).ready(function () {
       </a>
     </li>
     <li>
-      <a href="solution_ggplot2.html">
+      <a href="solution_ggplot.html">
         <span class="fa fa-clipboard-check"></span>
          
         Solution ggplot2
@@ -385,7 +389,10 @@ $(document).ready(function () {
 
 <div id="cheatsheets" class="section level2">
 <h2>Cheatsheets</h2>
-<p>Cheatsheets are summaries of certain packages or topics. They can be useful to look up some functionality quickly. Many people even write their own, more specific cheatsheets over time. Here are some cheetsheets relevant for this workshop.</p>
+<p>Cheatsheets are summaries of certain packages or topics. They can be
+useful to look up some functionality quickly. Many people even write
+their own, more specific cheatsheets over time. Here are some
+cheetsheets relevant for this workshop.</p>
 <p><a href="cheatsheets/base-r.pdf">Base R</a></p>
 <p><a href="cheatsheets/advanced-r.pdf">Advanced R</a></p>
 <p><a href="cheatsheets/readr.pdf">readr</a></p>
@@ -399,26 +406,54 @@ $(document).ready(function () {
 </div>
 <div id="further-resources" class="section level2">
 <h2>Further resources</h2>
-<p>This is a collection of my favorite resources. They are all online and freely available (even though for some also book copies can be purchased). If you have a good resource currently not listed, please feel free to <a href="mailto:mhessel@umich.edu">contact me</a>.</p>
+<p>This is a collection of my favorite resources. They are all online
+and freely available (even though for some also book copies can be
+purchased). If you have a good resource currently not listed, please
+feel free to <a href="mailto:mhessel@umich.edu">contact me</a>.</p>
 <div id="general-programming-in-r" class="section level3">
 <h3>General programming in R</h3>
-<p><a href="https://r4ds.had.co.nz">R for Data Science</a>: Book covering many general concepts of data science including different data types, data cleaning, exploration and wrangling.</p>
-<p><a href="https://adv-r.hadley.nz">Advanced R</a>: Book covering more advanced topics of <code>R</code> programming such as Environments, Functional and Object-oriented programming, or non-standard evaluation.</p>
-<p><a href="https://csgillespie.github.io/efficientR/">Efficient R programming</a>: Book about how to program more efficiently in <code>R</code> including general and specific/advanced advice.</p>
-<p><a href="https://rstats.wtf/index.html">What They Forgot to Teach You About R</a>: Homepage about mainly “daily tasks” in the <code>R</code> programming language that are often not covered by courses.</p>
-<p><a href="https://www.bigbookofr.com/index.html">Big Book of R</a>: Massive collection of online-available R books/homepages.</p>
+<p><a href="https://r4ds.had.co.nz">R for Data Science</a>: Book
+covering many general concepts of data science including different data
+types, data cleaning, exploration and wrangling.</p>
+<p><a href="https://adv-r.hadley.nz">Advanced R</a>: Book covering more
+advanced topics of <code>R</code> programming such as Environments,
+Functional and Object-oriented programming, or non-standard
+evaluation.</p>
+<p><a href="https://csgillespie.github.io/efficientR/">Efficient R
+programming</a>: Book about how to program more efficiently in
+<code>R</code> including general and specific/advanced advice.</p>
+<p><a href="https://rstats.wtf/index.html">What They Forgot to Teach You
+About R</a>: Homepage about mainly “daily tasks” in the <code>R</code>
+programming language that are often not covered by courses.</p>
+<p><a href="https://www.bigbookofr.com/index.html">Big Book of R</a>:
+Massive collection of online-available R books/homepages.</p>
 </div>
 <div id="data-vizualisation-using-ggplot2" class="section level3">
 <h3>Data vizualisation using ggplot2</h3>
-<p><a href="https://ggplot2-book.org/index.html">ggplot2</a>: Comprehensive book explaining almost all functions of <em>ggplot2</em>.</p>
-<p><a href="https://clauswilke.com/dataviz/">Fundamentals of Data Visualization</a>: Book about general data visualization and <em>ggplot2</em>.</p>
-<p><a href="https://www.cedricscherer.com/2019/08/05/a-ggplot2-tutorial-for-beautiful-plotting-in-r/">A ggplot2 Tutorial for Beautiful Plotting in R</a>: Blog showing how to build many different types of visualizations using <em>ggplot2</em>.</p>
-<p><a href="http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html">Top 50 ggplot2 visualizations</a>: Homepage with 50 <em>ggplot2</em> vizualisations.</p>
+<p><a href="https://ggplot2-book.org/index.html">ggplot2</a>:
+Comprehensive book explaining almost all functions of
+<em>ggplot2</em>.</p>
+<p><a href="https://clauswilke.com/dataviz/">Fundamentals of Data
+Visualization</a>: Book about general data visualization and
+<em>ggplot2</em>.</p>
+<p><a
+href="https://www.cedricscherer.com/2019/08/05/a-ggplot2-tutorial-for-beautiful-plotting-in-r/">A
+ggplot2 Tutorial for Beautiful Plotting in R</a>: Blog showing how to
+build many different types of visualizations using <em>ggplot2</em>.</p>
+<p><a
+href="http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html">Top
+50 ggplot2 visualizations</a>: Homepage with 50 <em>ggplot2</em>
+vizualisations.</p>
 </div>
 <div id="spatial-data" class="section level3">
 <h3>Spatial data</h3>
-<p><a href="https://geocompr.robinlovelace.net/index.html">Geocomputation with R</a>: Book including basics and advanced spatial data background, workflows and examples. Lots of code examples.</p>
-<p><a href="https://keen-swartz-3146c4.netlify.app">Spatial Data Science</a>: Homepage explaining basics of spatial data. Strong focus on <code>sf</code> and <code>stars</code> package.</p>
+<p><a
+href="https://geocompr.robinlovelace.net/index.html">Geocomputation with
+R</a>: Book including basics and advanced spatial data background,
+workflows and examples. Lots of code examples.</p>
+<p><a href="https://keen-swartz-3146c4.netlify.app">Spatial Data
+Science</a>: Homepage explaining basics of spatial data. Strong focus on
+<code>sf</code> and <code>stars</code> package.</p>
 </div>
 </div>
 
