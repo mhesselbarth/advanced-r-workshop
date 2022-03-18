@@ -5,25 +5,7 @@ title: "Further resources"
 ## Cheatsheets
 Cheatsheets are summaries of certain packages or topics. They can be useful to look up some functionality quickly. Many people even write their own, more specific cheatsheets over time. Here are some cheetsheets relevant for this workshop.
 
-[Base R](cheatsheets/base-r.pdf)
-
-[Advanced R](cheatsheets/advanced-r.pdf)
-
-[readr](cheatsheets/readr.pdf)
-
-[tidyr](cheatsheets/tidyr.pdf)
-
-[stringr](cheatsheets/stringr.pdf)
-
-[forcats](cheatsheets/forcats.pdf)
-
-[dplyr](cheatsheets/dplyr.pdf)
-
-[purrr](cheatsheets/purrr.pdf)
-
-[ggplot2](cheatsheets/ggplot2.pdf)
-
-[sf](cheatsheets/sf.pdf)
+[Base R](cheatsheets/base-r.pdf), [Advanced R](cheatsheets/advanced-r.pdf), [readr](cheatsheets/readr.pdf), [tidyr](cheatsheets/tidyr.pdf), [stringr](cheatsheets/stringr.pdf), [forcats](cheatsheets/forcats.pdf), [dplyr](cheatsheets/dplyr.pdf), [purrr](cheatsheets/purrr.pdf), [ggplot2](cheatsheets/ggplot2.pdf), [sf](cheatsheets/sf.pdf)
 
 ## Further resources
 

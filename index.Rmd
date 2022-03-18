@@ -20,6 +20,10 @@ In case you have any questions, please contact [mhessel\<at>umich.edu](mailto:mh
 - Data visualization using _ggplot2_
 - Spatial data
 
+### Packages used for exercise
+
+- palmerpenguins, tidyverse, magrittr, cowplot, sf, terra
+
 #### Code of Conduct
 
 Please note that the Advanced `R` workshop project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.html). By taking part, you agree to abide by its terms.

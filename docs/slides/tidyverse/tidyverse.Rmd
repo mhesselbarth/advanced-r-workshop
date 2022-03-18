@@ -254,6 +254,25 @@ tidyr::nest(df_penguins, data = -studyName)
 
 ---
 
+background-image: url("img/tidyr.png")
+background-position: 95% 10%
+background-size: 10%
+
+# Tidy data: _tidyr_
+
+- `pivot_longer()` & `pivot_wider()` most important functions to **reshape** data
+
+```{r pivot}
+
+
+
+```
+
+
+- pivot
+
+---
+
 background-image: url("img/dplyr.png")
 background-position: 95% 10%
 background-size: 10%
@@ -299,8 +318,8 @@ background-size: 10%
 dplyr::select(df_penguins, IndividualID, Species, CulmenLength) %>%
   dplyr::mutate(CulmenLength_cm = CulmenLength / 10, #<<
                 CulmenLenth_class = 
-                  dplyr::case_when(CulmenLength < 35  ~ "small",
-                                   CulmenLength >= 35 & CulmenLength <= 45 ~ "med", #<<
+                  dplyr::case_when(CulmenLength < 35  ~ "small", #<<
+                                   CulmenLength >= 35 & CulmenLength <= 45 ~ "med", 
                                    CulmenLength > 45 ~ "large")) %>%
   dplyr::slice(sample(1:nrow(.), size = 3))
 ```
