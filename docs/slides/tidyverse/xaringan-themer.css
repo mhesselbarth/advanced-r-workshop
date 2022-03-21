@@ -59,6 +59,7 @@
   --header-background-text-color: #E0FEFF;
   --primary: #E0FEFF;
   --secondary: #FD6467;
+  --yellow: #CEAB07;
 }
 
 html {
@@ -281,6 +282,12 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
 }
 .bg-secondary {
   background-color: var(--secondary);
+}
+.yellow {
+  color: var(--yellow);
+}
+.bg-yellow {
+  background-color: var(--yellow);
 }
 
 

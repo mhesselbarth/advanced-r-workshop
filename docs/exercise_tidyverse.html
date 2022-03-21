@@ -395,75 +395,55 @@ $(document).ready(function () {
 <button class="btn btn-danger"><i class="fa fa-save"></i> Download .Rmd file</button>
 </a>
 <p><br><br></p>
-<p>First, make sure you downloaded the <code>tidyverse</code> and are
-able to load it. Furthermore, you need to install the
-<code>palmerpenguins</code> package to access.</p>
+<p>First, make sure you downloaded the <code>tidyverse</code> and are able to load it. Furthermore, you need to install the <code>palmerpenguins</code> package to access.</p>
 <pre class="r"><code># Insert code here
 
 
 
 # End</code></pre>
-<p>Have a look at the class and structure of the
-<code>penguins_raw</code> data set. Also, make yourself familiar with
-the columns. Since the data set is part of a package, you can also use
-the corresponding help page.</p>
+<p>Have a look at the class and structure of the <code>penguins_raw</code> data set. Also, make yourself familiar with the columns. Since the data set is part of a package, you can also use the corresponding help page.</p>
 <pre class="r"><code># Insert code here
 
 
 
 # End</code></pre>
-<p>Next, for easier data handling, clean the column names by removing
-all white spaces and special characters (e.g., brackets, units, …).</p>
+<p>Next, for easier data handling, clean the column names by removing all white spaces and special characters (e.g., brackets, units, …).</p>
 <pre class="r"><code># Insert code here
 
 
 
 # End</code></pre>
-<p>Now, remove all rows that don’t have a measure for stable isotopes
-(both Delta 15 N and Delta 13 C). Save this into a new
-<code>tibble</code>.</p>
+<p>Now, remove all rows that don’t have a measure for stable isotopes (both Delta 15 N and Delta 13 C). Save this into a new <code>tibble</code>.</p>
 <pre class="r"><code># Insert code here
 
 
 
 # End</code></pre>
-<p>Filter the data set to include only the 50% smallest individuals in
-terms of body mass. Select the individual id, species, the culmen
-dimensions and the sex columns.</p>
+<p>Filter the data set to include only the 50% smallest individuals in terms of body mass. Select the individual id, species, the culmen dimensions and the sex columns.</p>
 <pre class="r"><code># Insert code here
 
 
 
 # End</code></pre>
-<p>Create a new column (<code>culmenclass</code>) in which each male
-individual with a culmen length larger than 50 mm is identified by
-<code>1</code>, each female individual with a culmen length larger than
-45 mm is identified by <code>2</code>, and all other individuals are
-identified by <code>0</code>.</p>
+<p>Create a new column (<code>culmenclass</code>) in which each male individual with a culmen length larger than 50 mm is identified by <code>1</code>, each female individual with a culmen length larger than 45 mm is identified by <code>2</code>, and all other individuals are identified by <code>0</code>.</p>
 <pre class="r"><code># Insert code here
 
 
 
 # End</code></pre>
-<p>Calculate the min, mean, and max value for each of this new
-classified groups and calculate the relative number (%) of individuals
-within each group.</p>
+<p>Calculate the min, mean, and max value for each of this new classified groups and calculate the relative number (%) of individuals within each group.</p>
 <pre class="r"><code># Insert code here
 
 
 
 # End</code></pre>
-<p>Reshape the data from wide to long using the relative number, min,
-mean, and max as new value column. The name of the new column specifying
-the information should be <code>type</code>, the new cloumn containing
-the values should be <code>measurements</code>.</p>
+<p>Reshape the data from wide to long using the relative number, min, mean, and max as new value column. The name of the new column specifying the information should be <code>type</code>, the new cloumn containing the values should be <code>measurements</code>.</p>
 <pre class="r"><code># Insert code here
 
 
 
 # End</code></pre>
-<p>Finally, save the resulting <code>tibble</code> on your disk (e.g.,
-your desktop) as a .csv file.</p>
+<p>Finally, save the resulting <code>tibble</code> on your disk (e.g., your desktop) as a .csv file.</p>
 <pre class="r"><code># Insert code here
 
 

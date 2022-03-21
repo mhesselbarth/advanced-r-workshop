@@ -24,11 +24,12 @@ xaringanthemer::style_duo(
   
   background_color = "#E0FEFF", text_color = "#000000",
   primary_color = "#E0FEFF", secondary_color = "#FD6467", 
-  link_color = "#000000")
+  link_color = "#000000", colors = c(yellow = "#CEAB07")
+)
 
 extra_css <- list(
   ".ref" = list("font-size" = "65%", "font-style" = "italic")
-  )
+)
 
 style_extra_css(css = extra_css)
 ```
@@ -221,7 +222,8 @@ background-size: 10%
 ```{r readr, collapse = TRUE}
 df_penguins <- readr::read_csv("data/penguins_raw.csv") %>% #<<
   magrittr::set_names(names(.) %>% stringr::str_remove_all(pattern = " ") %>% 
-                        stringr::str_remove_all(pattern = "\\([^()]+\\)"))
+                        stringr::str_remove_all(pattern = "\\([^()]+\\)") %>% 
+                        stringr::str_to_lower())
 ```
 
 ---
@@ -234,10 +236,16 @@ background-size: 10%
 
 --
 
+- `pivot_longer()` & `pivot_wider()` most important functions to **reshape** data
+
+  .yellow[(I will come back to this later!)]
+
+--
+
 - Some functions to deal with `NA` values
 
 ```{r drop_na}
-df_penguins <- tidyr::drop_na(df_penguins, BodyMass)
+df_penguins <- tidyr::drop_na(df_penguins, bodymass)
 ```
 
 --
@@ -245,31 +253,8 @@ df_penguins <- tidyr::drop_na(df_penguins, BodyMass)
 - `nest()`/`unnest()` to organize data
 
 ```{r nest}
-tidyr::nest(df_penguins, data = -studyName)
+tidyr::nest(df_penguins, data = -island)
 ```
-
---
-
-- `pivot_longer()` & `pivot_wider()` most important functions to **reshape** data
-
----
-
-background-image: url("img/tidyr.png")
-background-position: 95% 10%
-background-size: 10%
-
-# Tidy data: _tidyr_
-
-- `pivot_longer()` & `pivot_wider()` most important functions to **reshape** data
-
-```{r pivot}
-
-
-
-```
-
-
-- pivot
 
 ---
 
@@ -283,9 +268,12 @@ background-size: 10%
 
 - `filter()` to subset **rows**; `select()` to subset **columns**
 
+--
+
 ```{r select_filter}
-dplyr::filter(df_penguins, BodyMass >= quantile(BodyMass, 0.75), Sex != "FEMALE") %>% 
-  dplyr::select_if(is.numeric) %>% head(5)
+dplyr::filter(df_penguins, bodymass >= quantile(bodymass, 0.75), sex != "FEMALE") %>% #<<
+  dplyr::select_if(is.numeric) %>% #<<
+  head(5)
 ```
 
 --
@@ -293,7 +281,8 @@ dplyr::filter(df_penguins, BodyMass >= quantile(BodyMass, 0.75), Sex != "FEMALE"
 - `pull()` to convert **one** column as vector
 
 ```{r pull}
-dplyr::pull(df_penguins, FlipperLength) %>% head(10)
+dplyr::pull(df_penguins, flipperlength) %>% #<<
+  head(10)
 ```
 
 ---
@@ -315,12 +304,12 @@ background-size: 10%
 --
 
 ```{r mutate}
-dplyr::select(df_penguins, IndividualID, Species, CulmenLength) %>%
-  dplyr::mutate(CulmenLength_cm = CulmenLength / 10, #<<
-                CulmenLenth_class = 
-                  dplyr::case_when(CulmenLength < 35  ~ "small", #<<
-                                   CulmenLength >= 35 & CulmenLength <= 45 ~ "med", 
-                                   CulmenLength > 45 ~ "large")) %>%
+dplyr::select(df_penguins, individualid, species, culmenlength) %>%
+  dplyr::mutate(culmenlength_cm = culmenlength / 10, #<<
+                culmenlenth_class = 
+                  dplyr::case_when(culmenlength < 35  ~ "small", #<<
+                                   culmenlength >= 35 & culmenlength <= 45 ~ "med", 
+                                   culmenlength > 45 ~ "large")) %>%
   dplyr::slice(sample(1:nrow(.), size = 3))
 ```
 
@@ -343,11 +332,11 @@ background-size: 10%
 --
 
 ```{r group_by}
-df_penguins_sum <- dplyr::group_by(df_penguins, Island, Species) %>% #<<
+(df_penguins_sum <- dplyr::group_by(df_penguins, island, species) %>% #<<
   dplyr::summarise(n = dplyr::n(), #<<
-                   FlipperLength_m = mean(FlipperLength), 
-                   FlipperLength_sd = sd(FlipperLength), 
-                   .groups = "drop") #<<
+                   flipperlength_mn = mean(flipperlength), 
+                   flipperlength_sd = sd(flipperlength), 
+                   .groups = "drop")) #<<
 ```
 
 ---
@@ -362,19 +351,91 @@ background-size: 10%
 
 - `*_join()` to combine columns from `x` and `y` using matching **keys**
 
+--
+
 ```{r join}
-dplyr::left_join(x = df_penguins, y = df_penguins_sum, by = c("Island", "Species")) %>% #<<
-  dplyr::select(Species, Island, tidyselect::starts_with("Flipper")) %>% 
+dplyr::left_join(x = df_penguins, y = df_penguins_sum, by = c("island", "species")) %>% #<<
+  dplyr::select(species, island, tidyselect::starts_with("flipper")) %>% 
   dplyr::slice(sample(1:nrow(.), size = 5))
 ```
 
---
+---
 
-```{r joing_fig, echo = FALSE, fig.align= "center", out.width = "30%"} 
+background-image: url("img/dplyr.png")
+background-position: 95% 10%
+background-size: 10%
+
+# Wrangle data: _dplyr_
+
+```{r joing_fig, echo = FALSE, fig.align= "center", out.width = "75%"} 
 knitr::include_graphics("img/joins.png")
 ```
 
 .ref[https://statisticsglobe.com/r-dplyr-join-inner-left-right-full-semi-anti]
+
+---
+
+background-image: url("img/tidyr.png")
+background-position: 95% 10%
+background-size: 10%
+
+# Tidy data: _tidyr_
+
+--
+
+- Create summarized `data.frame` with mean bodymass for each species, island, year
+
+--
+
+```{r sum_pivot}
+(df_pen_sum <- dplyr::mutate(df_penguins, year = format(dateegg, "%Y"),
+                             species = stringr::str_split(df_penguins$species, 
+                                pattern = " ", simplify = TRUE)[, 1]) %>% 
+  dplyr::group_by(species, island, year) %>% 
+  dplyr::summarise(bodymass = mean(bodymass), .groups = "drop") %>% 
+  dplyr::filter(year %in% c(2007, 2009))) #<<
+```
+
+---
+
+background-image: url("img/tidyr.png")
+background-position: 95% 10%
+background-size: 10%
+
+# Tidy data: _tidyr_
+
+--
+
+- Reshape from **long** to **wide** specifying column names and values
+
+--
+
+```{r pivot_wider}
+(df_pen_wide <- tidyr::pivot_wider(df_pen_sum, 
+                                   names_from = year, values_from = bodymass, #<<
+                                   names_prefix = "yr_") %>%
+   dplyr::mutate(diff = (yr_2009 - yr_2007) / yr_2007 * 100))
+```
+
+---
+
+background-image: url("img/tidyr.png")
+background-position: 95% 10%
+background-size: 10%
+
+# Tidy data: _tidyr_
+
+--
+
+- Reshape from **wide** to **long** specifying which columns _not_ to reshape
+
+--
+
+```{r pivot_longer}
+tidyr::pivot_longer(df_pen_wide, -c(species, island), #<<
+                    names_to = "years", values_to = "bodymass") %>% 
+  head(10)
+```
 
 ---
 
@@ -388,19 +449,46 @@ background-size: 10%
 
 - `map_*()` to apply function to each element (vector/list)
 
+--
+
 ```{r map}
-species_names <- unique(df_penguins$Species)
+species_names <- unique(df_penguins$species)
 purrr::map(species_names, function(i) { #<<
-  dplyr::filter(df_penguins, Species == i) %>% dplyr::pull(Island) %>% 
+  dplyr::filter(df_penguins, species == i) %>% dplyr::pull(island) %>% 
     unique() %>% stringr::str_sort() %>% paste(collapse = ", ")})
 ```
 
 --
 
 ```{r map_int} 
-purrr::map_int(species_names, function(i) { #<<
-  dplyr::filter(df_penguins, Species == i) %>% dplyr::pull(Island) %>% 
-    unique %>% length})
+foo <- function(i) {dplyr::filter(df_penguins, species == i) %>%
+    dplyr::pull(island) %>% unique %>% length}
+purrr::map_int(species_names, foo) #<<
+```
+
+---
+
+background-image: url("img/purrr.png")
+background-position: 95% 10%
+background-size: 10%
+
+# Functional programming: _purrr_
+
+--
+
+- `reduce_*()` to **remove** a list by one level
+
+--
+
+```{r reduce, message=FALSE}
+pick <- c("culmenlength", "culmendepth", "flipperlength")
+foo <- function(i, j) {df <- dplyr::select(i, studyname, bodymass, j)
+cor(df[, 2], df[, 3]) %>% dplyr::bind_cols(study = unique(df$studyname), .)
+}
+
+dplyr::group_by(df_penguins, island) %>% dplyr::group_split() %>% 
+  purrr::map2(pick, foo) %>% #<<
+  purrr::reduce(left_join, by = "study") #<<
 ```
 
 ---
