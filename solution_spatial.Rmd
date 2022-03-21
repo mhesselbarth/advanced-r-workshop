@@ -2,4 +2,10 @@
 title: "Solution _Spatial data_"
 ---
 
+```{r download, echo = FALSE}
+download_link(link = "https://raw.githubusercontent.com/mhesselbarth/advanced-r-workshop/main/solution_spatial.Rmd",
+              button_label = "Download .Rmd file", 
+              button_type = "danger")
+```
+
 ...Work-in-Progress...
