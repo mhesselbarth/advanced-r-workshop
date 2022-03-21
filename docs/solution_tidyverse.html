@@ -297,7 +297,7 @@ $(document).ready(function () {
       </a>
     </li>
     <li>
-      <a href="exercise_ggplot2.html">
+      <a href="exercise_ggplot.html">
         <span class="fa fa-tasks"></span>
          
         Exercises ggplot2
@@ -391,14 +391,15 @@ $(document).ready(function () {
 
 
 <p><img src="img/tidy_tools.png" width="65%" style="display: block; margin: auto;" /></p>
-<a href="https://raw.githubusercontent.com/mhesselbarth/advanced-r-workshop/main/Solution_tidyverse">
+<a href="https://raw.githubusercontent.com/mhesselbarth/advanced-r-workshop/main/solution_tidyverse">
 <button class="btn btn-danger"><i class="fa fa-save"></i> Download .Rmd file</button>
 </a>
 <p><br><br></p>
-<p>First, make sure you downloaded the <code>tidyverse</code> and are able to load it. Furthermore, you need to install the <code>palmerpenguins</code> package to access.</p>
+<p>First, make sure you downloaded the <code>tidyverse</code> and are able to load it. Furthermore, you need to install the <code>palmerpenguins</code> package to access the data sets. Load both packages and check if you have any <code>NAMESPACE</code> conflicts.</p>
 <pre class="r"><code>library(tidyverse)
 library(palmerpenguins)</code></pre>
-<p>Have a look at the class and structure of the <code>penguins_raw</code> data set. Also, make yourself familiar with the columns. Since the data set is part of a package, you can also use the corresponding help page.</p>
+<p>My conflicts are <code>stats::filter()</code> and <code>stats::lag()</code>, which should not be an issue.</p>
+<p>Have a look at the class and structure of the <code>penguins_raw</code> data set. Also, make yourself familiar with the columns. Since the data set is part of a package, you can also use the corresponding help page (<code>?</code> or F1).</p>
 <pre class="r"><code>class(penguins_raw)
 ## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;
 str(penguins_raw)
@@ -448,34 +449,83 @@ names(penguins_raw)
 ## [13] &quot;Body Mass (g)&quot;       &quot;Sex&quot;                 &quot;Delta 15 N (o/oo)&quot;  
 ## [16] &quot;Delta 13 C (o/oo)&quot;   &quot;Comments&quot;
 ?penguins_raw</code></pre>
-<p>Next, for easier data handling, clean the column names by removing all white spaces and special characters (e.g., brackets, units, …).</p>
+<p>Next, for easier data handling, clean the column names by removing all special characters (e.g., brackets, units, …) and replacing all white spaces with an underscore. Last, makle sure all column names are either all lower case or all upper case</p>
 <pre class="r"><code>col_names &lt;- names(penguins_raw) %&gt;% 
-  stringr::str_remove_all(pattern = &quot; &quot;) %&gt;% 
-  stringr::str_remove_all(pattern = &quot;\\([^()]+\\)&quot;) %&gt;% 
+  stringr::str_remove_all(pattern = &quot; \\([^()]+\\)&quot;) %&gt;% 
+  stringr::str_replace_all(pattern = &quot; &quot;, replacement = &quot;_&quot;) %&gt;% 
   stringr::str_to_lower()
 
 names(penguins_raw) &lt;- col_names</code></pre>
-<p>Now, remove all rows that don’t have a measure for stable isotopes (both Delta 15 N and Delta 13 C). Save this into a new <code>tibble</code>.</p>
-<pre class="r"><code>penguins_cln &lt;- tidyr::drop_na(penguins_raw, delta15n, delta13c)</code></pre>
-<p>Filter the data set to include only the 50% smallest individuals in terms of body mass. Select the individual id, species, the culmen dimensions and the sex columns.</p>
-<pre class="r"><code>penguins_small &lt;- dplyr::filter(penguins_cln, bodymass &lt;= quantile(bodymass, 0.5)) %&gt;% 
-  dplyr::select(individualid, species, tidyselect::starts_with(&quot;culmen&quot;), sex)</code></pre>
-<p>Create a new column (<code>culmenclass</code>) in which each male individual with a culmen length larger than 50 mm is identified by <code>1</code>, each female individual with a culmen length larger than 45 mm is identified by <code>2</code>, and all other individuals are identified by <code>0</code>.</p>
-<pre class="r"><code>penguins_small &lt;- dplyr::mutate(penguins_small, 
-                                clumenclass = dplyr::case_when(culmenlength &gt; 50 &amp; sex == &quot;MALE&quot; ~ 1, 
-                                                               culmenlength &gt; 45 &amp; sex == &quot;FEMALE&quot; ~ 2, 
-                                                               TRUE ~ 0))</code></pre>
-<p>Calculate the min, mean, and max value for each of this new classified groups and calculate the relative number (%) of individuals within each group.</p>
-<pre class="r"><code>penguins_small &lt;- dplyr::group_by(penguins_small, clumenclass) %&gt;% 
+<p>Now, remove all rows that don’t have a measure for stable isotopes (both Delta 15 N or Delta 13 C). Save this into a new <code>tibble</code>.</p>
+<pre class="r"><code>penguins_cln &lt;- tidyr::drop_na(penguins_raw, delta_15_n, delta_13_c)</code></pre>
+<p>Filter the data set to include only the 50% smallest individuals in terms of body mass. Select the individual id, species, the culmen dimensions, and the sex columns. Save this into a new <code>tibble</code> called <code>penguins_small</code> (or something similar).</p>
+<pre class="r"><code>penguins_small &lt;- dplyr::filter(penguins_cln, body_mass &lt;= quantile(body_mass, 0.5)) %&gt;% 
+  dplyr::select(individual_id, species, tidyselect::starts_with(&quot;culmen&quot;), sex)</code></pre>
+<p>Create a new column (<code>culmen_class</code>) in which each male individual with a culmen length larger than 50 mm is identified by <code>1</code>, each female individual with a culmen length larger than 45 mm is identified by <code>2</code>, and all other individuals are identified by <code>0</code>.</p>
+<pre class="r"><code>penguins_small &lt;- 
+  dplyr::mutate(penguins_small, culmen_class = dplyr::case_when(culmen_length &gt; 50 &amp; sex == &quot;MALE&quot; ~ 1,
+                                                                culmen_length &gt; 45 &amp; sex == &quot;FEMALE&quot; ~ 2,
+                                                                TRUE ~ 0))</code></pre>
+<p>Calculate the relative number (%) of individuals within each group and the ratio between the minimum culmen length and depth as well as between the maximum culmen length and depth. Add a <code>sex_new</code> column again (<code>culmen_class 1 = "male"</code>, <code>culmen_class 2 = "female"</code>, <code>culmen_class 0 = "mixed</code>). Save the result as <code>penguings_sum</code>.</p>
+<pre class="r"><code>penguings_sum &lt;- dplyr::group_by(penguins_small, culmen_class) %&gt;% 
   dplyr::summarise(n_rel = dplyr::n() / nrow(penguins_small) * 100, 
-                   min = min(culmenlength), 
-                   mean = mean(culmenlength), 
-                   max = max(culmenlength))</code></pre>
-<p>Reshape the data from wide to long using the relative number, min, mean, and max as new value column. The name of the new column specifying the information should be <code>type</code>, the new cloumn containing the values should be <code>measurements</code>.</p>
-<pre class="r"><code>penguins_small_long &lt;- tidyr::pivot_longer(penguins_small, -clumenclass,
-                                           values_to = &quot;measurement&quot;, names_to = &quot;type&quot;)</code></pre>
-<p>Finally, save the resulting <code>tibble</code> on your disk (e.g., your desktop) as a .csv file.</p>
-<pre class="r"><code>readr::write_csv(x = penguins_small_long, file = &quot;~/Desktop/penguins.csv&quot;)</code></pre>
+                   ratio_min = min(culmen_length) / min(culmen_depth), 
+                   ratio_max = max(culmen_length) / max(culmen_depth)) %&gt;% 
+  dplyr::mutate(sex_new = dplyr::case_when(culmen_class == 0 ~ &quot;mixed&quot;, 
+                                           culmen_class == 1 ~ &quot;male&quot;, 
+                                           culmen_class == 2 ~ &quot;female&quot;))</code></pre>
+<p>Now, combine <code>penguins</code> and <code>penguins_sum</code> to one <code>tibble</code> using <code>sex</code> and <code>sex_new</code> as ID columns.</p>
+<pre class="r"><code>dplyr::left_join(penguins, penguings_sum, by = c(&quot;sex&quot; = &quot;sex_new&quot;))
+## # A tibble: 344 × 12
+##    species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+##    &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+##  1 Adelie  Torgersen           39.1          18.7               181        3750
+##  2 Adelie  Torgersen           39.5          17.4               186        3800
+##  3 Adelie  Torgersen           40.3          18                 195        3250
+##  4 Adelie  Torgersen           NA            NA                  NA          NA
+##  5 Adelie  Torgersen           36.7          19.3               193        3450
+##  6 Adelie  Torgersen           39.3          20.6               190        3650
+##  7 Adelie  Torgersen           38.9          17.8               181        3625
+##  8 Adelie  Torgersen           39.2          19.6               195        4675
+##  9 Adelie  Torgersen           34.1          18.1               193        3475
+## 10 Adelie  Torgersen           42            20.2               190        4250
+## # … with 334 more rows, and 6 more variables: sex &lt;chr&gt;, year &lt;int&gt;,
+## #   culmen_class &lt;dbl&gt;, n_rel &lt;dbl&gt;, ratio_min &lt;dbl&gt;, ratio_max &lt;dbl&gt;
+dplyr::right_join(penguins, penguings_sum, by = c(&quot;sex&quot; = &quot;sex_new&quot;))
+## # A tibble: 334 × 12
+##    species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+##    &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+##  1 Adelie  Torgersen           39.1          18.7               181        3750
+##  2 Adelie  Torgersen           39.5          17.4               186        3800
+##  3 Adelie  Torgersen           40.3          18                 195        3250
+##  4 Adelie  Torgersen           36.7          19.3               193        3450
+##  5 Adelie  Torgersen           39.3          20.6               190        3650
+##  6 Adelie  Torgersen           38.9          17.8               181        3625
+##  7 Adelie  Torgersen           39.2          19.6               195        4675
+##  8 Adelie  Torgersen           41.1          17.6               182        3200
+##  9 Adelie  Torgersen           38.6          21.2               191        3800
+## 10 Adelie  Torgersen           34.6          21.1               198        4400
+## # … with 324 more rows, and 6 more variables: sex &lt;chr&gt;, year &lt;int&gt;,
+## #   culmen_class &lt;dbl&gt;, n_rel &lt;dbl&gt;, ratio_min &lt;dbl&gt;, ratio_max &lt;dbl&gt;</code></pre>
+<p>Reshape the <code>penguins_small</code> <code>tibble</code> from wide to long in a way that the culmen length and depth columns are tidy. The name of the new column specifying the information should be <code>fun</code>, the new column containing the values should be <code>measurements</code>. Save the results as <code>penguins_small_long</code> <code>tibble</code>.</p>
+<pre class="r"><code>penguins_small_long &lt;- tidyr::pivot_longer(penguins_small, c(culmen_length, culmen_depth),
+                                           values_to = &quot;measurement&quot;, names_to = &quot;fun&quot;)</code></pre>
+<p>Use the <code>map</code> function to fit a linear model (<code>flipper_length_mm ~ body_mass_g</code>) to the penguins data set, but seperated by species. Extract the R squared and p value and save the results in a <code>data.frame</code> that additionally includes the species. (Tip: Have a look at <code>broom::glance</code>, however, there are many ways to achieve this).</p>
+<pre class="r"><code>library(broom)
+
+dplyr::group_by(penguins, species) %&gt;% 
+  dplyr::group_split() %&gt;% 
+  purrr::map_dfr(function(i) lm(data = i, flipper_length_mm ~ body_mass_g) %&gt;% 
+               broom::glance() %&gt;% cbind(species = unique(i$species), .))
+##     species r.squared adj.r.squared    sigma statistic      p.value df
+## 1    Adelie 0.2192128     0.2139726 5.797764  41.83305 1.343265e-09  1
+## 2 Chinstrap 0.4115985     0.4026833 5.511975  46.16830 3.748130e-09  1
+## 3    Gentoo 0.4937402     0.4895563 4.633213 118.00774 1.330279e-19  1
+##      logLik      AIC      BIC deviance df.residual nobs
+## 1 -478.6314 963.2627 972.3146 5008.496         149  151
+## 2 -211.5436 429.0872 435.7457 2005.203          66   68
+## 3 -362.1110 730.2221 738.6587 2597.467         121  123</code></pre>
+<p><img src="img/meme_google.png" width="50%" style="display: block; margin: auto;" /></p>
 
 
 

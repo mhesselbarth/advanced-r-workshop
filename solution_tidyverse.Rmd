@@ -19,21 +19,22 @@ knitr::include_graphics("img/tidy_tools.png", auto_pdf = FALSE)
 ```
 
 ```{r download, echo = FALSE}
-download_link(link = "https://raw.githubusercontent.com/mhesselbarth/advanced-r-workshop/main/Solution_tidyverse",
-              button_label = "Download .Rmd file", 
-              button_type = "danger")
+download_link(link = "https://raw.githubusercontent.com/mhesselbarth/advanced-r-workshop/main/solution_tidyverse",
+              button_label = "Download .Rmd file", button_type = "danger")
 ```
 
 <br><br>
 
-First, make sure you downloaded the `tidyverse` and are able to load it. Furthermore, you need to install the `palmerpenguins` package to access.
+First, make sure you downloaded the `tidyverse` and are able to load it. Furthermore, you need to install the `palmerpenguins` package to access the data sets. Load both packages and check if you have any `NAMESPACE` conflicts.
 
 ```{r load_libs}
 library(tidyverse)
 library(palmerpenguins)
 ```
 
-Have a look at the class and structure of the `penguins_raw` data set. Also, make yourself familiar with the columns. Since the data set is part of a package, you can also use the corresponding help page. 
+My conflicts are `stats::filter()` and `stats::lag()`, which should not be an issue.
+
+Have a look at the class and structure of the `penguins_raw` data set. Also, make yourself familiar with the columns. Since the data set is part of a package, you can also use the corresponding help page (`?` or F1). 
 
 ```{r class} 
 class(penguins_raw)
@@ -42,58 +43,76 @@ names(penguins_raw)
 ?penguins_raw
 ```
 
-Next, for easier data handling, clean the column names by removing all white spaces and special characters (e.g., brackets, units, ...). 
+Next, for easier data handling, clean the column names by removing all special characters (e.g., brackets, units, ...) and replacing all white spaces with an underscore. Last, makle sure all column names are either all lower case or all upper case
 
 ```{r names}
 col_names <- names(penguins_raw) %>% 
-  stringr::str_remove_all(pattern = " ") %>% 
-  stringr::str_remove_all(pattern = "\\([^()]+\\)") %>% 
+  stringr::str_remove_all(pattern = " \\([^()]+\\)") %>% 
+  stringr::str_replace_all(pattern = " ", replacement = "_") %>% 
   stringr::str_to_lower()
 
 names(penguins_raw) <- col_names
 ```
 
-Now, remove all rows that don't have a measure for stable isotopes (both Delta 15 N and Delta 13 C). Save this into a new `tibble`.
+Now, remove all rows that don't have a measure for stable isotopes (both Delta 15 N or Delta 13 C). Save this into a new `tibble`.
 
 ```{r dropna}
-penguins_cln <- tidyr::drop_na(penguins_raw, delta15n, delta13c)
+penguins_cln <- tidyr::drop_na(penguins_raw, delta_15_n, delta_13_c)
 ```
 
-Filter the data set to include only the 50% smallest individuals in terms of body mass. Select the individual id, species, the culmen dimensions and the sex columns.
+Filter the data set to include only the 50% smallest individuals in terms of body mass. Select the individual id, species, the culmen dimensions, and the sex columns. Save this into a new `tibble` called `penguins_small` (or something similar).
 
 ```{r filter}
-penguins_small <- dplyr::filter(penguins_cln, bodymass <= quantile(bodymass, 0.5)) %>% 
-  dplyr::select(individualid, species, tidyselect::starts_with("culmen"), sex)
+penguins_small <- dplyr::filter(penguins_cln, body_mass <= quantile(body_mass, 0.5)) %>% 
+  dplyr::select(individual_id, species, tidyselect::starts_with("culmen"), sex)
 ```
 
-Create a new column (`culmenclass`) in which each male individual with a culmen length larger than 50 mm is identified by `1`, each female individual with a culmen length larger than 45 mm is identified by `2`, and all other individuals are identified by `0`.
+Create a new column (`culmen_class`) in which each male individual with a culmen length larger than 50 mm is identified by `1`, each female individual with a culmen length larger than 45 mm is identified by `2`, and all other individuals are identified by `0`.
 
 ```{r casewhen}
-penguins_small <- dplyr::mutate(penguins_small, 
-                                clumenclass = dplyr::case_when(culmenlength > 50 & sex == "MALE" ~ 1, 
-                                                               culmenlength > 45 & sex == "FEMALE" ~ 2, 
-                                                               TRUE ~ 0))
+penguins_small <- 
+  dplyr::mutate(penguins_small, culmen_class = dplyr::case_when(culmen_length > 50 & sex == "MALE" ~ 1,
+                                                                culmen_length > 45 & sex == "FEMALE" ~ 2,
+                                                                TRUE ~ 0))
 ```
 
-Calculate the min, mean, and max value for each of this new classified groups and calculate the relative number (%) of individuals within each group.
+Calculate the relative number (%) of individuals within each group and the ratio between the minimum culmen length and depth as well as between the maximum culmen length and depth. Add a `sex_new` column again (`culmen_class 1 = "male"`, `culmen_class 2 = "female"`, `culmen_class 0 = "mixed`). Save the result as `penguings_sum`.
 
 ```{r groupby}
-penguins_small <- dplyr::group_by(penguins_small, clumenclass) %>% 
+penguings_sum <- dplyr::group_by(penguins_small, culmen_class) %>% 
   dplyr::summarise(n_rel = dplyr::n() / nrow(penguins_small) * 100, 
-                   min = min(culmenlength), 
-                   mean = mean(culmenlength), 
-                   max = max(culmenlength))
+                   ratio_min = min(culmen_length) / min(culmen_depth), 
+                   ratio_max = max(culmen_length) / max(culmen_depth)) %>% 
+  dplyr::mutate(sex_new = dplyr::case_when(culmen_class == 0 ~ "mixed", 
+                                           culmen_class == 1 ~ "male", 
+                                           culmen_class == 2 ~ "female"))
 ```
 
-Reshape the data from wide to long using the relative number, min, mean, and max as new value column. The name of the new column specifying the information should be `type`, the new cloumn containing the values should be `measurements`.
+Now, combine `penguins` and `penguins_sum` to one `tibble` using `sex` and `sex_new` as ID columns.
 
-```{r privot}
-penguins_small_long <- tidyr::pivot_longer(penguins_small, -clumenclass,
-                                           values_to = "measurement", names_to = "type")
+```{r join}
+dplyr::left_join(penguins, penguings_sum, by = c("sex" = "sex_new"))
+dplyr::right_join(penguins, penguings_sum, by = c("sex" = "sex_new"))
 ```
 
-Finally, save the resulting `tibble` on your disk (e.g., your desktop) as a .csv file.
+Reshape the `penguins_small` `tibble` from wide to long in a way that the culmen length and depth columns are tidy. The name of the new column specifying the information should be `fun`, the new column containing the values should be `measurements`. Save the results as `penguins_small_long` `tibble`.
 
-```{r writecsv, eval = FALSE}
-readr::write_csv(x = penguins_small_long, file = "~/Desktop/penguins.csv")
+```{r pivot}
+penguins_small_long <- tidyr::pivot_longer(penguins_small, c(culmen_length, culmen_depth),
+                                           values_to = "measurement", names_to = "fun")
+```
+
+Use the `map` function to fit a linear model (`flipper_length_mm ~ body_mass_g`) to the penguins data set, but seperated by species. Extract the R squared and p value and save the results in a `data.frame` that additionally includes the species. (Tip: Have a look at `broom::glance`, however, there are many ways to achieve this).
+
+```{r map}
+library(broom)
+
+dplyr::group_by(penguins, species) %>% 
+  dplyr::group_split() %>% 
+  purrr::map_dfr(function(i) lm(data = i, flipper_length_mm ~ body_mass_g) %>% 
+               broom::glance() %>% cbind(species = unique(i$species), .))
+```
+
+```{r end_meme, echo = FALSE, fig.align = "center", out.width = '50%'}
+knitr::include_graphics("img/meme_google.png", auto_pdf = FALSE)
 ```

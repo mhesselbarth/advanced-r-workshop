@@ -9,7 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Maximilian H.K. Hesselbarth" />
 
+<meta name="date" content="2022-03-25" />
 
 <title>Exercise Data visualization using ggplot2</title>
 
@@ -32,8 +34,7 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.13.0/js/script.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -296,7 +297,7 @@ $(document).ready(function () {
       </a>
     </li>
     <li>
-      <a href="exercise_ggplot2.html">
+      <a href="exercise_ggplot.html">
         <span class="fa fa-tasks"></span>
          
         Exercises ggplot2
@@ -383,11 +384,66 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Exercise <em>Data visualization using ggplot2</em></h1>
+<h4 class="author">Maximilian H.K. Hesselbarth</h4>
+<h4 class="date">2022-03-25</h4>
 
 </div>
 
 
-<p>…Work-in-Progress…</p>
+<p><img src="img/ggplot2_exploratory.png" width="65%" style="display: block; margin: auto;" /></p>
+<a href="https://raw.githubusercontent.com/mhesselbarth/advanced-r-workshop/main/Solution_ggplot">
+<button class="btn btn-danger"><i class="fa fa-save"></i> Download .Rmd file</button>
+</a>
+<p><br><br></p>
+<p>Again, we are using the <code>palmerpenguins</code> package, as well as the <code>ggplot2</code> package. Since <code>ggplot2</code> is part of the tidyverse, you can just load the entire <code>tidyverse</code> again. Last, load the <code>cowplot</code> packages to combine plots.</p>
+<pre class="r"><code># Insert code here
+
+
+
+# End</code></pre>
+<p>Take either the <code>penguins</code> or the <code>penguins_raw</code> data set and create a scatterplot using two continuous variables. Make sure to format the axis titles and add a figure title.</p>
+<pre class="r"><code># Insert code here
+
+
+
+# End</code></pre>
+<p>Next, change, the overall theme, use a different point shape, size and point color.</p>
+<pre class="r"><code># Insert code here
+
+
+
+# End</code></pre>
+<p>Next, use at least one of the discrete variables in the data set and use it to a) set different point colors based on the discrete variable and b) wrap the plot using facets. Try to use different colors than the default color scheme.</p>
+<pre class="r"><code># Insert code here
+
+
+
+# End</code></pre>
+<pre class="r"><code># Insert code here
+
+
+
+# End</code></pre>
+<p>Try to make a histogram of the bill depth separated by species and sex. You can use colors, fills, facets or any other idea you have to separate the discrete classes. Try out different bin widths and see how much the plots changes. Last, can you add a density curve to the histogram? To compare the bin widths, combine at least two different plots to one (using <code>cowplot</code>)</p>
+<pre class="r"><code># Insert code here
+
+
+
+# End</code></pre>
+<p>Visualize the body mass of all species using a boxplot. Additionally, to the boxplot, also add the raw data distribution (as points), the number of individuals for each species (as text) and some information about the sex differences (however you want).</p>
+<pre class="r"><code># Insert code here
+
+
+
+# End</code></pre>
+<p>Summarize the <code>penguins</code> data set by two discrete variables and calculate the mean flipper length. Create a plot showing the mean length for the two groups including an error measure (e.g., mean +/- sd).</p>
+<pre class="r"><code># Insert code here
+
+
+
+# End</code></pre>
+<p><br><br></p>
+<p><img src="exercise_ggplot_files/figure-html/unnamed-chunk-8-1.png" width="75%" style="display: block; margin: auto;" /></p>
 
 
 

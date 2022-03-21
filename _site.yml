@@ -27,7 +27,7 @@ navbar:
           href: exercise_tidyverse.html
         - text: "Exercises ggplot2"
           icon: fa-tasks
-          href: exercise_ggplot2.html
+          href: exercise_ggplot.html
         - text: "Exercises Spatial data"
           icon: fa-tasks
           href: exercise_spatial.html

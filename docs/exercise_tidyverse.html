@@ -297,7 +297,7 @@ $(document).ready(function () {
       </a>
     </li>
     <li>
-      <a href="exercise_ggplot2.html">
+      <a href="exercise_ggplot.html">
         <span class="fa fa-tasks"></span>
          
         Exercises ggplot2
@@ -391,64 +391,72 @@ $(document).ready(function () {
 
 
 <p><img src="img/tidy_tools.png" width="65%" style="display: block; margin: auto;" /></p>
-<a href="https://raw.githubusercontent.com/mhesselbarth/advanced-r-workshop/main/Exercise_tidyverse">
+<a href="https://raw.githubusercontent.com/mhesselbarth/advanced-r-workshop/main/exercise_tidyverse">
 <button class="btn btn-danger"><i class="fa fa-save"></i> Download .Rmd file</button>
 </a>
 <p><br><br></p>
-<p>First, make sure you downloaded the <code>tidyverse</code> and are able to load it. Furthermore, you need to install the <code>palmerpenguins</code> package to access.</p>
+<p>First, make sure you downloaded the <code>tidyverse</code> and are able to load it. Furthermore, you need to install the <code>palmerpenguins</code> package to access the data sets. Load both packages and check if you have any <code>NAMESPACE</code> conflicts.</p>
 <pre class="r"><code># Insert code here
 
 
 
 # End</code></pre>
-<p>Have a look at the class and structure of the <code>penguins_raw</code> data set. Also, make yourself familiar with the columns. Since the data set is part of a package, you can also use the corresponding help page.</p>
+<p>My conflicts are <code>stats::filter()</code> and <code>stats::lag()</code>, which should not be an issue.</p>
+<p>Have a look at the class and structure of the <code>penguins_raw</code> data set. Also, make yourself familiar with the columns. Since the data set is part of a package, you can also use the corresponding help page (<code>?</code> or F1).</p>
 <pre class="r"><code># Insert code here
 
 
 
 # End</code></pre>
-<p>Next, for easier data handling, clean the column names by removing all white spaces and special characters (e.g., brackets, units, …).</p>
+<p>Next, for easier data handling, clean the column names by removing all special characters (e.g., brackets, units, …) and replacing all white spaces with an underscore. Last, makle sure all column names are either all lower case or all upper case</p>
 <pre class="r"><code># Insert code here
 
 
 
 # End</code></pre>
-<p>Now, remove all rows that don’t have a measure for stable isotopes (both Delta 15 N and Delta 13 C). Save this into a new <code>tibble</code>.</p>
+<p>Now, remove all rows that don’t have a measure for stable isotopes (both Delta 15 N or Delta 13 C). Save this into a new <code>tibble</code>.</p>
 <pre class="r"><code># Insert code here
 
 
 
 # End</code></pre>
-<p>Filter the data set to include only the 50% smallest individuals in terms of body mass. Select the individual id, species, the culmen dimensions and the sex columns.</p>
+<p>Filter the data set to include only the 50% smallest individuals in terms of body mass. Select the individual id, species, the culmen dimensions, and the sex columns. Save this into a new <code>tibble</code> called <code>penguins_small</code> (or something similar).</p>
 <pre class="r"><code># Insert code here
 
 
 
 # End</code></pre>
-<p>Create a new column (<code>culmenclass</code>) in which each male individual with a culmen length larger than 50 mm is identified by <code>1</code>, each female individual with a culmen length larger than 45 mm is identified by <code>2</code>, and all other individuals are identified by <code>0</code>.</p>
+<p>Create a new column (<code>culmen_class</code>) in which each male individual with a culmen length larger than 50 mm is identified by <code>1</code>, each female individual with a culmen length larger than 45 mm is identified by <code>2</code>, and all other individuals are identified by <code>0</code>.</p>
 <pre class="r"><code># Insert code here
 
 
 
 # End</code></pre>
-<p>Calculate the min, mean, and max value for each of this new classified groups and calculate the relative number (%) of individuals within each group.</p>
+<p>Calculate the relative number (%) of individuals within each group and the ratio between the minimum culmen length and depth as well as between the maximum culmen length and depth. Add a <code>sex_new</code> column again (<code>culmen_class 1 = "male"</code>, <code>culmen_class 2 = "female"</code>, <code>culmen_class 0 = "mixed</code>). Save the result as <code>penguings_sum</code>.</p>
 <pre class="r"><code># Insert code here
 
 
 
 # End</code></pre>
-<p>Reshape the data from wide to long using the relative number, min, mean, and max as new value column. The name of the new column specifying the information should be <code>type</code>, the new cloumn containing the values should be <code>measurements</code>.</p>
+<p>Now, combine <code>penguins</code> and <code>penguins_sum</code> to one <code>tibble</code> using <code>sex</code> and <code>sex_new</code> as ID columns.</p>
 <pre class="r"><code># Insert code here
 
 
 
 # End</code></pre>
-<p>Finally, save the resulting <code>tibble</code> on your disk (e.g., your desktop) as a .csv file.</p>
+<p>Reshape the <code>penguins_small</code> <code>tibble</code> from wide to long in a way that the culmen length and depth columns are tidy. The name of the new column specifying the information should be <code>fun</code>, the new column containing the values should be <code>measurements</code>. Save the results as <code>penguins_small_long</code> <code>tibble</code>.</p>
 <pre class="r"><code># Insert code here
 
 
 
 # End</code></pre>
+<p>Use the <code>map</code> function to fit a linear model (<code>flipper_length_mm ~ body_mass_g</code>) to the penguins data set, but seperated by species. Extract the R squared and p value and save the results in a <code>data.frame</code> that additionally includes the species. (Tip: Have a look at <code>broom::glance</code>, however, there are many ways to achieve this).</p>
+<pre class="r"><code># Insert code here
+
+
+
+# End</code></pre>
+<p><img src="img/meme_google.png" width="50%" style="display: block; margin: auto;" /></p>
 
 
 

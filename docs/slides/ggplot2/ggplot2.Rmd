@@ -77,6 +77,8 @@ background-size: 25%
 
 # Data and mapping layer
 
+--
+
 .pull-left[
 
 - Map body mass to **x** axis and bill length to **y** axis
@@ -88,6 +90,8 @@ ggplot(data = penguins,
 ```
 
 ]
+
+--
 
 .pull-right[
 
@@ -106,6 +110,8 @@ ggplot(data = penguins,
 
 # Geometry layer
 
+--
+
 .pull-left[
 
 - Adding a geometric **point** layer
@@ -118,6 +124,8 @@ ggplot(data = penguins,
 ```
 
 ]
+
+--
 
 .pull-right[
 
@@ -133,6 +141,8 @@ ggplot(data = penguins,  mapping = aes(x = body_mass_g,
 
 # Advanced mapping layer
 
+--
+
 .pull-left[
 
 - Add *color* mapping and change **size** and **shape**
@@ -146,6 +156,8 @@ ggplot(data = penguins,
 ```
 
 ]
+
+--
 
 .pull-right[
 
@@ -162,27 +174,35 @@ ggplot(data = penguins, mapping = aes(x = body_mass_g,
 
 # Scaling layer
 
+--
+
 .pull-left[
 
 - **Scaling** relates data values space to aesthetic values space  
 
 ```{r, eval = FALSE}
+vc <- c("#F8C759", "#5965AC", "#619961") #<<
+
 ggplot(data = penguins, 
   mapping = aes(x = body_mass_g, 
                 y = bill_length_mm)) + 
   geom_point(aes(col = species), 
              size = 2.5, shape = 1) +
-  scale_color_viridis_d(option = "C") #<<
+  scale_color_manual(values = vc) #<<
 ```
 
 ]
 
+--
+
 .pull-right[
 
 ```{r, echo = FALSE, fig.align= "center", out.width = "100%", warning = FALSE}
+vc <- c("#F8C759", "#5965AC", "#619961")
+
 ggplot(data = penguins, mapping = aes(x = body_mass_g, y = bill_length_mm)) + 
   geom_point(aes(col = species), size = 2.5, shape = 1) +
-  scale_color_viridis_d(option = "C")
+  scale_color_manual(values = vc)
 ```
 
 ]
@@ -190,6 +210,8 @@ ggplot(data = penguins, mapping = aes(x = body_mass_g, y = bill_length_mm)) +
 ---
 
 # Using different themes
+
+--
 
 .pull-left[
 
@@ -201,25 +223,28 @@ ggplot(data = penguins,
                 y = bill_length_mm)) + 
   geom_point(aes(col = species), 
              size = 2.5, shape = 1) +
-  scale_color_viridis_d(option = "C") + 
-  labs(x = "Body mass [cm]", y = "Bill length [mm]",
+  scale_color_manual(values = vc) +
+  labs(x = "Body mass [cm]", #<<
+       y = "Bill length [mm]",
        title = "Body - Bill Relationship") + 
   theme_bw() + #<<
   theme(legend.position = "bottom", #<<
-        plot.title = element_text( #<<
-          face = "bold", size = 16)) #<<
+        plot.title = element_text(
+          face = "bold", size = 16))
 ```
 
 ]
+
+--
 
 .pull-right[
 
 ```{r, echo = FALSE, fig.align= "center", out.width = "100%", warning = FALSE}
 ggplot(data = penguins, mapping = aes(x = body_mass_g, y = bill_length_mm)) + 
   geom_point(aes(col = species), size = 2.5, shape = 1) +
-  scale_color_viridis_d(option = "C") + 
+  scale_color_manual(values = vc) +
   labs(x = "Body mass [cm]", y = "Bill length [mm]", title = "Body - Bill Relationship") + 
-  theme_bw() + #<<
+  theme_bw() +
   theme(legend.position = "bottom", plot.title = element_text(face = "bold", size = 16))
 ```
 
@@ -228,6 +253,8 @@ ggplot(data = penguins, mapping = aes(x = body_mass_g, y = bill_length_mm)) +
 ---
 
 # Adding geoms
+
+--
 
 .pull-left[
 
@@ -244,16 +271,18 @@ ggplot(data = penguins,
   geom_label(data = df_text, #<<
     aes(x = mass_mean, y = bill_mean, #<<
         label = species)) + #<<
-  scale_color_viridis_d(option = "C") + 
+  scale_color_manual(values = vc) +
   labs(x = "Body mass [cm]", y = "Bill length [mm]",
        title = "Body - Bill Relationship") + 
   theme_bw() +
-  theme(legend.position = "none", #<<
+  theme(legend.position = "none",
         plot.title = element_text(
           face = "bold", size = 16))
 ```
 
 ]
+
+--
 
 .pull-right[
 ```{r, echo = FALSE, fig.align= "center", out.width = "100%", message = FALSE, warning = FALSE}
@@ -267,7 +296,7 @@ ggplot(data = penguins, mapping = aes(x = body_mass_g, y = bill_length_mm)) +
   geom_point(aes(col = species), size = 2.5, shape = 1) + 
   geom_smooth(aes(col = species), method = "lm", se = FALSE) +
   geom_label(data = df_text, aes(x = mass_mean, y = bill_mean, label = species)) +
-  scale_color_viridis_d(option = "C") + 
+  scale_color_manual(values = vc) +
   labs(x = "Body mass [cm]", y = "Bill length [mm]", title = "Body - Bill Relationship") + 
   theme_bw() +
   theme(legend.position = "none", plot.title = element_text(face = "bold", size = 16))
@@ -278,6 +307,8 @@ ggplot(data = penguins, mapping = aes(x = body_mass_g, y = bill_length_mm)) +
 ---
 
 # Facet wrapping
+
+--
 
 .pull-left[
 
@@ -292,7 +323,7 @@ ggplot(data = penguins,
   geom_smooth(aes(col = species),
               method = "lm", se = FALSE) +
   facet_wrap(. ~ island) + #<<
-  scale_color_viridis_d(option = "C") + 
+  scale_color_manual(values = vc) +
   labs(x = "Body mass [cm]", y = "Bill length [mm]",
        title = "Body - Bill Relationship") + 
   theme_bw() +
@@ -303,6 +334,8 @@ ggplot(data = penguins,
 
 ]
 
+--
+
 .pull-right[
 
 ```{r, echo = FALSE, fig.align= "center", out.width = "100%", message = FALSE, warning = FALSE}
@@ -310,7 +343,7 @@ ggplot(data = penguins, mapping = aes(x = body_mass_g, y = bill_length_mm)) +
   geom_point(aes(col = species), size = 2.5, shape = 1) + 
   geom_smooth(aes(col = species), method = "lm", se = FALSE) +
   facet_wrap(. ~ island) +
-  scale_color_viridis_d(option = "C") + 
+  scale_color_manual(values = vc) +
   labs(x = "Body mass [cm]", y = "Bill length [mm]", title = "Body - Bill Relationship") + 
   theme_bw() +
   theme(legend.position = "bottom", plot.title = element_text(face = "bold", size = 16))
@@ -322,33 +355,224 @@ ggplot(data = penguins, mapping = aes(x = body_mass_g, y = bill_length_mm)) +
 
 # Combining figures
 
+--
+
 .pull-left[
 
 - Figures can be stored in **variables**
 
-```{r}
-p1 <- ggplot(penguins, 
-  aes(x = species, body_mass_g)) + 
-  geom_jitter()
+```{r eval = FALSE}
+library(cowplot)
 
-p2 <- ggplot(penguins, 
+p1 <- ggplot(data = penguins, 
   aes(x = species, body_mass_g)) + 
-  geom_boxplot()
+  geom_jitter() #<<
 
-p3 <- ggplot(penguins, 
+p2 <- ggplot(data = penguins, 
+  aes(x = species, body_mass_g)) + 
+  geom_boxplot() #<<
+
+p3 <- ggplot(data = penguins, 
   aes(x = species, body_mass_g)) +
-  geom_violin()
+  geom_violin() #<<
+
+cowplot::plot_grid(p1, p2, p3, nrow = 3) #<<
 ```
 
 ]
 
+--
+
 .pull-right[
 
-```{r, warning = FALSE, fig.align = "center", out.width = "85%"}
+```{r, echo = FALSE, warning = FALSE, fig.align = "center", out.width = "85%"}
 library(cowplot)
+
+p1 <- ggplot(data = penguins, 
+  aes(x = species, body_mass_g)) + 
+  geom_jitter()
+
+p2 <- ggplot(data = penguins, 
+  aes(x = species, body_mass_g)) + 
+  geom_boxplot()
+
+p3 <- ggplot(data = penguins, 
+  aes(x = species, body_mass_g)) +
+  geom_violin()
+
 cowplot::plot_grid(p1, p2, p3, nrow = 3)
 ```
 
+]
+
+---
+
+# More figures
+
+--
+
+- Prepare data set with min, max, median body mass grouped by species and sex (tidy!)
+
+--
+
+```{r}
+penguins_range <- dplyr::group_by(penguins, species, sex) %>% 
+  dplyr::summarise(min = min(body_mass_g), 
+                   max = max(body_mass_g), 
+                   med = median(body_mass_g), 
+                   .groups = "drop") %>% 
+  tidyr::pivot_longer(-c(species, sex)) %>% 
+  tidyr::drop_na(value)
+
+head(penguins_range)
+```
+
+
+---
+
+# Grouping variables
+
+--
+
+.pull-left[
+
+- Use **group** to set interaction of all discrete variables
+
+```{r eval = FALSE}
+ggplot(data = penguins_range,
+  aes(x = species, y = value, colour = sex)
+  ) + 
+  geom_line(
+    aes(group = interaction(sex, name)), #<<
+    alpha = 0.15, size = 2.5
+  ) + 
+  geom_point(
+    aes(shape = name, colour = sex), 
+    size = 5) + 
+  guides(
+    colour = guide_legend(title = "Sex", order = 2), #<<
+    shape = guide_legend( title = "Measurment", order = 1)
+  )
+```
+]
+
+--
+
+.pull-right[
+
+```{r echo = FALSE, warning = FALSE, fig.align = "center", out.width = "85%"}
+ ggplot(data = penguins_range,
+         aes(x = species, y = value, colour = sex)) + 
+  geom_line(aes(group = interaction(sex, name)),
+            alpha = 0.15, size = 2.5) + 
+  geom_point(aes(shape = name, colour = sex), size = 5) + 
+  guides(colour = guide_legend(title = "Sex", order = 2), 
+         shape = guide_legend(title = "Measurment", order = 1))
+```
+
+]
+
+---
+
+# Segments
+
+--
+
+.pull-left[
+
+- `geom_segment()` allows to draw **lines** and curves
+
+```{r eval = FALSE}
+ggplot(data = df_sampled, aes(x = 1:n)) + 
+  geom_point(aes(
+    y = bill_length_mm, col = species)) +
+  geom_segment( #<<
+    aes(xend = 1:n, y = 0, 
+        yend = bill_length_mm, col = species)) +
+  geom_line(
+    aes(y = bill_depth_mm), col = "#EEA236") +
+  geom_hline(yintercept = 0) + 
+  annotate(geom = "rect", #<<
+           xmin = 10.5, xmax = 14.5, 
+           ymin = 10.5, ymax = 13.5, 
+           fill = "black", alpha = 0.9) +
+  annotate(geom = "text", #<<
+           x = 12.5, y = 12, 
+           label = "Bill depth", color = "#EEA236")
+```
+]
+
+--
+
+.pull-right[
+
+```{r echo = FALSE, warning = FALSE, fig.align = "center", out.width = "85%"}
+n <- 25
+df_sampled <- dplyr::slice(penguins, sample(x = 1:nrow(penguins), size = n)) %>% 
+dplyr::arrange(bill_length_mm)
+
+ggplot(data = df_sampled, aes(x = 1:n)) + 
+  geom_point(aes(y = bill_length_mm, col = species)) +
+  geom_segment(aes(xend = 1:n, y = 0, yend = bill_length_mm, col = species)) +
+  geom_line( aes(y = bill_depth_mm), col = "#EEA236") +
+  geom_hline(yintercept = 0) + 
+  annotate(geom = "rect", xmin = 10.5, 
+           xmax = 14.5, ymin = 10.5, ymax = 13.5, 
+           fill = "black", alpha = 0.9) +
+  annotate(geom = "text", x = 12.5, y = 12, 
+           label = "Bill depth", color = "#EEA236")
+```
+]
+
+---
+
+# Densities
+
+--
+
+.pull-left[
+
+<!-- - `geom_histogram`/`geom_density` to draw distributions -->
+
+```{r, eval = FALSE}
+ggplot(data = penguins) + 
+  geom_density(
+    aes(x = bill_depth_mm, y = ..density..), #<<
+    fill = "#69b3a2") +
+  geom_histogram(
+    aes(x = bill_depth_mm, y = ..density..), 
+    col = "black", fill = NA) +
+  annotate(
+    geom = "text", x = 35, y = 0.05, label = "bill_depth_mm", 
+    color = "#69b3a2") +
+  geom_density(
+    aes(x = bill_length_mm, y = -..density..), 
+    fill = "#404080") + 
+  geom_histogram(
+    aes(x = bill_length_mm, y = -..density..), #<<
+    col = "black", fill = NA) +
+  annotate(geom = "text", x = 25, y = -0.05, label = "bill_length_mm", 
+           color = "#404080") +
+  # scale_x_continuous(breaks = seq(10, 60, 5), limits = c(10, 60)) +
+  xlab("bill dimensions") + theme_classic()
+```
+]
+
+--
+
+.pull-right[
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE, fig.align = "center", out.width = "85%"}
+ggplot(data = penguins) + 
+  geom_density(aes(x = bill_depth_mm, y = ..density..), fill = "#69b3a2") +
+  geom_histogram(aes(x = bill_depth_mm, y = ..density..), col = "black", fill = NA) +
+  annotate(geom = "text", x = 35, y = 0.05, label = "bill_depth_mm", color = "#69b3a2") +
+  geom_density(aes(x = bill_length_mm, y = -..density..), fill = "#404080") + 
+  geom_histogram(aes(x = bill_length_mm, y = -..density..), col = "black", fill = NA) +
+  annotate(geom = "text", x = 25, y = -0.05, label = "bill_length_mm", color = "#404080") +
+  scale_x_continuous(breaks = seq(10, 60, 5), limits = c(10, 60)) +
+  xlab("bill dimensions") + theme_classic()
+```
 ]
 
 ---
@@ -365,14 +589,16 @@ knitr::include_graphics("img/gganimate.png")
 
 # Animated figures
 
+--
+
 .pull-left[
 
-- `gganimate` allows all kind of **dynamic** figures
+- `gganimate` allows **dynamic** figures
 
-```{r}
+```{r eval = FALSE}
 library(gganimate)
 
-p <- ggplot(penguins, 
+p <- ggplot(data = penguins, 
     aes(x = body_mass_g, 
         y = bill_length_mm)) + 
   geom_point(aes(color = species)) + 
@@ -387,13 +613,35 @@ p <- ggplot(penguins,
   exit_fade() + #<<
   theme_classic() + 
   theme(legend.position = "none")
+
+gganimate::animate(p)
 ```
 
 ]
 
+--
+
 .pull-right[
 
-```{r, warning = FALSE, fig.align = "center", out.width = "85%"}
+```{r echo = FALSE, warning = FALSE, fig.align = "center", out.width = "85%"}
+library(gganimate)
+
+p <- ggplot(data = penguins, 
+    aes(x = body_mass_g, 
+        y = bill_length_mm)) + 
+  geom_point(aes(color = species)) + 
+  geom_label(data = df_text, 
+    aes(x = mass_mean, y = bill_mean, 
+        label = species)) +
+  scale_color_viridis_d(option = "C") + 
+  transition_states(states = species, #<<
+    transition_length = 2, #<<
+    state_length = 1) + #<<
+  enter_fade() + #<<
+  exit_fade() + #<<
+  theme_classic() + 
+  theme(legend.position = "none")
+
 gganimate::animate(p)
 ```
 
