@@ -18,6 +18,9 @@ navbar:
         - text: "Slides ggplot2"
           icon: fa-display
           href: slides/ggplot2/ggplot2.html
+        - text: "Slides spatial data"
+          icon: fa-display
+          href: slides/ggplot2/spatial.html
       href: slides.html
     - text: "Exercises"
       icon: fa-tasks

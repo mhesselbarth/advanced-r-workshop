@@ -11,6 +11,8 @@ output:
       highlightLines: true
       countIncrementalSlides: false
       ratio: 16:10
+      navigation:
+        scroll: false
 editor_options: 
   chunk_output_type: console
 ---

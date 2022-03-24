@@ -22,7 +22,7 @@ In case you have any questions, please contact [mhessel\<at>umich.edu](mailto:mh
 
 ### Packages used for exercise
 
-- palmerpenguins, tidyverse, (broom), magrittr, cowplot, sf, terra
+- palmerpenguins, tidyverse, (broom), magrittr, cowplot, sf, terra, tmap
 
 #### Code of Conduct
 
