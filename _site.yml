@@ -2,7 +2,8 @@ name: "Advanced-R-Workshop"
 output_dir: "docs"
 output: 
   html_document:
-    theme: lumen
+    self_contained: yes
+    theme: cosmo
 navbar:
   title: "Advanced R workshop"
   left:
@@ -10,49 +11,55 @@ navbar:
       icon: fa-home
       href: index.html
     - text: "Slides"
-      icon: fa-display
+      icon: fa-television
       menu:
         - text: "Slides tidyverse"
-          icon: fa-display
+          icon: fa-television
           href: slides/tidyverse/tidyverse.html
         - text: "Slides ggplot2"
-          icon: fa-display
+          icon: fa-television
           href: slides/ggplot2/ggplot2.html
-        - text: "Slides spatial data"
-          icon: fa-display
-          href: slides/ggplot2/spatial.html
+        - text: "Slides Spatial data"
+          icon: fa-television
+          href: work-in-progress.html
       href: slides.html
     - text: "Exercises"
       icon: fa-tasks
       menu:
         - text: "Exercises tidyverse"
           icon: fa-tasks
-          href: exercise_tidyverse.html
+          href: exercise-tidyverse.html
         - text: "Exercises ggplot2"
           icon: fa-tasks
-          href: exercise_ggplot.html
+          href: exercise-ggplot.html
         - text: "Exercises Spatial data"
           icon: fa-tasks
-          href: exercise_spatial.html
+          href: work-in-progress.html
     - text: "Solutions"
       icon: fa-check
       menu:
         - text: "Solution tidyverse"
           icon: fa-clipboard-check
-          href: solution_tidyverse.html
+          href: solution-tidyverse.html
         - text: "Solution ggplot2"
           icon: fa-clipboard-check
-          href: solution_ggplot.html
+          href: solution-ggplot.html
         - text: "Solution Spatial data"
           icon: fa-clipboard-check
-          href: solution_spatial.html
+          href: work-in-progress.html
     - text: "Resources"
-      icon: fa-ellipsis
+      icon: fa-book
       href: resources.html
   right:
-    - text: "Code of conduct"
-      icon: fa-handshake
-      href: code_of_conduct.html
+    - text: various
+      icon: fa-cogs
+      menu:
+        - text: "Code of conduct"
+          icon: fa-handshake
+          href: code-of-conduct.html
+        - text: "License"
+          icon: fa-file-text
+          href: license.html
     - text: "Contact"
       icon: fa-user
       hreft: mailto:mhessel@umich.edu

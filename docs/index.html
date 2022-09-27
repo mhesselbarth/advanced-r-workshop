@@ -13,10 +13,10 @@
 
 <title>Advanced R workshop</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -143,11 +143,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -256,7 +260,7 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="fa fa-display"></span>
+    <span class="fa fa-television"></span>
      
     Slides
      
@@ -265,23 +269,23 @@ $(document).ready(function () {
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="slides/tidyverse/tidyverse.html">
-        <span class="fa fa-display"></span>
+        <span class="fa fa-television"></span>
          
         Slides tidyverse
       </a>
     </li>
     <li>
       <a href="slides/ggplot2/ggplot2.html">
-        <span class="fa fa-display"></span>
+        <span class="fa fa-television"></span>
          
         Slides ggplot2
       </a>
     </li>
     <li>
-      <a href="slides/ggplot2/spatial.html">
-        <span class="fa fa-display"></span>
+      <a href="work-in-progress.html">
+        <span class="fa fa-television"></span>
          
-        Slides spatial data
+        Slides Spatial data
       </a>
     </li>
   </ul>
@@ -296,21 +300,21 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="exercise_tidyverse.html">
+      <a href="exercise-tidyverse.html">
         <span class="fa fa-tasks"></span>
          
         Exercises tidyverse
       </a>
     </li>
     <li>
-      <a href="exercise_ggplot.html">
+      <a href="exercise-ggplot.html">
         <span class="fa fa-tasks"></span>
          
         Exercises ggplot2
       </a>
     </li>
     <li>
-      <a href="exercise_spatial.html">
+      <a href="work-in-progress.html">
         <span class="fa fa-tasks"></span>
          
         Exercises Spatial data
@@ -328,21 +332,21 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="solution_tidyverse.html">
+      <a href="solution-tidyverse.html">
         <span class="fa fa-clipboard-check"></span>
          
         Solution tidyverse
       </a>
     </li>
     <li>
-      <a href="solution_ggplot.html">
+      <a href="solution-ggplot.html">
         <span class="fa fa-clipboard-check"></span>
          
         Solution ggplot2
       </a>
     </li>
     <li>
-      <a href="solution_spatial.html">
+      <a href="work-in-progress.html">
         <span class="fa fa-clipboard-check"></span>
          
         Solution Spatial data
@@ -352,19 +356,37 @@ $(document).ready(function () {
 </li>
 <li>
   <a href="resources.html">
-    <span class="fa fa-ellipsis"></span>
+    <span class="fa fa-book"></span>
      
     Resources
   </a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="code_of_conduct.html">
-    <span class="fa fa-handshake"></span>
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-cogs"></span>
      
-    Code of conduct
+    various
+     
+    <span class="caret"></span>
   </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="code-of-conduct.html">
+        <span class="fa fa-handshake"></span>
+         
+        Code of conduct
+      </a>
+    </li>
+    <li>
+      <a href="license.html">
+        <span class="fa fa-file-text"></span>
+         
+        License
+      </a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="mailto:mhessel@umich.edu">
@@ -394,15 +416,11 @@ $(document).ready(function () {
 </div>
 
 
-<!-- Badges start -->
-<p><a href="LICENSE.html"><img
-src="https://img.shields.io/badge/License-GPLv3-blue.svg"
-alt="License: GPL v3" /></a></p>
-<!-- Badges end -->
 <p>This homepage contains all materials used during the <strong>Advanced
 <code>R</code> workshop</strong> taught at the University of Michigan <a
 href="https://lsa.umich.edu/eeb">EEB department</a>. The workshops is
-organized by Katrina Munsterman, Alden Dirks and Max Hesselbarth.</p>
+organized by Katrina Munsterman, Zulay Rodriguez and Max
+Hesselbarth.</p>
 <p>The introductory slides for each topic can be found under the
 “Slides” menu item. For each topic there is an exercise and a
 corresponding solution, which can be found under the “Exercise” and
@@ -410,7 +428,8 @@ corresponding solution, which can be found under the “Exercise” and
 <p>In case you have any questions, please contact <a
 href="mailto:mhessel@umich.edu">mhessel&lt;at&gt;umich.edu</a>, <a
 href="mailto:kmunster@umich.edu@umich.edu">kmunster@umich.edu&lt;at&gt;umich.edu</a>,
-or <a href="mailto:adirks@umich.edu">adirks&lt;at&gt;umich.edu</a>.</p>
+or <a
+href="mailto:zulayrod@umich.edu">zulayrod&lt;at&gt;umich.edu</a>.</p>
 <div id="content" class="section level3">
 <h3>Content</h3>
 <ul>
@@ -425,12 +444,24 @@ or <a href="mailto:adirks@umich.edu">adirks&lt;at&gt;umich.edu</a>.</p>
 <li>palmerpenguins, tidyverse, (broom), magrittr, cowplot, sf, terra,
 tmap</li>
 </ul>
+<p><br> <br></p>
 <div id="code-of-conduct" class="section level4">
 <h4>Code of Conduct</h4>
 <p>Please note that the Advanced <code>R</code> workshop project is
-released with a <a href="CODE_OF_CONDUCT.html">Contributor Code of
+released with a <a href="code-of-conduct.html">Contributor Code of
 Conduct</a>. By taking part, you agree to abide by its terms.</p>
-<p><br></p>
+</div>
+<div id="license" class="section level4">
+<h4>License</h4>
+<!-- Badges start -->
+<p><a href="license.html"><img
+src="https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg"
+alt="License: CC BY 4.0" /></a></p>
+<p>This work is licensed under a <a
+href="https://creativecommons.org/licenses/by/4.0/">Creative Commons
+Attribution 4.0 International License</a>.</p>
+<!-- Badges end -->
+<p><br> <br> <br> <br></p>
 <p><img src="img/UMich.png" width="50%" style="display: block; margin: auto;" /></p>
 </div>
 </div>

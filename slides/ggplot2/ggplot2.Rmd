@@ -2,7 +2,6 @@
 title: ggplot2
 output:
   xaringan::moon_reader:
-    self_contained: true
     css: xaringan-themer.css
     lib_dir: libs
     seal: false
@@ -190,7 +189,11 @@ ggplot(data = penguins,
                 y = bill_length_mm)) + 
   geom_point(aes(col = species), 
              size = 2.5, shape = 1) +
-  scale_color_manual(values = vc) #<<
+  scale_color_manual(values = vc) + #<<
+  scale_x_continuous(
+    limits = function(x) c(min(x), max(x)), #<<
+    breaks = function(x) seq(quantile(x, 0.1), quantile(x, 0.9), #<<
+                             length.out = 5))
 ```
 
 ]
@@ -204,7 +207,9 @@ vc <- c("#F8C759", "#5965AC", "#619961")
 
 ggplot(data = penguins, mapping = aes(x = body_mass_g, y = bill_length_mm)) + 
   geom_point(aes(col = species), size = 2.5, shape = 1) +
-  scale_color_manual(values = vc)
+  scale_color_manual(values = vc) +
+  scale_x_continuous(limits = function(x) c(min(x), max(x)),
+                     breaks = function(x) seq(quantile(x, 0.1), quantile(x, 0.9), length.out = 5))
 ```
 
 ]
@@ -229,7 +234,7 @@ ggplot(data = penguins,
   labs(x = "Body mass [cm]", #<<
        y = "Bill length [mm]",
        title = "Body - Bill Relationship") + 
-  theme_bw() + #<<
+  theme_classic() + #<<
   theme(legend.position = "bottom", #<<
         plot.title = element_text(
           face = "bold", size = 16))
@@ -246,7 +251,7 @@ ggplot(data = penguins, mapping = aes(x = body_mass_g, y = bill_length_mm)) +
   geom_point(aes(col = species), size = 2.5, shape = 1) +
   scale_color_manual(values = vc) +
   labs(x = "Body mass [cm]", y = "Bill length [mm]", title = "Body - Bill Relationship") + 
-  theme_bw() +
+  theme_classic() +
   theme(legend.position = "bottom", plot.title = element_text(face = "bold", size = 16))
 ```
 
@@ -276,7 +281,7 @@ ggplot(data = penguins,
   scale_color_manual(values = vc) +
   labs(x = "Body mass [cm]", y = "Bill length [mm]",
        title = "Body - Bill Relationship") + 
-  theme_bw() +
+  theme_classic() +
   theme(legend.position = "none",
         plot.title = element_text(
           face = "bold", size = 16))
@@ -300,7 +305,7 @@ ggplot(data = penguins, mapping = aes(x = body_mass_g, y = bill_length_mm)) +
   geom_label(data = df_text, aes(x = mass_mean, y = bill_mean, label = species)) +
   scale_color_manual(values = vc) +
   labs(x = "Body mass [cm]", y = "Bill length [mm]", title = "Body - Bill Relationship") + 
-  theme_bw() +
+  theme_classic() +
   theme(legend.position = "none", plot.title = element_text(face = "bold", size = 16))
 ```
 ]
@@ -328,7 +333,7 @@ ggplot(data = penguins,
   scale_color_manual(values = vc) +
   labs(x = "Body mass [cm]", y = "Bill length [mm]",
        title = "Body - Bill Relationship") + 
-  theme_bw() +
+  theme_classic() +
   theme(legend.position = "bottom",
         plot.title = element_text(
           face = "bold", size = 16))
@@ -347,7 +352,7 @@ ggplot(data = penguins, mapping = aes(x = body_mass_g, y = bill_length_mm)) +
   facet_wrap(. ~ island) +
   scale_color_manual(values = vc) +
   labs(x = "Body mass [cm]", y = "Bill length [mm]", title = "Body - Bill Relationship") + 
-  theme_bw() +
+  theme_classic() +
   theme(legend.position = "bottom", plot.title = element_text(face = "bold", size = 16))
 ```
 

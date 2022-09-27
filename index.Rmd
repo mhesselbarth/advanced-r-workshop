@@ -2,17 +2,11 @@
 title: "Advanced R workshop"
 ---
 
-<!-- Badges start -->
-
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE.html)
-
-<!-- Badges end -->
-
-This homepage contains all materials used during the **Advanced `R` workshop** taught at the University of Michigan [EEB department](https://lsa.umich.edu/eeb). The workshops is organized by Katrina Munsterman, Alden Dirks and Max Hesselbarth. 
+This homepage contains all materials used during the **Advanced `R` workshop** taught at the University of Michigan [EEB department](https://lsa.umich.edu/eeb). The workshops is organized by Katrina Munsterman, Zulay Rodriguez and Max Hesselbarth. 
 
 The introductory slides for each topic can be found under the "Slides" menu item. For each topic there is an exercise and a corresponding solution, which can be found under the "Exercise" and "Solution" menu items.
 
-In case you have any questions, please contact [mhessel\<at>umich.edu](mailto:mhessel@umich.edu), [kmunster@umich.edu\<at>umich.edu](mailto:kmunster@umich.edu@umich.edu), or [adirks\<at>umich.edu](mailto:adirks@umich.edu).
+In case you have any questions, please contact [mhessel\<at>umich.edu](mailto:mhessel@umich.edu), [kmunster@umich.edu\<at>umich.edu](mailto:kmunster@umich.edu@umich.edu), or [zulayrod\<at>umich.edu](mailto:zulayrod@umich.edu).
 
 ### Content
 
@@ -24,11 +18,23 @@ In case you have any questions, please contact [mhessel\<at>umich.edu](mailto:mh
 
 - palmerpenguins, tidyverse, (broom), magrittr, cowplot, sf, terra, tmap
 
+<br> <br>
+
 #### Code of Conduct
 
-Please note that the Advanced `R` workshop project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.html). By taking part, you agree to abide by its terms.
+Please note that the Advanced `R` workshop project is released with a [Contributor Code of Conduct](code-of-conduct.html). By taking part, you agree to abide by its terms.
 
-<br>
+#### License
+
+<!-- Badges start -->
+
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](license.html)
+
+This work is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
+
+<!-- Badges end -->
+
+<br> <br> <br> <br>
 
 ```{r index_logo, echo = FALSE, fig.align = "center", out.width = '50%'}
 knitr::include_graphics("img/UMich.png", auto_pdf = FALSE)
