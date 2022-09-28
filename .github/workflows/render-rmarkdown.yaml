@@ -23,10 +23,13 @@ jobs:
       
       - uses: r-lib/actions/setup-renv@v2
 
-      - name : Install libudunits2
+      - name: Install libudunits2
         run: sudo apt-get install libudunits2-dev
         
-      - name: Install dependencies
+      - name: Install spatial dependencies
+        run: sudo apt-get install gdal-bin
+
+      - name: Install R dependencies
         run: install.packages(c("cowplot", "downloadthis", "palmerpenguins", "rmarkdown", "sf", "terra", "tmap", "tidyverse"))
         shell: Rscript {0}
 
