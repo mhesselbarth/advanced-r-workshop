@@ -25,6 +25,7 @@ jobs:
       
       - name: Build homepage
         run: Rscript -e 'rmarkdown::render_site(encoding = "UTF-8")'
+        shell: Rscript {0}
         
       - name: Commit Results
         run: |
