@@ -2,7 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
-scripts/internal-*
 .DS_Store
+scripts/internal-*
 old-material/
 slides/spatial/data/
+docs/
