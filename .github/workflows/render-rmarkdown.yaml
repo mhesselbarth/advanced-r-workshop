@@ -23,8 +23,8 @@ jobs:
 
       - uses: r-lib/actions/setup-renv@v2
       
-      - name: Install Rmarkdown
-        run: install.packages("rmarkdown")
+      - name: Install dependencies
+        run: install.packages(c("cowplot", "downloadthis", "palmerpenguins", "rmarkdown", "sf", "terra", "tmap", "tidyverse"))
         shell: Rscript {0}
       
       - name: Build homepage
