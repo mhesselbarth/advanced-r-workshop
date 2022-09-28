@@ -23,6 +23,10 @@ jobs:
 
       - uses: r-lib/actions/setup-renv@v2
       
+      - name: Install Rmarkdown
+        run: install.packages("rmarkdown")
+        shell: Rscript {0}
+      
       - name: Build homepage
         run: rmarkdown::render_site(encoding = "UTF-8")
         shell: Rscript {0}
