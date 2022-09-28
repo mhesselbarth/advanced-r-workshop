@@ -1,8 +1,8 @@
 name: "Advanced-R-Workshop"
-output_dir: "docs"
+output_dir: "site"
 output: 
   html_document:
-    self_contained: yes
+    self_contained: no
     theme: cosmo
 navbar:
   title: "Advanced R workshop"

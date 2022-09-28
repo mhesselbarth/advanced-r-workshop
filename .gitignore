@@ -3,7 +3,5 @@
 .RData
 .Ruserdata
 .DS_Store
-scripts/internal-*
-old-material/
 slides/spatial/data/
-docs/
+site/
