@@ -1,0 +1,324 @@
+---
+title: spatial
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    css: xaringan-themer.css
+    lib_dir: libs
+    seal: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: 16:10
+      navigation:
+        scroll: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r xaringan-themer, include = FALSE, warning = FALSE}
+library(xaringanthemer)
+
+xaringanthemer::style_duo(
+  header_font_google = google_font("Abril Fatface"),
+  text_font_google   = google_font("Montserrat"), # Ubuntu
+  
+  background_color = "#E0FEFF", text_color = "#000000",
+  primary_color = "#E0FEFF", secondary_color = "#FD6467", 
+  link_color = "#000000", colors = c(yellow = "#CEAB07")
+)
+
+extra_css <- list(
+  ".ref" = list("font-size" = "65%", "font-style" = "italic")
+)
+
+style_extra_css(css = extra_css)
+```
+
+
+```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
+library(terra)
+library(raster)
+library(sf)
+
+library(magrittr)
+library(viridis)
+```
+
+class: inverse, center, middle
+background-image: url("img/aerial_lsm.png")
+background-position: 50% 50%
+background-size: 75%
+
+# Spatial data
+
+### Maximilian H.K. Hesselbarth
+
+#### University of Michigan (EEB)
+
+2022-03-25
+
+---
+
+# Spatial data
+
+--
+
+- All data that contains **spatial information** about location
+
+--
+
+- More complex than just two extra columns (*x, y* coordinates)
+
+--
+
+- Two major data types, namely **raster** and **vector** data
+
+--
+
+.pull-left[ 
+
+```{r hex_terra, echo = FALSE, fig.align= "center", out.width = "50%"} 
+knitr::include_graphics("img/terra.png")
+```
+
+]
+
+--
+
+.pull-right[
+
+```{r hex_sf, echo = FALSE, fig.align= "center", out.width = "50%"} 
+knitr::include_graphics("img/sf.png")
+```
+]
+
+---
+
+background-image: url("img/terra.png")
+background-position: 95% 10%
+background-size: 10%
+
+# raster data
+
+--
+
+- **Cells** of equal size represent data
+
+--
+
+- Closely related to **satellite imagery**
+
+--
+
+- `terra` packages proves `SpatRaster`, `SpatVector` and `SpatExtent` classes
+
+  .yellow[(successor of formerly `raster` packages)]
+
+--
+
+```{r fig_raster, echo = FALSE, fig.align= "center", out.width = "75%"} 
+knitr::include_graphics("img/raster-data.png")
+```
+
+---
+
+background-image: url("img/terra.png")
+background-position: 95% 10%
+background-size: 10%
+
+# `SpatRaster` data
+
+--
+
+- Multi-layer raster data 
+
+--
+
+- Stores number of **columns/rows**, **spatial extent**, and **coordinate reference system** 
+
+--
+
+- Values are held in RAM or on disk (if too large for memory)
+
+--
+
+```{r rast}
+(x <- terra::rast(nrow = 50, ncol = 50, xmin = -50, xmax = 50, ymin = -50, ymax = 50, 
+                  crs = NA))
+```
+
+--
+
+```{r rast_info, collapse = TRUE}
+terra::ext(x)
+terra::crs(x)
+terra::hasValues(x)
+```
+
+---
+
+background-image: url("img/terra.png")
+background-position: 95% 10%
+background-size: 10%
+
+# `SpatRaster` data
+
+--
+
+.pull-left[
+
+- Adding **values** and **information**
+
+```{r add_values}
+vals <- seq(from = 0, to = 1, length.out = terra::nrow(x)) %>% 
+  rep(times = terra::ncol(x)) %>% 
+  magrittr::multiply_by(runif(n = terra::ncell(x)))
+
+terra::values(x) <- vals #<<
+x$lyr.2 <- vals * -1 #<<
+
+terra::crs(x) <- "epsg:4326" #<<
+```
+
+```{r add_values_print, echo = FALSE}
+x
+```
+]
+
+--
+
+.pull-right[
+```{r plot_rast_dummy, eval = FALSE}
+plot(x)
+```
+
+```{r plot_rast, echo = FALSE, fig.align = "center"}
+plot(x, col = rev(viridis::viridis(n = 256)), nr = 2, legend = FALSE)
+```
+]
+
+---
+
+background-image: url("img/terra.png")
+background-position: 95% 10%
+background-size: 10%
+
+# `SpatRaster` data
+
+
+.pull-left[
+
+- Access data as **matrix** or **data.frame**
+
+```{r rast_vals_dummy, eval = FALSE}
+x[]
+terra::as.data.frame(x, xy = TRUE)
+```
+
+```{r rast_vals, echo = FALSE}
+head(x[])
+
+head(terra::as.data.frame(x, xy = TRUE))
+```
+
+]
+
+.pull-right[
+
+- Use **mathematical** calculations with raster cells
+
+```{r rast_alg}
+x2 <- x["lyr.1"] + x["lyr.2"]
+
+c(x, x2)
+```
+]
+
+---
+
+background-image: url("img/terra.png")
+background-position: 95% 10%
+background-size: 10%
+
+# Real example `SpatRaster`
+
+```{r nlcd, eval = FALSE}
+nlcd <- terra::rast("data/nlcd_2019_land_cover_l48_20210604.img")
+
+(nlcd <- terra::project(nlcd, "epsg:4326"))
+```
+
+---
+
+background-image: url("img/terra.png")
+background-position: 95% 10%
+background-size: 10%
+
+# Real example `SpatRaster`
+
+```{r nlcd_plot, eval = FALSE, fig.align = "center", out.width = "100%", out.height="100%"}
+
+# terra::ext(c(0, 1, 0, 1))
+
+plot(nlcd)
+```
+
+
+```{r eval = FALSE}
+library(terra)
+library(leaflet)
+
+library(tmap)
+
+nlcd <- terra::rast("slides/spatial/data/nlcd_2019_land_cover_l48_20210604.img")
+
+bbox <- terra::ext(-84.023438, -83.320313, 42.032974, 42.553080)
+
+ras_box <- terra::rast(bbox, crs = "epsg:4326")
+ras_box <- terra::project(ras_box, y = terra::crs(nlcd))
+
+plot(nlcd)
+plot(terra::ext(ras_box), add = TRUE)
+
+nlcd_crop <- terra::crop(x = nlcd, y = terra::ext(ras_box)) %>% 
+  terra::project(y = "epsg:4326")
+
+plot(nlcd_crop)
+
+# tmap_mode("view")
+tm_shape(nlcd_crop) + 
+  tm_raster(legend.show = T)
+  # tm_basemap("OpenStreetMap.Mapnik") #<<
+
+leaflet() |> addTiles() |> addRasterImage(nlcd_crop)
+
+
+```
+
+---
+
+class: inverse
+
+## Thank you for your attention
+
+### Questions? 
+
+.pull-left[
+
+Further resources: [https://mhesselbarth.github.io/advanced-r-workshop/resources](https://mhesselbarth.github.io/advanced-r-workshop/resources)
+
+Exercise: [https://mhesselbarth.github.io/advanced-r-workshop/exercise_tidyverse](https://mhesselbarth.github.io/advanced-r-workshop/exercise_tidyverse)
+
+]
+
+.pull-right[
+
+`r icons::fontawesome("envelope")` [mhessel@umich.edu](mailto:mhessel@umich.edu)
+
+`r icons::fontawesome("globe")` [https://mhesselbarth.rbind.io](https://mhesselbarth.rbind.io)
+
+`r icons::fontawesome("twitter")` [@MHKHesselbarth](https://twitter.com/MHKHesselbarth)
+
+]

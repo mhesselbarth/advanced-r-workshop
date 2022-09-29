@@ -1,0 +1,123 @@
+---
+title: "Exercise _Data visualization using ggplot2_"
+author: "Maximilian H.K. Hesselbarth"
+date: "2022-03-25"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE
+)
+
+library(downloadthis)
+```
+
+```{r tidyfigure, echo = FALSE, fig.align = "center", out.width = '65%'}
+knitr::include_graphics("img/ggplot2_exploratory.png", auto_pdf = FALSE)
+```
+
+```{r download, echo = FALSE}
+download_link(link = "https://raw.githubusercontent.com/mhesselbarth/advanced-r-workshop/main/exercise_ggplot.Rmd",
+              button_label = "Download .Rmd file", 
+              button_type = "danger")
+```
+
+<br><br>
+
+Again, we are using the `palmerpenguins` package, as well as the `ggplot2` package. Since `ggplot2` is part of the tidyverse, you can just load the entire `tidyverse` again. Last, load the `cowplot` packages to combine plots.
+
+```{r load_libs}
+# Insert code here
+
+
+
+# End
+```
+
+Take either the `penguins` or the `penguins_raw` data set and create a scatterplot using two continuous variables. Make sure to format the axis titles and add a figure title.
+
+```{r}
+# Insert code here
+
+
+
+# End
+```
+
+Next, change, the overall theme, use a different point shape, size and point color. 
+
+```{r}
+# Insert code here
+
+
+
+# End
+```
+
+Next, use at least one of the discrete variables in the data set and use it to a) set different point colors based on the discrete variable and b) wrap the plot using facets. Try to use different colors than the default color scheme.
+
+```{r}
+# Insert code here
+
+
+
+# End
+```
+
+```{r}
+# Insert code here
+
+
+
+# End
+```
+
+Try to make a histogram of the bill depth separated by species and sex. You can use colors, fills, facets or any other idea you have to separate the discrete classes. Try out different bin widths and see how much the plots changes. Last, can you add a density curve to the histogram? To compare the bin widths, combine at least two different plots to one (using `cowplot`)
+
+```{r}
+# Insert code here
+
+
+
+# End
+```
+
+Visualize the body mass of all species using a boxplot. Additionally, to the boxplot, also add the raw data distribution (as points), the number of individuals for each species (as text) and some information about the sex differences (however you want). 
+
+```{r}
+# Insert code here
+
+
+
+# End
+```
+
+Summarize the `penguins` data set by two discrete variables and calculate the mean flipper length. Create a plot showing the mean length for the two groups including an error measure (e.g., mean +/- sd). 
+
+```{r}
+# Insert code here
+
+
+
+# End
+```
+
+<br><br>
+
+```{r, echo = FALSE, message = FALSE, fig.align = "center", out.width = "75%"}
+library(ggplot2)
+library(ggcats)
+
+x <- 1:10 + runif(n = 10)
+y <- 1:10 + runif(n = 10)
+
+df <- tibble::tibble(x = x, y = y, img = sample(x = c("colonel", "grumpy", "hipster", "lil_bub",
+                                                      "maru", "mouth", "pop_close"), 
+                                                size = 10, replace = TRUE))
+
+ggplot(df) + geom_cat(aes(x = x, y = y, cat = img), size = 2.5) + 
+  labs(x = "Number of cats", y = "Having a good time") + 
+  theme_classic()
+```

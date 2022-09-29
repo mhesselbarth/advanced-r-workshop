@@ -1,0 +1,68 @@
+name: "Advanced-R-Workshop"
+output_dir: "."
+output: 
+  html_document:
+    self_contained: no
+    theme: cosmo
+navbar:
+  title: "Advanced R workshop"
+  left:
+    - text: "Home"
+      icon: fa-home
+      href: index.html
+    - text: "Slides"
+      icon: fa-television
+      menu:
+        - text: "Slides tidyverse"
+          icon: fa-television
+          href: slides/tidyverse/tidyverse.html
+        - text: "Slides ggplot2"
+          icon: fa-television
+          href: slides/ggplot2/ggplot2.html
+        - text: "Slides Spatial data"
+          icon: fa-television
+          href: work-in-progress.html
+      href: slides.html
+    - text: "Exercises"
+      icon: fa-tasks
+      menu:
+        - text: "Exercises tidyverse"
+          icon: fa-tasks
+          href: exercise-tidyverse.html
+        - text: "Exercises ggplot2"
+          icon: fa-tasks
+          href: exercise-ggplot.html
+        - text: "Exercises Spatial data"
+          icon: fa-tasks
+          href: work-in-progress.html
+    - text: "Solutions"
+      icon: fa-check
+      menu:
+        - text: "Solution tidyverse"
+          icon: fa-clipboard-check
+          href: solution-tidyverse.html
+        - text: "Solution ggplot2"
+          icon: fa-clipboard-check
+          href: solution-ggplot.html
+        - text: "Solution Spatial data"
+          icon: fa-clipboard-check
+          href: work-in-progress.html
+    - text: "Resources"
+      icon: fa-book
+      href: resources.html
+  right:
+    - text: various
+      icon: fa-cogs
+      menu:
+        - text: "Code of conduct"
+          icon: fa-handshake
+          href: code-of-conduct.html
+        - text: "License"
+          icon: fa-file-text
+          href: license.html
+    - text: "Contact"
+      icon: fa-user
+      hreft: mailto:mhessel@umich.edu
+    - text: "Github" 
+      icon: fa-github fa-lg
+      href: https://github.com/mhesselbarth
