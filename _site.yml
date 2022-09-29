@@ -56,10 +56,10 @@ navbar:
       menu:
         - text: "Code of conduct"
           icon: fa-handshake
-          href: code-of-conduct.html
+          href: CODE-OF-CONDUCT.html
         - text: "License"
           icon: fa-file-text
-          href: license.html
+          href: LICENSE.html
     - text: "Contact"
       icon: fa-user
       hreft: mailto:mhessel@umich.edu
