@@ -65,4 +65,4 @@ navbar:
       hreft: mailto:mhessel@umich.edu
     - text: "Github" 
       icon: fa-github fa-lg
-      href: https://github.com/mhesselbarth
+      href: https://github.com/mhesselbarth/advanced-r-workshop
