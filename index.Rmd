@@ -2,7 +2,7 @@
 title: "Advanced R workshop"
 ---
 
-Date: Monday, October 24, 2022
+**Date**: Monday, October 24, 2022
 
 This homepage contains all materials used during the **Advanced `R` workshop** taught at the University of Michigan [EEB department](https://lsa.umich.edu/eeb). The workshops is organized by Katrina Munsterman, Zulay Rodriguez and Max Hesselbarth. 
 
@@ -26,13 +26,13 @@ In case you have any questions, please contact [mhessel\<at>umich.edu](mailto:mh
 
 #### Code of Conduct
 
-Please note that the Advanced `R` workshop project is released with a [Contributor Code of Conduct](code-of-conduct.html). By taking part, you agree to abide by its terms.
+Please note that the Advanced `R` workshop project is released with a [Contributor Code of Conduct](CODE-OF-CONDUCT.html). By taking part, you agree to abide by its terms.
 
 #### License
 
 <!-- Badges start -->
 
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](license.html)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](LICENSE.html)
 
 This work is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
 
