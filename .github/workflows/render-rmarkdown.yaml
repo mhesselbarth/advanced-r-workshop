@@ -8,7 +8,7 @@ name: render-rmarkdown
 
 jobs:
   render-rmarkdown:
-    runs-on: ubuntu-latest
+    runs-on: macOS-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -23,11 +23,10 @@ jobs:
       
       - uses: r-lib/actions/setup-renv@v2
 
-      - name: Install libudunits2
-        run: sudo apt-get install libudunits2-dev
-        
       - name: Install spatial dependencies
-        run: sudo apt-get install gdal-bin
+        run: |
+          brew install gdal
+          brew install proj
 
       - name: Install R dependencies
         run: install.packages(c("cowplot", "downloadthis", "palmerpenguins", "rmarkdown", "sf", "terra", "tmap", "tidyverse"))
