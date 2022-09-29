@@ -2,16 +2,14 @@
 title: "Further resources"
 ---
 
+This is a collection of my favorite resources. They are all online and freely available (even though for some book copies can be purchased). If you have a good resource currently not listed, please feel free to [contact me](mailto:mhessel@umich.edu).
+
 ## Cheatsheets
 Cheatsheets are summaries of certain packages or topics. They can be useful to look up some functionality quickly. Many people even write their own, more specific cheatsheets over time. Here are some cheetsheets relevant for this workshop.
 
 [Base R](cheatsheets/base-r.pdf), [Advanced R](cheatsheets/advanced-r.pdf), [readr](cheatsheets/readr.pdf), [tidyr](cheatsheets/tidyr.pdf), [stringr](cheatsheets/stringr.pdf), [forcats](cheatsheets/forcats.pdf), [dplyr](cheatsheets/dplyr.pdf), [purrr](cheatsheets/purrr.pdf), [ggplot2](cheatsheets/ggplot2.pdf), [sf](cheatsheets/sf.pdf)
 
-## Further resources
-
-This is a collection of my favorite resources. They are all online and freely available (even though for some also book copies can be purchased). If you have a good resource currently not listed, please feel free to [contact me](mailto:mhessel@umich.edu).
-
-### General programming in R
+## General programming in R
 [R for Data Science](https://r4ds.had.co.nz): Book covering many general concepts of data science including different data types, data cleaning, exploration and wrangling.
 
 [Advanced R](https://adv-r.hadley.nz): Book covering more advanced topics of `R` programming such as Environments, Functional and Object-oriented programming, or non-standard evaluation.
@@ -22,7 +20,7 @@ This is a collection of my favorite resources. They are all online and freely av
 
 [Big Book of R](https://www.bigbookofr.com/index.html): Massive collection of online-available R books/homepages.
 
-### Data vizualisation using ggplot2
+## Data vizualisation using ggplot2
 
 [ggplot2](https://ggplot2-book.org/index.html): Comprehensive book explaining almost all functions of _ggplot2_.
 
@@ -30,9 +28,8 @@ This is a collection of my favorite resources. They are all online and freely av
 
 [A ggplot2 Tutorial for Beautiful Plotting in R](https://www.cedricscherer.com/2019/08/05/a-ggplot2-tutorial-for-beautiful-plotting-in-r/): Blog showing how to build many different types of visualizations using _ggplot2_.
 
-[Top 50 ggplot2 visualizations](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html): Homepage with 50 _ggplot2_ vizualisations. 
-
-### Spatial data
+[Top 50 ggplot2 visualizations](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html): Homepage with 50 _ggplot2_ visualizations. 
+## Spatial data
 
 [Geocomputation with R](https://geocompr.robinlovelace.net/index.html): Book including basics and advanced spatial data background, workflows and examples. Lots of code examples.
 
