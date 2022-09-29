@@ -1,5 +1,5 @@
 name: "Advanced-R-Workshop"
-output_dir: "site"
+output_dir: "."
 output: 
   html_document:
     self_contained: no
