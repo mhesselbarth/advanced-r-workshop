@@ -38,10 +38,9 @@ style_extra_css(css = extra_css)
 
 ```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
 library(terra)
-library(raster)
 library(sf)
 
-library(magrittr)
+library(dplyr)
 library(viridis)
 library(ggplot2)
 ```
