@@ -450,7 +450,7 @@ ggplot() +
 
 - **raster** and **vector** data can be used together
 
-```{r, fig.align = "center", out.width = "55%"}
+```{r, fig.align = "center", out.width = "50%"}
 states_mainland <- dplyr::filter(states, !name %in% c("Alaska", "Hawaii"))
 plot(nlcd)
 plot(states_mainland$geometry, add = TRUE)
@@ -509,7 +509,7 @@ Exercise: [https://mhesselbarth.github.io/advanced-r-workshop/exercise_tidyverse
 
 `r icons::fontawesome("envelope")` [mhessel@umich.edu](mailto:mhessel@umich.edu)
 
-`r icons::fontawesome("globe")` [https://mhesselbarth.rbind.io](https://mhesselbarth.rbind.io)
+`r icons::fontawesome("globe")` [https://www.maxhesselbarth.com](https://www.maxhesselbarth.com)
 
 `r icons::fontawesome("twitter")` [@MHKHesselbarth](https://twitter.com/MHKHesselbarth)
 
