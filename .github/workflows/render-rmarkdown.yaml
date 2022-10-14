@@ -28,7 +28,7 @@ jobs:
 
       - name: Install R dependencies
         run: |
-          Rscript -e 'install.packages(c("cowplot", "downloadthis", "palmerpenguins", "remotes", "rmarkdown", "sf", "terra", "tmap", "tidyverse"))'
+          Rscript -e 'install.packages(c("cowplot", "downloadthis", "palmerpenguins", "remotes", "rmarkdown", "sf", "terra", "tmap", "tidyverse", "xaringan"))'
           Rscript -e 'remotes::install_github("R-CoderDotCom/ggcats@main")'
           
       - name: Render slides
