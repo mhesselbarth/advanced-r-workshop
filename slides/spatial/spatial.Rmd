@@ -339,7 +339,7 @@ background-size: 10%
 --
 
 ```{r fig_vector, echo = FALSE, fig.align= "center", out.width = "50%"}
-knitr::include_graphics("img/vector.jpg")
+knitr::include_graphics("img/vector.png")
 ```
 
 ---
