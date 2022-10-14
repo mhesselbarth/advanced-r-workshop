@@ -2,7 +2,6 @@
 title: spatial
 output:
   xaringan::moon_reader:
-    self_contained: true
     css: xaringan-themer.css
     lib_dir: libs
     seal: false
@@ -44,6 +43,7 @@ library(sf)
 
 library(magrittr)
 library(viridis)
+library(ggplot2)
 ```
 
 class: inverse, center, middle
@@ -69,7 +69,7 @@ background-size: 75%
 
 --
 
-- More complex than just two extra columns (*x, y* coordinates)
+- More complex than just two extra columns (*x,y* coordinates)
 
 --
 
@@ -112,7 +112,7 @@ background-size: 10%
 
 --
 
-- `terra` packages proves `SpatRaster`, `SpatVector` and `SpatExtent` classes
+- `terra` packages provides `SpatRaster`, `SpatVector` and `SpatExtent` classes
 
   .yellow[(successor of formerly `raster` packages)]
 
@@ -207,6 +207,7 @@ background-size: 10%
 
 # `SpatRaster` data
 
+--
 
 .pull-left[
 
@@ -225,6 +226,8 @@ head(terra::as.data.frame(x, xy = TRUE))
 
 ]
 
+--
+
 .pull-right[
 
 - Use **mathematical** calculations with raster cells
@@ -234,6 +237,7 @@ x2 <- x["lyr.1"] + x["lyr.2"]
 
 c(x, x2)
 ```
+
 ]
 
 ---
@@ -242,12 +246,51 @@ background-image: url("img/terra.png")
 background-position: 95% 10%
 background-size: 10%
 
-# Real example `SpatRaster`
+# National Land Cover Dataset
 
-```{r nlcd, eval = FALSE}
-nlcd <- terra::rast("data/nlcd_2019_land_cover_l48_20210604.img")
+- Freely available at [https://www.usgs.gov](https://www.usgs.gov)
 
-(nlcd <- terra::project(nlcd, "epsg:4326"))
+--
+
+.pull-left[
+
+```{r nlcd}
+(nlcd <- terra::rast("data/nlcd_2019.img"))
+```
+
+]
+
+--
+
+.pull-right[
+
+```{r nlcd-plot, echo = FALSE, fig.align = "center", out.width = "75%"}
+plot(nlcd)
+```
+
+]
+
+---
+
+background-image: url("img/terra.png")
+background-position: 95% 10%
+background-size: 10%
+
+# Cropping raster
+
+- Crop to **area of interest**
+
+```{r cropping, fig.align = "center", out.width="50%"}
+bbox <- terra::ext(-84.023438, -83.320313, 42.032974, 42.553080)
+
+raster_crop <- terra::project(terra::rast(bbox), terra::crs(nlcd))
+
+nlcd_crop <- terra::crop(x = nlcd, y = raster_crop) %>% #<<
+  terra::project(y = "epsg:4326")
+```
+
+```{r cropping-plot, echo = FALSE, fig.align="center", out.width="35%"}
+plot(nlcd_crop)
 ```
 
 ---
@@ -256,45 +299,195 @@ background-image: url("img/terra.png")
 background-position: 95% 10%
 background-size: 10%
 
-# Real example `SpatRaster`
+# Reclassification 
 
-```{r nlcd_plot, eval = FALSE, fig.align = "center", out.width = "100%", out.height="100%"}
+- **Re-classify** values using classification matrix
 
-# terra::ext(c(0, 1, 0, 1))
+```{r classificaation}
+class_matrix <- cbind(c(21, 22, 23, 41, 42, 43), 
+                      rep(x = c(1, 2), each = 3))
 
+nlcd_class <- terra::classify(nlcd_crop, rcl = class_matrix, others = NA) #<<
+```
+
+```{r class-plot, echo = FALSE, fig.align="center", out.width="35%"}
+plot(nlcd_class, col = c("1" = "grey", "2" = "#00992a"))
+```
+
+---
+
+background-image: url("img/sf.png")
+background-position: 95% 10%
+background-size: 10%
+
+# Vector data
+
+--
+
+- Based on **points**, **lines**, and **polygons**
+
+--
+
+- Often allows realistic representation of spatial objects
+
+--
+
+- `sf` packages provides main classes: `POINT`, `LINESTRING`, `POLYGON` (and `MULTI*`)
+
+  .yellow[(successor of formerly `sp` packages)]
+
+--
+
+```{r fig_vector, echo = FALSE, fig.align= "center", out.width = "50%"}
+knitr::include_graphics("img/vector.jpg")
+```
+
+---
+
+background-image: url("img/sf.png")
+background-position: 95% 10%
+background-size: 10%
+
+# Read simple features
+
+--
+
+```{r points}
+cities <- sf::st_read("data/cities-mi.shp") %>% 
+  sf::st_transform(crs = terra::crs(nlcd))
+```
+
+--
+
+```{r vector}
+states <- sf::st_read("data/provinces.shp") %>%
+  sf::st_transform(crs = terra::crs(nlcd))
+```
+
+---
+
+background-image: url("img/sf.png")
+background-position: 95% 10%
+background-size: 10%
+
+# simple features
+
+```{r, echo = FALSE}
+cities
+```
+
+---
+
+background-image: url("img/sf.png")
+background-position: 95% 10%
+background-size: 10%
+
+# Work with simple features
+
+- Allow to use `tidyverse` syntax
+
+```{r vector-tidyverse}
+(regions <- dplyr::filter(states, !name %in% c("Alaska", "Hawaii")) %>%
+  dplyr::select(name, region) %>%
+  dplyr::mutate(area_m = as.numeric(sf::st_area(geometry))) %>%
+  dplyr::group_by(region) %>%
+  dplyr::summarise(area_m = sum(area_m), area_km = area_m / 1000000) %>% #<<
+  dplyr::arrange(-area_km))
+```
+
+---
+
+background-image: url("img/sf.png")
+background-position: 95% 10%
+background-size: 10%
+
+# Filter simple features
+
+- Easy to **spatially filter** objects
+
+```{r intersect}
+row_id <- sf::st_intersects(x = states, y = dplyr::filter(cities, type == "City"), #<<
+                            sparse = FALSE)
+
+state_mi <- states[row_id, ] #<<
+```
+
+---
+
+background-image: url("img/sf.png")
+background-position: 95% 10%
+background-size: 10%
+
+# Plotting `sf` objects
+
+.pull-left[
+
+```{r gg, echo = FALSE, fig.align = "center"}
+ggplot() + 
+  geom_sf(data = regions, aes(fill = area_km), alpha = 0.5) + #<<
+  geom_sf(data = state_mi, fill = NA, color = "red") + #<<
+  scale_fill_viridis() +
+  theme_classic()
+```
+
+]
+
+.pull-right[
+
+- Can be plotted with `ggplot2` **geom**
+
+```{r gg_dummy, eval = FALSE}
+ggplot() + 
+  geom_sf(data = regions, aes(fill = area_km), alpha = 0.5) +
+  geom_sf(data = state_mi, fill = NA, color = "red") +
+  scale_fill_viridis() +
+  theme_classic()
+```
+
+]
+---
+
+# raster-vector interactions
+
+- **raster** and **vector** data can be used together
+
+```{r, fig.align = "center", out.width = "55%"}
+states_mainland <- dplyr::filter(states, !name %in% c("Alaska", "Hawaii"))
 plot(nlcd)
+plot(states_mainland$geometry, add = TRUE)
+```
+
+---
+
+# raster-vector interactions (I)
+
+- `crop` cut outs parts using extent
+
+- `mask` changes all values outside the mask
+
+```{r crop-vector, fig.align = "center", out.width = "35%"}
+nlcd_mi <- terra::crop(x = nlcd, y = state_mi) %>% 
+  terra::mask(mask = state_mi)
+```
+
+```{r, echo = FALSE, fig.align = "center", out.width = "35%"}
+plot(nlcd_mi)
+plot(state_mi$geometry, add = TRUE, lwd = 5)
 ```
 
 
-```{r eval = FALSE}
-library(terra)
-library(leaflet)
+---
 
-library(tmap)
+# raster-vector interactions (II)
 
-nlcd <- terra::rast("slides/spatial/data/nlcd_2019_land_cover_l48_20210604.img")
+- `extract` returns raster values at locations of vector object
 
-bbox <- terra::ext(-84.023438, -83.320313, 42.032974, 42.553080)
+```{r extract}
+nlcd_cities <- terra::extract(x = nlcd_mi, 
+                              y = dplyr::filter(cities, type == "Village"), 
+                              cells = TRUE)
 
-ras_box <- terra::rast(bbox, crs = "epsg:4326")
-ras_box <- terra::project(ras_box, y = terra::crs(nlcd))
-
-plot(nlcd)
-plot(terra::ext(ras_box), add = TRUE)
-
-nlcd_crop <- terra::crop(x = nlcd, y = terra::ext(ras_box)) %>% 
-  terra::project(y = "epsg:4326")
-
-plot(nlcd_crop)
-
-# tmap_mode("view")
-tm_shape(nlcd_crop) + 
-  tm_raster(legend.show = T)
-  # tm_basemap("OpenStreetMap.Mapnik") #<<
-
-leaflet() |> addTiles() |> addRasterImage(nlcd_crop)
-
-
+head(nlcd_cities)
 ```
 
 ---
