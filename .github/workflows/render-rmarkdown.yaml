@@ -32,10 +32,12 @@ jobs:
           Rscript -e 'remotes::install_github("R-CoderDotCom/ggcats@main")'
           
       - name: Render slides
-        run: 
+        run: lapply(list.files("slides/", pattern = "*.Rmd", full.names = TRUE, recursive = TRUE), rmarkdown::render)
+        shell: Rscript {0}
 
       - name: Build homepage
-        run: Rscript -e 'rmarkdown::render_site(encoding = "UTF-8")'
+        run: rmarkdown::render_site(encoding = "UTF-8")
+        shell: Rscript {0}
         
       - name: Deploy to GitHub pages 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
