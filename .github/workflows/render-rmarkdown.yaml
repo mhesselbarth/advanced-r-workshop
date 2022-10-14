@@ -28,13 +28,14 @@ jobs:
 
       - name: Install R dependencies
         run: |
-          Rscript -e 'install.packages(c("cowplot", "downloadthis", "palmerpenguins", 
-                                         "remotes", "rmarkdown", "sf", "terra", "tmap", "tidyverse"))'
+          Rscript -e 'install.packages(c("cowplot", "downloadthis", "palmerpenguins", "remotes", "rmarkdown", "sf", "terra", "tmap", "tidyverse"))'
           Rscript -e 'remotes::install_github("R-CoderDotCom/ggcats@main")'
+          
+      - name: Render slides
+        run: 
 
       - name: Build homepage
-        run: rmarkdown::render_site(encoding = "UTF-8")
-        shell: Rscript {0}
+        run: Rscript -e 'rmarkdown::render_site(encoding = "UTF-8")'
         
       - name: Deploy to GitHub pages 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
