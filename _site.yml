@@ -21,7 +21,7 @@ navbar:
           href: slides/ggplot2/ggplot2.html
         - text: "Slides Spatial data"
           icon: fa-television
-          href: slides/spatial/spatial.html
+          href: work-in-progress.html
       href: slides.html
     - text: "Exercises"
       icon: fa-tasks
