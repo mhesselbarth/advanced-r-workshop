@@ -32,6 +32,7 @@ jobs:
                                          "remotes", "rmarkdown", "sf", "terra", "tmap", "tidyverse", 
                                          "viridis", "xaringan", "xaringanthemer"))'
           Rscript -e 'remotes::install_github("R-CoderDotCom/ggcats@main")'
+          Rscript -e 'remotes::install_github("mitchelloharawild/icons")'
           
       - name: Render slides
         run: lapply(list.files("slides/", pattern = "*.Rmd", full.names = TRUE, recursive = TRUE), rmarkdown::render)
