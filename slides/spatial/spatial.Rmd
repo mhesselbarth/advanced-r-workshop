@@ -507,10 +507,10 @@ Exercise: [https://mhesselbarth.github.io/advanced-r-workshop/exercise_tidyverse
 
 .pull-right[
 
-`r icons::fontawesome("envelope")` [mhessel@umich.edu](mailto:mhessel@umich.edu)
+<!-- `r icons::fontawesome("envelope")` [mhessel@umich.edu](mailto:mhessel@umich.edu) -->
 
-`r icons::fontawesome("globe")` [https://mhesselbarth.rbind.io](https://mhesselbarth.rbind.io)
+<!-- `r icons::fontawesome("globe")` [https://mhesselbarth.rbind.io](https://mhesselbarth.rbind.io) -->
 
-`r icons::fontawesome("twitter")` [@MHKHesselbarth](https://twitter.com/MHKHesselbarth)
+<!-- `r icons::fontawesome("twitter")` [@MHKHesselbarth](https://twitter.com/MHKHesselbarth) -->
 
 ]
