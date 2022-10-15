@@ -430,7 +430,14 @@ $(document).ready(function () {
 <pre class="r"><code>library(tidyverse)
 
 library(sf)
-library(terra)</code></pre>
+## Linking to GEOS 3.11.0, GDAL 3.5.2, PROJ 9.0.1; sf_use_s2() is TRUE
+library(terra)
+## terra 1.6.7
+## 
+## Attaching package: &#39;terra&#39;
+## The following object is masked from &#39;package:tidyr&#39;:
+## 
+##     extract</code></pre>
 <p>Next, go to <a
 href="https://www.naturalearthdata.com">https://www.naturalearthdata.com</a>
 and download the “Small scale data, 1:110m” &gt; “Cultural” &gt; “Admin
@@ -451,7 +458,8 @@ is no NLCD data for these states. Next select only the 5 largest states
 in area</p>
 <pre class="r"><code>states_large &lt;- dplyr::filter(states, !name %in% c(&quot;Alaska&quot;, &quot;Hawaii&quot;)) %&gt;% 
   dplyr::mutate(area_m = as.numeric(sf::st_area(geometry))) %&gt;% 
-  dplyr::arrange(-area_m)</code></pre>
+  dplyr::arrange(-area_m) %&gt;% 
+  head(n = 5)</code></pre>
 <p>First plot the NLCD data and add the largest states to the map. Try
 to use the region as shape fill.</p>
 <pre class="r"><code>plot(nlcd)

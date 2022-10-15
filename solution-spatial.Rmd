@@ -57,7 +57,8 @@ Next, remove Alaska and Hawaii from the states vector because there is no NLCD d
 ```{r states_size}
 states_large <- dplyr::filter(states, !name %in% c("Alaska", "Hawaii")) %>% 
   dplyr::mutate(area_m = as.numeric(sf::st_area(geometry))) %>% 
-  dplyr::arrange(-area_m)
+  dplyr::arrange(-area_m) %>% 
+  head(n = 5)
 ```
 
 First plot the NLCD data and add the largest states to the map. Try to use the region as shape fill.
