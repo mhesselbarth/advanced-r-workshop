@@ -11,7 +11,7 @@
 
 <meta name="author" content="Maximilian H.K. Hesselbarth" />
 
-<meta name="date" content="2022-03-25" />
+<meta name="date" content="2022-10-15" />
 
 <title>Solution Using the tidyverse</title>
 
@@ -414,7 +414,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Solution <em>Using the tidyverse</em></h1>
 <h4 class="author">Maximilian H.K. Hesselbarth</h4>
-<h4 class="date">2022-03-25</h4>
+<h4 class="date">2022-10-15</h4>
 
 </div>
 
@@ -440,23 +440,23 @@ the corresponding help page (<code>?</code> or F1).</p>
 ## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;
 str(penguins_raw)
 ## tibble [344 × 17] (S3: tbl_df/tbl/data.frame)
-##  $ studyname        : chr [1:344] &quot;PAL0708&quot; &quot;PAL0708&quot; &quot;PAL0708&quot; &quot;PAL0708&quot; ...
-##  $ sample_number    : num [1:344] 1 2 3 4 5 6 7 8 9 10 ...
-##  $ species          : chr [1:344] &quot;Adelie Penguin (Pygoscelis adeliae)&quot; &quot;Adelie Penguin (Pygoscelis adeliae)&quot; &quot;Adelie Penguin (Pygoscelis adeliae)&quot; &quot;Adelie Penguin (Pygoscelis adeliae)&quot; ...
-##  $ region           : chr [1:344] &quot;Anvers&quot; &quot;Anvers&quot; &quot;Anvers&quot; &quot;Anvers&quot; ...
-##  $ island           : chr [1:344] &quot;Torgersen&quot; &quot;Torgersen&quot; &quot;Torgersen&quot; &quot;Torgersen&quot; ...
-##  $ stage            : chr [1:344] &quot;Adult, 1 Egg Stage&quot; &quot;Adult, 1 Egg Stage&quot; &quot;Adult, 1 Egg Stage&quot; &quot;Adult, 1 Egg Stage&quot; ...
-##  $ individual_id    : chr [1:344] &quot;N1A1&quot; &quot;N1A2&quot; &quot;N2A1&quot; &quot;N2A2&quot; ...
-##  $ clutch_completion: chr [1:344] &quot;Yes&quot; &quot;Yes&quot; &quot;Yes&quot; &quot;Yes&quot; ...
-##  $ date_egg         : Date[1:344], format: &quot;2007-11-11&quot; &quot;2007-11-11&quot; ...
-##  $ culmen_length    : num [1:344] 39.1 39.5 40.3 NA 36.7 39.3 38.9 39.2 34.1 42 ...
-##  $ culmen_depth     : num [1:344] 18.7 17.4 18 NA 19.3 20.6 17.8 19.6 18.1 20.2 ...
-##  $ flipper_length   : num [1:344] 181 186 195 NA 193 190 181 195 193 190 ...
-##  $ body_mass        : num [1:344] 3750 3800 3250 NA 3450 ...
-##  $ sex              : chr [1:344] &quot;MALE&quot; &quot;FEMALE&quot; &quot;FEMALE&quot; NA ...
-##  $ delta_15_n       : num [1:344] NA 8.95 8.37 NA 8.77 ...
-##  $ delta_13_c       : num [1:344] NA -24.7 -25.3 NA -25.3 ...
-##  $ comments         : chr [1:344] &quot;Not enough blood for isotopes.&quot; NA NA &quot;Adult not sampled.&quot; ...
+##  $ studyName          : chr [1:344] &quot;PAL0708&quot; &quot;PAL0708&quot; &quot;PAL0708&quot; &quot;PAL0708&quot; ...
+##  $ Sample Number      : num [1:344] 1 2 3 4 5 6 7 8 9 10 ...
+##  $ Species            : chr [1:344] &quot;Adelie Penguin (Pygoscelis adeliae)&quot; &quot;Adelie Penguin (Pygoscelis adeliae)&quot; &quot;Adelie Penguin (Pygoscelis adeliae)&quot; &quot;Adelie Penguin (Pygoscelis adeliae)&quot; ...
+##  $ Region             : chr [1:344] &quot;Anvers&quot; &quot;Anvers&quot; &quot;Anvers&quot; &quot;Anvers&quot; ...
+##  $ Island             : chr [1:344] &quot;Torgersen&quot; &quot;Torgersen&quot; &quot;Torgersen&quot; &quot;Torgersen&quot; ...
+##  $ Stage              : chr [1:344] &quot;Adult, 1 Egg Stage&quot; &quot;Adult, 1 Egg Stage&quot; &quot;Adult, 1 Egg Stage&quot; &quot;Adult, 1 Egg Stage&quot; ...
+##  $ Individual ID      : chr [1:344] &quot;N1A1&quot; &quot;N1A2&quot; &quot;N2A1&quot; &quot;N2A2&quot; ...
+##  $ Clutch Completion  : chr [1:344] &quot;Yes&quot; &quot;Yes&quot; &quot;Yes&quot; &quot;Yes&quot; ...
+##  $ Date Egg           : Date[1:344], format: &quot;2007-11-11&quot; &quot;2007-11-11&quot; ...
+##  $ Culmen Length (mm) : num [1:344] 39.1 39.5 40.3 NA 36.7 39.3 38.9 39.2 34.1 42 ...
+##  $ Culmen Depth (mm)  : num [1:344] 18.7 17.4 18 NA 19.3 20.6 17.8 19.6 18.1 20.2 ...
+##  $ Flipper Length (mm): num [1:344] 181 186 195 NA 193 190 181 195 193 190 ...
+##  $ Body Mass (g)      : num [1:344] 3750 3800 3250 NA 3450 ...
+##  $ Sex                : chr [1:344] &quot;MALE&quot; &quot;FEMALE&quot; &quot;FEMALE&quot; NA ...
+##  $ Delta 15 N (o/oo)  : num [1:344] NA 8.95 8.37 NA 8.77 ...
+##  $ Delta 13 C (o/oo)  : num [1:344] NA -24.7 -25.3 NA -25.3 ...
+##  $ Comments           : chr [1:344] &quot;Not enough blood for isotopes.&quot; NA NA &quot;Adult not sampled.&quot; ...
 ##  - attr(*, &quot;spec&quot;)=
 ##   .. cols(
 ##   ..   studyName = col_character(),
@@ -478,11 +478,12 @@ str(penguins_raw)
 ##   ..   Comments = col_character()
 ##   .. )
 names(penguins_raw)
-##  [1] &quot;studyname&quot;         &quot;sample_number&quot;     &quot;species&quot;           &quot;region&quot;           
-##  [5] &quot;island&quot;            &quot;stage&quot;             &quot;individual_id&quot;     &quot;clutch_completion&quot;
-##  [9] &quot;date_egg&quot;          &quot;culmen_length&quot;     &quot;culmen_depth&quot;      &quot;flipper_length&quot;   
-## [13] &quot;body_mass&quot;         &quot;sex&quot;               &quot;delta_15_n&quot;        &quot;delta_13_c&quot;       
-## [17] &quot;comments&quot;
+##  [1] &quot;studyName&quot;           &quot;Sample Number&quot;       &quot;Species&quot;            
+##  [4] &quot;Region&quot;              &quot;Island&quot;              &quot;Stage&quot;              
+##  [7] &quot;Individual ID&quot;       &quot;Clutch Completion&quot;   &quot;Date Egg&quot;           
+## [10] &quot;Culmen Length (mm)&quot;  &quot;Culmen Depth (mm)&quot;   &quot;Flipper Length (mm)&quot;
+## [13] &quot;Body Mass (g)&quot;       &quot;Sex&quot;                 &quot;Delta 15 N (o/oo)&quot;  
+## [16] &quot;Delta 13 C (o/oo)&quot;   &quot;Comments&quot;
 ?penguins_raw</code></pre>
 <p>Next, for easier data handling, clean the column names by removing
 all special characters (e.g., brackets, units, …) and replacing all
@@ -533,35 +534,35 @@ one <code>tibble</code> using <code>sex</code> and <code>sex_new</code>
 as ID columns.</p>
 <pre class="r"><code>dplyr::left_join(penguins, penguings_sum, by = c(&quot;sex&quot; = &quot;sex_new&quot;))
 ## # A tibble: 344 × 12
-##    species island    bill_le…¹ bill_…² flipp…³ body_…⁴ sex    year culme…⁵ n_rel ratio…⁶
-##    &lt;fct&gt;   &lt;fct&gt;         &lt;dbl&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt; &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-##  1 Adelie  Torgersen      39.1    18.7     181    3750 male   2007       1  9.64    2.77
-##  2 Adelie  Torgersen      39.5    17.4     186    3800 fema…  2007       2 16.3     2.76
-##  3 Adelie  Torgersen      40.3    18       195    3250 fema…  2007       2 16.3     2.76
-##  4 Adelie  Torgersen      NA      NA        NA      NA &lt;NA&gt;   2007      NA NA      NA   
-##  5 Adelie  Torgersen      36.7    19.3     193    3450 fema…  2007       2 16.3     2.76
-##  6 Adelie  Torgersen      39.3    20.6     190    3650 male   2007       1  9.64    2.77
-##  7 Adelie  Torgersen      38.9    17.8     181    3625 fema…  2007       2 16.3     2.76
-##  8 Adelie  Torgersen      39.2    19.6     195    4675 male   2007       1  9.64    2.77
-##  9 Adelie  Torgersen      34.1    18.1     193    3475 &lt;NA&gt;   2007      NA NA      NA   
-## 10 Adelie  Torgersen      42      20.2     190    4250 &lt;NA&gt;   2007      NA NA      NA   
+##    species island    bill_l…¹ bill_…² flipp…³ body_…⁴ sex    year culme…⁵ n_rel ratio…⁶
+##    &lt;fct&gt;   &lt;fct&gt;        &lt;dbl&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt; &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+##  1 Adelie  Torgersen     39.1    18.7     181    3750 male   2007       1  9.64    2.77
+##  2 Adelie  Torgersen     39.5    17.4     186    3800 fema…  2007       2 16.3     2.76
+##  3 Adelie  Torgersen     40.3    18       195    3250 fema…  2007       2 16.3     2.76
+##  4 Adelie  Torgersen     NA      NA        NA      NA &lt;NA&gt;   2007      NA NA      NA   
+##  5 Adelie  Torgersen     36.7    19.3     193    3450 fema…  2007       2 16.3     2.76
+##  6 Adelie  Torgersen     39.3    20.6     190    3650 male   2007       1  9.64    2.77
+##  7 Adelie  Torgersen     38.9    17.8     181    3625 fema…  2007       2 16.3     2.76
+##  8 Adelie  Torgersen     39.2    19.6     195    4675 male   2007       1  9.64    2.77
+##  9 Adelie  Torgersen     34.1    18.1     193    3475 &lt;NA&gt;   2007      NA NA      NA   
+## 10 Adelie  Torgersen     42      20.2     190    4250 &lt;NA&gt;   2007      NA NA      NA   
 ## # … with 334 more rows, 1 more variable: ratio_max &lt;dbl&gt;, and abbreviated variable
 ## #   names ¹​bill_length_mm, ²​bill_depth_mm, ³​flipper_length_mm, ⁴​body_mass_g,
 ## #   ⁵​culmen_class, ⁶​ratio_min
 dplyr::right_join(penguins, penguings_sum, by = c(&quot;sex&quot; = &quot;sex_new&quot;))
 ## # A tibble: 334 × 12
-##    species island    bill_le…¹ bill_…² flipp…³ body_…⁴ sex    year culme…⁵ n_rel ratio…⁶
-##    &lt;fct&gt;   &lt;fct&gt;         &lt;dbl&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt; &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-##  1 Adelie  Torgersen      39.1    18.7     181    3750 male   2007       1  9.64    2.77
-##  2 Adelie  Torgersen      39.5    17.4     186    3800 fema…  2007       2 16.3     2.76
-##  3 Adelie  Torgersen      40.3    18       195    3250 fema…  2007       2 16.3     2.76
-##  4 Adelie  Torgersen      36.7    19.3     193    3450 fema…  2007       2 16.3     2.76
-##  5 Adelie  Torgersen      39.3    20.6     190    3650 male   2007       1  9.64    2.77
-##  6 Adelie  Torgersen      38.9    17.8     181    3625 fema…  2007       2 16.3     2.76
-##  7 Adelie  Torgersen      39.2    19.6     195    4675 male   2007       1  9.64    2.77
-##  8 Adelie  Torgersen      41.1    17.6     182    3200 fema…  2007       2 16.3     2.76
-##  9 Adelie  Torgersen      38.6    21.2     191    3800 male   2007       1  9.64    2.77
-## 10 Adelie  Torgersen      34.6    21.1     198    4400 male   2007       1  9.64    2.77
+##    species island    bill_l…¹ bill_…² flipp…³ body_…⁴ sex    year culme…⁵ n_rel ratio…⁶
+##    &lt;fct&gt;   &lt;fct&gt;        &lt;dbl&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt; &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+##  1 Adelie  Torgersen     39.1    18.7     181    3750 male   2007       1  9.64    2.77
+##  2 Adelie  Torgersen     39.5    17.4     186    3800 fema…  2007       2 16.3     2.76
+##  3 Adelie  Torgersen     40.3    18       195    3250 fema…  2007       2 16.3     2.76
+##  4 Adelie  Torgersen     36.7    19.3     193    3450 fema…  2007       2 16.3     2.76
+##  5 Adelie  Torgersen     39.3    20.6     190    3650 male   2007       1  9.64    2.77
+##  6 Adelie  Torgersen     38.9    17.8     181    3625 fema…  2007       2 16.3     2.76
+##  7 Adelie  Torgersen     39.2    19.6     195    4675 male   2007       1  9.64    2.77
+##  8 Adelie  Torgersen     41.1    17.6     182    3200 fema…  2007       2 16.3     2.76
+##  9 Adelie  Torgersen     38.6    21.2     191    3800 male   2007       1  9.64    2.77
+## 10 Adelie  Torgersen     34.6    21.1     198    4400 male   2007       1  9.64    2.77
 ## # … with 324 more rows, 1 more variable: ratio_max &lt;dbl&gt;, and abbreviated variable
 ## #   names ¹​bill_length_mm, ²​bill_depth_mm, ³​flipper_length_mm, ⁴​body_mass_g,
 ## #   ⁵​culmen_class, ⁶​ratio_min</code></pre>

@@ -1,5 +1,6 @@
 ---
 title: "Work in Progress"
+date: "`r Sys.Date()`"
 ---
 
 Work in progress - please check back soon!

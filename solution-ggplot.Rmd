@@ -1,7 +1,7 @@
 ---
 title: "Solution _Data visualization using ggplot2_"
 author: "Maximilian H.K. Hesselbarth"
-date: "2022-03-25"
+date: "`r Sys.Date()`"
 editor_options: 
   chunk_output_type: console
 ---
@@ -141,4 +141,3 @@ ggplot(df) + geom_cat(aes(x = x, y = y, cat = img), size = 2.5) +
   labs(x = "Number of cats", y = "Having a good time") + 
   theme_classic()
 ```
-

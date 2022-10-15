@@ -9,7 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Maximilian H.K. Hesselbarth" />
 
+<meta name="date" content="2022-10-15" />
 
 <title>Solution Spatial data</title>
 
@@ -411,14 +413,78 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Solution <em>Spatial data</em></h1>
+<h4 class="author">Maximilian H.K. Hesselbarth</h4>
+<h4 class="date">2022-10-15</h4>
 
 </div>
 
 
+<p><img src="img/sf.png" width="65%" style="display: block; margin: auto;" /></p>
 <a href="https://raw.githubusercontent.com/mhesselbarth/advanced-r-workshop/main/solution_spatial.Rmd">
 <button class="btn btn-danger"><i class="fa fa-save"></i> Download .Rmd file</button>
 </a>
-<p>…Work-in-Progress…</p>
+<p><br><br></p>
+<p>Make sure you can install and load all packages. This includes
+<code>terra</code> and <code>sf</code>, but also the
+<code>tidyverse</code>.</p>
+<pre class="r"><code>library(tidyverse)
+
+library(sf)
+library(terra)</code></pre>
+<p>Next, go to <a
+href="https://www.naturalearthdata.com">https://www.naturalearthdata.com</a>
+and download the “Small scale data, 1:110m” &gt; “Cultural” &gt; “Admin
+1 – States, Provinces” data set. Additionally, download the “NLCD 2019
+Land Cover (CONUS)” data set from <a
+href="https://www.mrlc.gov">https://www.mrlc.gov</a>.</p>
+<p>Once you downloaded all the data, read it into your R Session using
+the corresponding packages.</p>
+<pre class="r"><code>states &lt;- sf::read_sf(&quot;slides/spatial/data/provinces.shp&quot;)
+
+nlcd &lt;- terra::rast(&quot;slides/spatial/data/nlcd_2019.img&quot;)</code></pre>
+<p>Make sure both the vector and the raster data have the same CRS
+(Hint: It’s often faster to project vectors instead of raster. If
+projecting the raster, have a look at the ‘method’ argument).</p>
+<pre class="r"><code>states &lt;- sf::st_transform(x = states, crs = terra::crs(nlcd))</code></pre>
+<p>Next, remove Alaska and Hawaii from the states vector because there
+is no NLCD data for these states. Next select only the 5 largest states
+in area</p>
+<pre class="r"><code>states_large &lt;- dplyr::filter(states, !name %in% c(&quot;Alaska&quot;, &quot;Hawaii&quot;)) %&gt;% 
+  dplyr::mutate(area_m = as.numeric(sf::st_area(geometry))) %&gt;% 
+  dplyr::arrange(-area_m)</code></pre>
+<p>First plot the NLCD data and add the largest states to the map. Try
+to use the region as shape fill.</p>
+<pre class="r"><code>plot(nlcd)
+
+plot(states_large[&quot;region&quot;], add = TRUE)</code></pre>
+<p><img src="solution-spatial_files/figure-html/plot-1.png" width="672" /></p>
+<p>Now, pick one state (your home state, a state you recently visited, a
+state you want to visit, …) and get the NLCD data for that state
+only.</p>
+<pre class="r"><code>kansas &lt;- dplyr::filter(states, name == &quot;Kansas&quot;)
+
+nlcd_kansas &lt;- terra::crop(x = nlcd, y = kansas) %&gt;% 
+  terra::mask(mask = kansas)</code></pre>
+<p>Next, get all values of the cropped NLCD data and remove all
+<code>NA</code> and <code>NaN</code> values. Calculate the relative
+amount of all remaining values. Which one is the most dominant
+land-cover class in your state?</p>
+<pre class="r"><code>values_kansas &lt;- terra::values(nlcd_kansas)
+
+values_kansas &lt;- values_kansas[is.finite(values_kansas)]
+
+rel_classes &lt;- sort((table(values_kansas) / length(values_kansas)) * 100, 
+                    decreasing = TRUE)</code></pre>
+<p>Last, try to reclassify the raster into less classes (e.g., use the
+bigger classification found at<a
+href="https://www.mrlc.gov/data/legends/national-land-cover-database-class-legend-and-description">NLCD
+classes</a>)</p>
+<pre class="r"><code>classes_present &lt;- names(rel_classes)
+
+class_mat &lt;- cbind(as.numeric(classes_present), 
+                   as.numeric(stringr::str_sub(classes_present, start = 1, end = 1)))
+
+kansas_reclass &lt;- terra::classify(x = nlcd_kansas, rcl = class_mat)</code></pre>
 
 
 

@@ -169,8 +169,8 @@ vals &lt;- seq(from = 0, to = 1, length.out = terra::nrow(x)) %&gt;%
 ## sources     : memory  
 ##               memory  
 ## names       :     lyr.1,      lyr.2 
-## min values  : 0.0000000, -0.9774935 
-## max values  : 0.9774935,  0.0000000
+## min values  : 0.0000000, -0.9833264 
+## max values  : 0.9833264,  0.0000000
 ```
 ]
 
@@ -207,23 +207,23 @@ terra::as.data.frame(x, xy = TRUE)
 
 
 ```
-##           lyr.1       lyr.2
-## [1,] 0.00000000  0.00000000
-## [2,] 0.01126963 -0.01126963
-## [3,] 0.02291781 -0.02291781
-## [4,] 0.04101968 -0.04101968
-## [5,] 0.03334345 -0.03334345
-## [6,] 0.04878928 -0.04878928
+##            lyr.1        lyr.2
+## [1,] 0.000000000  0.000000000
+## [2,] 0.003823898 -0.003823898
+## [3,] 0.003912146 -0.003912146
+## [4,] 0.034855621 -0.034855621
+## [5,] 0.047909501 -0.047909501
+## [6,] 0.004831926 -0.004831926
 ```
 
 ```
-##     x  y      lyr.1       lyr.2
-## 1 -49 49 0.00000000  0.00000000
-## 2 -47 49 0.01126963 -0.01126963
-## 3 -45 49 0.02291781 -0.02291781
-## 4 -43 49 0.04101968 -0.04101968
-## 5 -41 49 0.03334345 -0.03334345
-## 6 -39 49 0.04878928 -0.04878928
+##     x  y       lyr.1        lyr.2
+## 1 -49 49 0.000000000  0.000000000
+## 2 -47 49 0.003823898 -0.003823898
+## 3 -45 49 0.003912146 -0.003912146
+## 4 -43 49 0.034855621 -0.034855621
+## 5 -41 49 0.047909501 -0.047909501
+## 6 -39 49 0.004831926 -0.004831926
 ```
 
 ]
@@ -251,8 +251,8 @@ c(x, x2)
 ##               memory  
 ##               memory  
 ## names       :     lyr.1,      lyr.2, lyr.1 
-## min values  : 0.0000000, -0.9774935,     0 
-## max values  : 0.9774935,  0.0000000,     0
+## min values  : 0.0000000, -0.9833264,     0 
+## max values  : 0.9833264,  0.0000000,     0
 ```
 
 ]
@@ -296,7 +296,7 @@ background-size: 10%
 
 .pull-right[
 
-&lt;img src="spatial_files/figure-html/nlcd-plot-1.png" width="75%" style="display: block; margin: auto;" /&gt;
+&lt;img src="spatial_files/figure-html/plot_nlcd-1.png" width="75%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -320,7 +320,7 @@ raster_crop &lt;- terra::project(terra::rast(bbox), terra::crs(nlcd))
   terra::project(y = "epsg:4326")
 ```
 
-&lt;img src="spatial_files/figure-html/cropping-plot-1.png" width="35%" style="display: block; margin: auto;" /&gt;
+&lt;img src="spatial_files/figure-html/cropping_plot-1.png" width="35%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -340,7 +340,7 @@ class_matrix &lt;- cbind(c(21, 22, 23, 41, 42, 43),
 *nlcd_class &lt;- terra::classify(nlcd_crop, rcl = class_matrix, others = NA)
 ```
 
-&lt;img src="spatial_files/figure-html/class-plot-1.png" width="35%" style="display: block; margin: auto;" /&gt;
+&lt;img src="spatial_files/figure-html/class_plot-1.png" width="35%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -517,7 +517,7 @@ background-size: 10%
 
 .pull-left[
 
-&lt;img src="spatial_files/figure-html/gg-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="spatial_files/figure-html/gg_sf-1.png" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -548,7 +548,7 @@ plot(nlcd)
 plot(states_mainland$geometry, add = TRUE)
 ```
 
-&lt;img src="spatial_files/figure-html/unnamed-chunk-2-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="spatial_files/figure-html/plot_vec_ras-1.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -564,7 +564,7 @@ nlcd_mi &lt;- terra::crop(x = nlcd, y = state_mi) %&gt;%
   terra::mask(mask = state_mi)
 ```
 
-&lt;img src="spatial_files/figure-html/unnamed-chunk-3-1.png" width="35%" style="display: block; margin: auto;" /&gt;
+&lt;img src="spatial_files/figure-html/plot_crop-1.png" width="35%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -578,7 +578,6 @@ nlcd_mi &lt;- terra::crop(x = nlcd, y = state_mi) %&gt;%
 nlcd_cities &lt;- terra::extract(x = nlcd_mi, 
                               y = dplyr::filter(cities, type == "Village"), 
                               cells = TRUE)
-
 head(nlcd_cities)
 ```
 

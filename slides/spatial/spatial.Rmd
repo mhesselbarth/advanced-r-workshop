@@ -143,7 +143,7 @@ background-size: 10%
 
 --
 
-```{r rast}
+```{r create_rast}
 (x <- terra::rast(nrow = 50, ncol = 50, xmin = -50, xmax = 50, ymin = -50, ymax = 50, 
                   crs = NA))
 ```
@@ -253,7 +253,7 @@ background-size: 10%
 
 .pull-left[
 
-```{r nlcd}
+```{r import_nlcd}
 (nlcd <- terra::rast("data/nlcd_2019.img"))
 ```
 
@@ -263,7 +263,7 @@ background-size: 10%
 
 .pull-right[
 
-```{r nlcd-plot, echo = FALSE, fig.align = "center", out.width = "75%"}
+```{r plot_nlcd, echo = FALSE, fig.align = "center", out.width = "75%"}
 plot(nlcd)
 ```
 
@@ -288,7 +288,7 @@ nlcd_crop <- terra::crop(x = nlcd, y = raster_crop) %>% #<<
   terra::project(y = "epsg:4326")
 ```
 
-```{r cropping-plot, echo = FALSE, fig.align="center", out.width="35%"}
+```{r cropping_plot, echo = FALSE, fig.align="center", out.width="35%"}
 plot(nlcd_crop)
 ```
 
@@ -302,14 +302,14 @@ background-size: 10%
 
 - **Re-classify** values using classification matrix
 
-```{r classificaation}
+```{r classification}
 class_matrix <- cbind(c(21, 22, 23, 41, 42, 43), 
                       rep(x = c(1, 2), each = 3))
 
 nlcd_class <- terra::classify(nlcd_crop, rcl = class_matrix, others = NA) #<<
 ```
 
-```{r class-plot, echo = FALSE, fig.align="center", out.width="35%"}
+```{r class_plot, echo = FALSE, fig.align="center", out.width="35%"}
 plot(nlcd_class, col = c("1" = "grey", "2" = "#00992a"))
 ```
 
@@ -351,14 +351,14 @@ background-size: 10%
 
 --
 
-```{r points}
+```{r read_cities}
 cities <- sf::st_read("data/cities-mi.shp") %>% 
   sf::st_transform(crs = terra::crs(nlcd))
 ```
 
 --
 
-```{r vector}
+```{r read_states}
 states <- sf::st_read("data/provinces.shp") %>%
   sf::st_transform(crs = terra::crs(nlcd))
 ```
@@ -371,7 +371,7 @@ background-size: 10%
 
 # simple features
 
-```{r, echo = FALSE}
+```{r print_sf, echo = FALSE}
 cities
 ```
 
@@ -385,7 +385,7 @@ background-size: 10%
 
 - Allow to use `tidyverse` syntax
 
-```{r vector-tidyverse}
+```{r sf_tidyverse}
 (regions <- dplyr::filter(states, !name %in% c("Alaska", "Hawaii")) %>%
   dplyr::select(name, region) %>%
   dplyr::mutate(area_m = as.numeric(sf::st_area(geometry))) %>%
@@ -421,7 +421,7 @@ background-size: 10%
 
 .pull-left[
 
-```{r gg, echo = FALSE, fig.align = "center"}
+```{r gg_sf, echo = FALSE, fig.align = "center"}
 ggplot() + 
   geom_sf(data = regions, aes(fill = area_km), alpha = 0.5) + #<<
   geom_sf(data = state_mi, fill = NA, color = "red") + #<<
@@ -435,7 +435,7 @@ ggplot() +
 
 - Can be plotted with `ggplot2` **geom**
 
-```{r gg_dummy, eval = FALSE}
+```{r gg_sf_dummy, eval = FALSE}
 ggplot() + 
   geom_sf(data = regions, aes(fill = area_km), alpha = 0.5) +
   geom_sf(data = state_mi, fill = NA, color = "red") +
@@ -450,7 +450,7 @@ ggplot() +
 
 - **raster** and **vector** data can be used together
 
-```{r, fig.align = "center", out.width = "50%"}
+```{r plot_vec_ras, fig.align = "center", out.width = "50%"}
 states_mainland <- dplyr::filter(states, !name %in% c("Alaska", "Hawaii"))
 plot(nlcd)
 plot(states_mainland$geometry, add = TRUE)
@@ -464,12 +464,12 @@ plot(states_mainland$geometry, add = TRUE)
 
 - `mask` changes all values outside the mask
 
-```{r crop-vector, fig.align = "center", out.width = "35%"}
+```{r crop_vector, fig.align = "center", out.width = "35%"}
 nlcd_mi <- terra::crop(x = nlcd, y = state_mi) %>% 
   terra::mask(mask = state_mi)
 ```
 
-```{r, echo = FALSE, fig.align = "center", out.width = "35%"}
+```{r plot_crop, echo = FALSE, fig.align = "center", out.width = "35%"}
 plot(nlcd_mi)
 plot(state_mi$geometry, add = TRUE, lwd = 5)
 ```
@@ -485,7 +485,6 @@ plot(state_mi$geometry, add = TRUE, lwd = 5)
 nlcd_cities <- terra::extract(x = nlcd_mi, 
                               y = dplyr::filter(cities, type == "Village"), 
                               cells = TRUE)
-
 head(nlcd_cities)
 ```
 
