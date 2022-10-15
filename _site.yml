@@ -34,7 +34,7 @@ navbar:
           href: exercise-ggplot.html
         - text: "Exercises Spatial data"
           icon: fa-tasks
-          href: work-in-progress.html
+          href: exercise-spatial.html
     - text: "Solutions"
       icon: fa-check
       menu:
@@ -46,7 +46,7 @@ navbar:
           href: solution-ggplot.html
         - text: "Solution Spatial data"
           icon: fa-clipboard-check
-          href: work-in-progress.html
+          href: solution-spatial.html
     - text: "Resources"
       icon: fa-book
       href: resources.html
