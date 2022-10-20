@@ -1,7 +1,7 @@
 ---
 title: "Further resources"
 author: "Maximilian H.K. Hesselbarth"
-date: "`r Sys.Date()`"
+date: 2022/10/24
 ---
 
 This is a collection of my favorite resources. They are all online and freely available (even though for some book copies can be purchased). If you have a good resource currently not listed, please feel free to [contact me](mailto:mhessel@umich.edu).

@@ -11,7 +11,6 @@
 
 <meta name="author" content="Maximilian H.K. Hesselbarth" />
 
-<meta name="date" content="2022-10-19" />
 
 <title>Solution Spatial data</title>
 
@@ -407,7 +406,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Solution <em>Spatial data</em></h1>
 <h4 class="author">Maximilian H.K. Hesselbarth</h4>
-<h4 class="date">2022-10-19</h4>
+<h4 class="date">2022/10/24</h4>
 
 </div>
 
@@ -430,7 +429,10 @@ library(terra)
 ## Attaching package: &#39;terra&#39;
 ## The following object is masked from &#39;package:tidyr&#39;:
 ## 
-##     extract</code></pre>
+##     extract
+## The following objects are masked from &#39;package:magrittr&#39;:
+## 
+##     extract, inset</code></pre>
 <p>Next, go to <a
 href="https://www.naturalearthdata.com">https://www.naturalearthdata.com</a>
 and download the “Small scale data, 1:110m” &gt; “Cultural” &gt; “Admin
@@ -449,9 +451,9 @@ projecting the raster, have a look at the ‘method’ argument).</p>
 <p>Next, remove Alaska and Hawaii from the states vector because there
 is no NLCD data for these states. Next select only the 5 largest states
 in area</p>
-<pre class="r"><code>states_large &lt;- dplyr::filter(states, !name %in% c(&quot;Alaska&quot;, &quot;Hawaii&quot;)) %&gt;% 
-  dplyr::mutate(area_m = as.numeric(sf::st_area(geometry))) %&gt;% 
-  dplyr::arrange(-area_m) %&gt;% 
+<pre class="r"><code>states_large &lt;- dplyr::filter(states, !name %in% c(&quot;Alaska&quot;, &quot;Hawaii&quot;)) |&gt; 
+  dplyr::mutate(area_m = as.numeric(sf::st_area(geometry))) |&gt; 
+  dplyr::arrange(-area_m) |&gt; 
   head(n = 5)</code></pre>
 <p>First plot the NLCD data and add the largest states to the map. Try
 to use the region as shape fill.</p>
@@ -464,7 +466,7 @@ state you want to visit, …) and get the NLCD data for that state
 only.</p>
 <pre class="r"><code>kansas &lt;- dplyr::filter(states, name == &quot;Kansas&quot;)
 
-nlcd_kansas &lt;- terra::crop(x = nlcd, y = kansas) %&gt;% 
+nlcd_kansas &lt;- terra::crop(x = nlcd, y = kansas) |&gt; 
   terra::mask(mask = kansas)</code></pre>
 <p>Next, get all values of the cropped NLCD data and remove all
 <code>NA</code> and <code>NaN</code> values. Calculate the relative

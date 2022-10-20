@@ -1,6 +1,6 @@
 ---
 title: "Work in Progress"
-date: "`r Sys.Date()`"
+date: 2022/10/24
 ---
 
 Work in progress - please check back soon!

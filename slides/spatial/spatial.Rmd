@@ -56,7 +56,7 @@ background-size: 75%
 
 #### University of Michigan (EEB)
 
-2022-03-25
+2022/10/24
 
 ---
 
@@ -171,9 +171,8 @@ background-size: 10%
 - Adding **values** and **information**
 
 ```{r add_values}
-vals <- seq(from = 0, to = 1, length.out = terra::nrow(x)) %>% 
-  rep(times = terra::ncol(x)) %>% 
-  magrittr::multiply_by(runif(n = terra::ncell(x)))
+vals <- runif(n = terra::nrow(x) * 
+                terra::ncol(x))
 
 terra::values(x) <- vals #<<
 x$lyr.2 <- vals * -1 #<<
@@ -284,7 +283,7 @@ bbox <- terra::ext(-84.023438, -83.320313, 42.032974, 42.553080)
 
 raster_crop <- terra::project(terra::rast(bbox), terra::crs(nlcd))
 
-nlcd_crop <- terra::crop(x = nlcd, y = raster_crop) %>% #<<
+nlcd_crop <- terra::crop(x = nlcd, y = raster_crop) |> #<<
   terra::project(y = "epsg:4326")
 ```
 
@@ -352,14 +351,14 @@ background-size: 10%
 --
 
 ```{r read_cities}
-cities <- sf::st_read("data/cities-mi.shp") %>% 
+cities <- sf::st_read("data/cities-mi.shp") |> 
   sf::st_transform(crs = terra::crs(nlcd))
 ```
 
 --
 
 ```{r read_states}
-states <- sf::st_read("data/provinces.shp") %>%
+states <- sf::st_read("data/provinces.shp") |>
   sf::st_transform(crs = terra::crs(nlcd))
 ```
 
@@ -386,11 +385,11 @@ background-size: 10%
 - Allow to use `tidyverse` syntax
 
 ```{r sf_tidyverse}
-(regions <- dplyr::filter(states, !name %in% c("Alaska", "Hawaii")) %>%
-  dplyr::select(name, region) %>%
-  dplyr::mutate(area_m = as.numeric(sf::st_area(geometry))) %>%
-  dplyr::group_by(region) %>%
-  dplyr::summarise(area_m = sum(area_m), area_km = area_m / 1000000) %>% #<<
+(regions <- dplyr::filter(states, !name %in% c("Alaska", "Hawaii")) |>
+  dplyr::select(name, region) |>
+  dplyr::mutate(area_m = as.numeric(sf::st_area(geometry))) |>
+  dplyr::group_by(region) |>
+  dplyr::summarise(area_m = sum(area_m), area_km = area_m / 1000000) |> #<<
   dplyr::arrange(-area_km))
 ```
 
@@ -450,7 +449,7 @@ ggplot() +
 
 - **raster** and **vector** data can be used together
 
-```{r plot_vec_ras, fig.align = "center", out.width = "50%"}
+```{r plot_vec_ras, fig.align = "center", out.width = "45%"}
 states_mainland <- dplyr::filter(states, !name %in% c("Alaska", "Hawaii"))
 plot(nlcd)
 plot(states_mainland$geometry, add = TRUE)
@@ -465,7 +464,7 @@ plot(states_mainland$geometry, add = TRUE)
 - `mask` changes all values outside the mask
 
 ```{r crop_vector, fig.align = "center", out.width = "35%"}
-nlcd_mi <- terra::crop(x = nlcd, y = state_mi) %>% 
+nlcd_mi <- terra::crop(x = nlcd, y = state_mi) |> 
   terra::mask(mask = state_mi)
 ```
 

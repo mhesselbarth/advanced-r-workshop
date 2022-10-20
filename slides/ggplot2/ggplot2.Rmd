@@ -45,7 +45,7 @@ background-size: 25%
 
 #### University of Michigan (EEB)
 
-2022-03-25
+2022/10/24
 
 ---
 
@@ -295,7 +295,7 @@ ggplot(data = penguins,
 ```{r, echo = FALSE, fig.align= "center", out.width = "100%", message = FALSE, warning = FALSE}
 library(dplyr)
 
-df_text <- dplyr::group_by(penguins, species) %>% 
+df_text <- dplyr::group_by(penguins, species) |> 
   dplyr::summarise(mass_mean = mean(body_mass_g, na.rm = TRUE), 
                    bill_mean = mean(bill_length_mm, na.rm = TRUE))
 
@@ -423,12 +423,12 @@ cowplot::plot_grid(p1, p2, p3, nrow = 3)
 --
 
 ```{r}
-penguins_range <- dplyr::group_by(penguins, species, sex) %>% 
+penguins_range <- dplyr::group_by(penguins, species, sex) |> 
   dplyr::summarise(min = min(body_mass_g), 
                    max = max(body_mass_g), 
                    med = median(body_mass_g), 
-                   .groups = "drop") %>% 
-  tidyr::pivot_longer(-c(species, sex)) %>% 
+                   .groups = "drop") |> 
+  tidyr::pivot_longer(-c(species, sex)) |> 
   tidyr::drop_na(value)
 
 head(penguins_range)
@@ -515,7 +515,7 @@ ggplot(data = df_sampled, aes(x = 1:n)) +
 
 ```{r echo = FALSE, warning = FALSE, fig.align = "center", out.width = "85%"}
 n <- 25
-df_sampled <- dplyr::slice(penguins, sample(x = 1:nrow(penguins), size = n)) %>% 
+df_sampled <- dplyr::slice(penguins, sample(x = 1:nrow(penguins), size = n)) |> 
 dplyr::arrange(bill_length_mm)
 
 ggplot(data = df_sampled, aes(x = 1:n)) + 

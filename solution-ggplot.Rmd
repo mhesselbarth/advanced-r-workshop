@@ -1,7 +1,7 @@
 ---
 title: "Solution _Data visualization using ggplot2_"
 author: "Maximilian H.K. Hesselbarth"
-date: "`r Sys.Date()`"
+date: 2022/10/24
 editor_options: 
   chunk_output_type: console
 ---
@@ -93,7 +93,7 @@ cowplot::plot_grid(plotlist = gg_list)
 Visualize the body mass of all species using a boxplot. Additionally, to the boxplot, also add the raw data distribution (as points), the number of individuals for each species (as text) and some information about the sex differences (however you want). 
 
 ```{r}
-pengs_n <- dplyr::group_by(penguins, species) %>% 
+pengs_n <- dplyr::group_by(penguins, species) |> 
   dplyr::summarise(n = dplyr::n(), 
                    body_max = max(body_mass_g, na.rm = TRUE) * 1.05)
 
@@ -111,10 +111,10 @@ ggplot(data = penguins, aes(x = species, y = body_mass_g)) +
 Summarize the `penguins` data set by two discrete variables and calculate the mean flipper length. Create a plot showing the mean length for the two groups including an error measure (e.g., mean +/- sd). 
 
 ```{r}
-dplyr::group_by(penguins, island, sex) %>% 
+dplyr::group_by(penguins, island, sex) |>
   dplyr::summarise(mean = mean(flipper_length_mm, na.rm = TRUE), 
-                   sd = sd(flipper_length_mm, na.rm = TRUE), .groups = "drop") %>% 
-  tidyr::drop_na(sex) %>% 
+                   sd = sd(flipper_length_mm, na.rm = TRUE), .groups = "drop") |> 
+  tidyr::drop_na(sex) |> 
   ggplot() + 
   geom_point(aes(x = island, y = mean, col = sex), position = position_dodge(width = 0.2)) + 
   geom_errorbar(aes(x = island, ymin = mean - sd, ymax = mean + sd, col = sex), width = 0.2, 

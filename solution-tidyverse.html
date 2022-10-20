@@ -11,7 +11,6 @@
 
 <meta name="author" content="Maximilian H.K. Hesselbarth" />
 
-<meta name="date" content="2022-10-19" />
 
 <title>Solution Using the tidyverse</title>
 
@@ -407,7 +406,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Solution <em>Using the tidyverse</em></h1>
 <h4 class="author">Maximilian H.K. Hesselbarth</h4>
-<h4 class="date">2022-10-19</h4>
+<h4 class="date">2022/10/24</h4>
 
 </div>
 
@@ -433,23 +432,23 @@ the corresponding help page (<code>?</code> or F1).</p>
 ## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;
 str(penguins_raw)
 ## tibble [344 × 17] (S3: tbl_df/tbl/data.frame)
-##  $ studyName          : chr [1:344] &quot;PAL0708&quot; &quot;PAL0708&quot; &quot;PAL0708&quot; &quot;PAL0708&quot; ...
-##  $ Sample Number      : num [1:344] 1 2 3 4 5 6 7 8 9 10 ...
-##  $ Species            : chr [1:344] &quot;Adelie Penguin (Pygoscelis adeliae)&quot; &quot;Adelie Penguin (Pygoscelis adeliae)&quot; &quot;Adelie Penguin (Pygoscelis adeliae)&quot; &quot;Adelie Penguin (Pygoscelis adeliae)&quot; ...
-##  $ Region             : chr [1:344] &quot;Anvers&quot; &quot;Anvers&quot; &quot;Anvers&quot; &quot;Anvers&quot; ...
-##  $ Island             : chr [1:344] &quot;Torgersen&quot; &quot;Torgersen&quot; &quot;Torgersen&quot; &quot;Torgersen&quot; ...
-##  $ Stage              : chr [1:344] &quot;Adult, 1 Egg Stage&quot; &quot;Adult, 1 Egg Stage&quot; &quot;Adult, 1 Egg Stage&quot; &quot;Adult, 1 Egg Stage&quot; ...
-##  $ Individual ID      : chr [1:344] &quot;N1A1&quot; &quot;N1A2&quot; &quot;N2A1&quot; &quot;N2A2&quot; ...
-##  $ Clutch Completion  : chr [1:344] &quot;Yes&quot; &quot;Yes&quot; &quot;Yes&quot; &quot;Yes&quot; ...
-##  $ Date Egg           : Date[1:344], format: &quot;2007-11-11&quot; &quot;2007-11-11&quot; ...
-##  $ Culmen Length (mm) : num [1:344] 39.1 39.5 40.3 NA 36.7 39.3 38.9 39.2 34.1 42 ...
-##  $ Culmen Depth (mm)  : num [1:344] 18.7 17.4 18 NA 19.3 20.6 17.8 19.6 18.1 20.2 ...
-##  $ Flipper Length (mm): num [1:344] 181 186 195 NA 193 190 181 195 193 190 ...
-##  $ Body Mass (g)      : num [1:344] 3750 3800 3250 NA 3450 ...
-##  $ Sex                : chr [1:344] &quot;MALE&quot; &quot;FEMALE&quot; &quot;FEMALE&quot; NA ...
-##  $ Delta 15 N (o/oo)  : num [1:344] NA 8.95 8.37 NA 8.77 ...
-##  $ Delta 13 C (o/oo)  : num [1:344] NA -24.7 -25.3 NA -25.3 ...
-##  $ Comments           : chr [1:344] &quot;Not enough blood for isotopes.&quot; NA NA &quot;Adult not sampled.&quot; ...
+##  $ studyname        : chr [1:344] &quot;PAL0708&quot; &quot;PAL0708&quot; &quot;PAL0708&quot; &quot;PAL0708&quot; ...
+##  $ sample_number    : num [1:344] 1 2 3 4 5 6 7 8 9 10 ...
+##  $ species          : chr [1:344] &quot;Adelie Penguin (Pygoscelis adeliae)&quot; &quot;Adelie Penguin (Pygoscelis adeliae)&quot; &quot;Adelie Penguin (Pygoscelis adeliae)&quot; &quot;Adelie Penguin (Pygoscelis adeliae)&quot; ...
+##  $ region           : chr [1:344] &quot;Anvers&quot; &quot;Anvers&quot; &quot;Anvers&quot; &quot;Anvers&quot; ...
+##  $ island           : chr [1:344] &quot;Torgersen&quot; &quot;Torgersen&quot; &quot;Torgersen&quot; &quot;Torgersen&quot; ...
+##  $ stage            : chr [1:344] &quot;Adult, 1 Egg Stage&quot; &quot;Adult, 1 Egg Stage&quot; &quot;Adult, 1 Egg Stage&quot; &quot;Adult, 1 Egg Stage&quot; ...
+##  $ individual_id    : chr [1:344] &quot;N1A1&quot; &quot;N1A2&quot; &quot;N2A1&quot; &quot;N2A2&quot; ...
+##  $ clutch_completion: chr [1:344] &quot;Yes&quot; &quot;Yes&quot; &quot;Yes&quot; &quot;Yes&quot; ...
+##  $ date_egg         : Date[1:344], format: &quot;2007-11-11&quot; &quot;2007-11-11&quot; &quot;2007-11-16&quot; &quot;2007-11-16&quot; ...
+##  $ culmen_length    : num [1:344] 39.1 39.5 40.3 NA 36.7 39.3 38.9 39.2 34.1 42 ...
+##  $ culmen_depth     : num [1:344] 18.7 17.4 18 NA 19.3 20.6 17.8 19.6 18.1 20.2 ...
+##  $ flipper_length   : num [1:344] 181 186 195 NA 193 190 181 195 193 190 ...
+##  $ body_mass        : num [1:344] 3750 3800 3250 NA 3450 ...
+##  $ sex              : chr [1:344] &quot;MALE&quot; &quot;FEMALE&quot; &quot;FEMALE&quot; NA ...
+##  $ delta_15_n       : num [1:344] NA 8.95 8.37 NA 8.77 ...
+##  $ delta_13_c       : num [1:344] NA -24.7 -25.3 NA -25.3 ...
+##  $ comments         : chr [1:344] &quot;Not enough blood for isotopes.&quot; NA NA &quot;Adult not sampled.&quot; ...
 ##  - attr(*, &quot;spec&quot;)=
 ##   .. cols(
 ##   ..   studyName = col_character(),
@@ -471,20 +470,18 @@ str(penguins_raw)
 ##   ..   Comments = col_character()
 ##   .. )
 names(penguins_raw)
-##  [1] &quot;studyName&quot;           &quot;Sample Number&quot;       &quot;Species&quot;            
-##  [4] &quot;Region&quot;              &quot;Island&quot;              &quot;Stage&quot;              
-##  [7] &quot;Individual ID&quot;       &quot;Clutch Completion&quot;   &quot;Date Egg&quot;           
-## [10] &quot;Culmen Length (mm)&quot;  &quot;Culmen Depth (mm)&quot;   &quot;Flipper Length (mm)&quot;
-## [13] &quot;Body Mass (g)&quot;       &quot;Sex&quot;                 &quot;Delta 15 N (o/oo)&quot;  
-## [16] &quot;Delta 13 C (o/oo)&quot;   &quot;Comments&quot;
+##  [1] &quot;studyname&quot;         &quot;sample_number&quot;     &quot;species&quot;           &quot;region&quot;            &quot;island&quot;           
+##  [6] &quot;stage&quot;             &quot;individual_id&quot;     &quot;clutch_completion&quot; &quot;date_egg&quot;          &quot;culmen_length&quot;    
+## [11] &quot;culmen_depth&quot;      &quot;flipper_length&quot;    &quot;body_mass&quot;         &quot;sex&quot;               &quot;delta_15_n&quot;       
+## [16] &quot;delta_13_c&quot;        &quot;comments&quot;
 ?penguins_raw</code></pre>
 <p>Next, for easier data handling, clean the column names by removing
 all special characters (e.g., brackets, units, …) and replacing all
 white spaces with an underscore. Last, makle sure all column names are
 either all lower case or all upper case</p>
-<pre class="r"><code>col_names &lt;- names(penguins_raw) %&gt;% 
-  stringr::str_remove_all(pattern = &quot; \\([^()]+\\)&quot;) %&gt;% 
-  stringr::str_replace_all(pattern = &quot; &quot;, replacement = &quot;_&quot;) %&gt;% 
+<pre class="r"><code>col_names &lt;- names(penguins_raw) |&gt; 
+  stringr::str_remove_all(pattern = &quot; \\([^()]+\\)&quot;) |&gt; 
+  stringr::str_replace_all(pattern = &quot; &quot;, replacement = &quot;_&quot;) |&gt; 
   stringr::str_to_lower()
 
 names(penguins_raw) &lt;- col_names</code></pre>
@@ -497,7 +494,7 @@ terms of body mass. Select the individual id, species, the culmen
 dimensions, and the sex columns. Save this into a new
 <code>tibble</code> called <code>penguins_small</code> (or something
 similar).</p>
-<pre class="r"><code>penguins_small &lt;- dplyr::filter(penguins_cln, body_mass &lt;= quantile(body_mass, 0.5)) %&gt;% 
+<pre class="r"><code>penguins_small &lt;- dplyr::filter(penguins_cln, body_mass &lt;= quantile(body_mass, 0.5)) |&gt; 
   dplyr::select(individual_id, species, tidyselect::starts_with(&quot;culmen&quot;), sex)</code></pre>
 <p>Create a new column (<code>culmen_class</code>) in which each male
 individual with a culmen length larger than 50 mm is identified by
@@ -515,10 +512,10 @@ column again (<code>culmen_class 1 = "male"</code>,
 <code>culmen_class 2 = "female"</code>,
 <code>culmen_class 0 = "mixed</code>). Save the result as
 <code>penguings_sum</code>.</p>
-<pre class="r"><code>penguings_sum &lt;- dplyr::group_by(penguins_small, culmen_class) %&gt;% 
+<pre class="r"><code>penguings_sum &lt;- dplyr::group_by(penguins_small, culmen_class) |&gt; 
   dplyr::summarise(n_rel = dplyr::n() / nrow(penguins_small) * 100, 
                    ratio_min = min(culmen_length) / min(culmen_depth), 
-                   ratio_max = max(culmen_length) / max(culmen_depth)) %&gt;% 
+                   ratio_max = max(culmen_length) / max(culmen_depth)) |&gt; 
   dplyr::mutate(sex_new = dplyr::case_when(culmen_class == 0 ~ &quot;mixed&quot;, 
                                            culmen_class == 1 ~ &quot;male&quot;, 
                                            culmen_class == 2 ~ &quot;female&quot;))</code></pre>
@@ -527,38 +524,36 @@ one <code>tibble</code> using <code>sex</code> and <code>sex_new</code>
 as ID columns.</p>
 <pre class="r"><code>dplyr::left_join(penguins, penguings_sum, by = c(&quot;sex&quot; = &quot;sex_new&quot;))
 ## # A tibble: 344 × 12
-##    species island    bill_le…¹ bill_…² flipp…³ body_…⁴ sex    year culme…⁵ n_rel
-##    &lt;fct&gt;   &lt;fct&gt;         &lt;dbl&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt; &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt;
-##  1 Adelie  Torgersen      39.1    18.7     181    3750 male   2007       1  9.64
-##  2 Adelie  Torgersen      39.5    17.4     186    3800 fema…  2007       2 16.3 
-##  3 Adelie  Torgersen      40.3    18       195    3250 fema…  2007       2 16.3 
-##  4 Adelie  Torgersen      NA      NA        NA      NA &lt;NA&gt;   2007      NA NA   
-##  5 Adelie  Torgersen      36.7    19.3     193    3450 fema…  2007       2 16.3 
-##  6 Adelie  Torgersen      39.3    20.6     190    3650 male   2007       1  9.64
-##  7 Adelie  Torgersen      38.9    17.8     181    3625 fema…  2007       2 16.3 
-##  8 Adelie  Torgersen      39.2    19.6     195    4675 male   2007       1  9.64
-##  9 Adelie  Torgersen      34.1    18.1     193    3475 &lt;NA&gt;   2007      NA NA   
-## 10 Adelie  Torgersen      42      20.2     190    4250 &lt;NA&gt;   2007      NA NA   
-## # … with 334 more rows, 2 more variables: ratio_min &lt;dbl&gt;, ratio_max &lt;dbl&gt;, and
-## #   abbreviated variable names ¹​bill_length_mm, ²​bill_depth_mm,
-## #   ³​flipper_length_mm, ⁴​body_mass_g, ⁵​culmen_class
+##    species island    bill_length_mm bill_depth_mm flipper_len…¹ body_…² sex    year culme…³ n_rel ratio…⁴ ratio…⁵
+##    &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;         &lt;int&gt;   &lt;int&gt; &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+##  1 Adelie  Torgersen           39.1          18.7           181    3750 male   2007       1  9.64    2.77    2.75
+##  2 Adelie  Torgersen           39.5          17.4           186    3800 fema…  2007       2 16.3     2.76    2.99
+##  3 Adelie  Torgersen           40.3          18             195    3250 fema…  2007       2 16.3     2.76    2.99
+##  4 Adelie  Torgersen           NA            NA              NA      NA &lt;NA&gt;   2007      NA NA      NA      NA   
+##  5 Adelie  Torgersen           36.7          19.3           193    3450 fema…  2007       2 16.3     2.76    2.99
+##  6 Adelie  Torgersen           39.3          20.6           190    3650 male   2007       1  9.64    2.77    2.75
+##  7 Adelie  Torgersen           38.9          17.8           181    3625 fema…  2007       2 16.3     2.76    2.99
+##  8 Adelie  Torgersen           39.2          19.6           195    4675 male   2007       1  9.64    2.77    2.75
+##  9 Adelie  Torgersen           34.1          18.1           193    3475 &lt;NA&gt;   2007      NA NA      NA      NA   
+## 10 Adelie  Torgersen           42            20.2           190    4250 &lt;NA&gt;   2007      NA NA      NA      NA   
+## # … with 334 more rows, and abbreviated variable names ¹​flipper_length_mm, ²​body_mass_g, ³​culmen_class,
+## #   ⁴​ratio_min, ⁵​ratio_max
 dplyr::right_join(penguins, penguings_sum, by = c(&quot;sex&quot; = &quot;sex_new&quot;))
 ## # A tibble: 334 × 12
-##    species island    bill_le…¹ bill_…² flipp…³ body_…⁴ sex    year culme…⁵ n_rel
-##    &lt;fct&gt;   &lt;fct&gt;         &lt;dbl&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt; &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt;
-##  1 Adelie  Torgersen      39.1    18.7     181    3750 male   2007       1  9.64
-##  2 Adelie  Torgersen      39.5    17.4     186    3800 fema…  2007       2 16.3 
-##  3 Adelie  Torgersen      40.3    18       195    3250 fema…  2007       2 16.3 
-##  4 Adelie  Torgersen      36.7    19.3     193    3450 fema…  2007       2 16.3 
-##  5 Adelie  Torgersen      39.3    20.6     190    3650 male   2007       1  9.64
-##  6 Adelie  Torgersen      38.9    17.8     181    3625 fema…  2007       2 16.3 
-##  7 Adelie  Torgersen      39.2    19.6     195    4675 male   2007       1  9.64
-##  8 Adelie  Torgersen      41.1    17.6     182    3200 fema…  2007       2 16.3 
-##  9 Adelie  Torgersen      38.6    21.2     191    3800 male   2007       1  9.64
-## 10 Adelie  Torgersen      34.6    21.1     198    4400 male   2007       1  9.64
-## # … with 324 more rows, 2 more variables: ratio_min &lt;dbl&gt;, ratio_max &lt;dbl&gt;, and
-## #   abbreviated variable names ¹​bill_length_mm, ²​bill_depth_mm,
-## #   ³​flipper_length_mm, ⁴​body_mass_g, ⁵​culmen_class</code></pre>
+##    species island    bill_length_mm bill_depth_mm flipper_len…¹ body_…² sex    year culme…³ n_rel ratio…⁴ ratio…⁵
+##    &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;         &lt;int&gt;   &lt;int&gt; &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+##  1 Adelie  Torgersen           39.1          18.7           181    3750 male   2007       1  9.64    2.77    2.75
+##  2 Adelie  Torgersen           39.5          17.4           186    3800 fema…  2007       2 16.3     2.76    2.99
+##  3 Adelie  Torgersen           40.3          18             195    3250 fema…  2007       2 16.3     2.76    2.99
+##  4 Adelie  Torgersen           36.7          19.3           193    3450 fema…  2007       2 16.3     2.76    2.99
+##  5 Adelie  Torgersen           39.3          20.6           190    3650 male   2007       1  9.64    2.77    2.75
+##  6 Adelie  Torgersen           38.9          17.8           181    3625 fema…  2007       2 16.3     2.76    2.99
+##  7 Adelie  Torgersen           39.2          19.6           195    4675 male   2007       1  9.64    2.77    2.75
+##  8 Adelie  Torgersen           41.1          17.6           182    3200 fema…  2007       2 16.3     2.76    2.99
+##  9 Adelie  Torgersen           38.6          21.2           191    3800 male   2007       1  9.64    2.77    2.75
+## 10 Adelie  Torgersen           34.6          21.1           198    4400 male   2007       1  9.64    2.77    2.75
+## # … with 324 more rows, and abbreviated variable names ¹​flipper_length_mm, ²​body_mass_g, ³​culmen_class,
+## #   ⁴​ratio_min, ⁵​ratio_max</code></pre>
 <p>Reshape the <code>penguins_small</code> <code>tibble</code> from wide
 to long in a way that the culmen length and depth columns are tidy. The
 name of the new column specifying the information should be
@@ -575,18 +570,20 @@ species. (Tip: Have a look at <code>broom::glance</code>, however, there
 are many ways to achieve this).</p>
 <pre class="r"><code>library(broom)
 
-dplyr::group_by(penguins, species) %&gt;% 
-  dplyr::group_split() %&gt;% 
-  purrr::map_dfr(function(i) lm(data = i, flipper_length_mm ~ body_mass_g) %&gt;% 
-               broom::glance() %&gt;% cbind(species = unique(i$species), .))
-##     species r.squared adj.r.squared    sigma statistic      p.value df
-## 1    Adelie 0.2192128     0.2139726 5.797764  41.83305 1.343265e-09  1
-## 2 Chinstrap 0.4115985     0.4026833 5.511975  46.16830 3.748130e-09  1
-## 3    Gentoo 0.4937402     0.4895563 4.633213 118.00774 1.330279e-19  1
-##      logLik      AIC      BIC deviance df.residual nobs
-## 1 -478.6314 963.2627 972.3146 5008.496         149  151
-## 2 -211.5436 429.0872 435.7457 2005.203          66   68
-## 3 -362.1110 730.2221 738.6587 2597.467         121  123</code></pre>
+dplyr::group_by(penguins, species) |&gt; 
+  dplyr::group_split() |&gt; 
+  purrr::map_dfr(function(i) {
+    lm_model &lt;- lm(data = i, flipper_length_mm ~ body_mass_g)
+    cbind(species = unique(i$species), broom::glance(lm_model))
+  })
+##     species r.squared adj.r.squared    sigma statistic      p.value df    logLik      AIC      BIC deviance
+## 1    Adelie 0.2192128     0.2139726 5.797764  41.83305 1.343265e-09  1 -478.6314 963.2627 972.3146 5008.496
+## 2 Chinstrap 0.4115985     0.4026833 5.511975  46.16830 3.748130e-09  1 -211.5436 429.0872 435.7457 2005.203
+## 3    Gentoo 0.4937402     0.4895563 4.633213 118.00774 1.330279e-19  1 -362.1110 730.2221 738.6587 2597.467
+##   df.residual nobs
+## 1         149  151
+## 2          66   68
+## 3         121  123</code></pre>
 <p><img src="img/meme_google.png" width="50%" style="display: block; margin: auto;" /></p>
 
 

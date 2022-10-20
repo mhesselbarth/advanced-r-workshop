@@ -1,7 +1,7 @@
 ---
 title: "Solution _Spatial data_"
 author: "Maximilian H.K. Hesselbarth"
-date: "`r Sys.Date()`"
+date: 2022/10/24
 editor_options: 
   chunk_output_type: console
 ---
@@ -55,9 +55,9 @@ states <- sf::st_transform(x = states, crs = terra::crs(nlcd))
 Next, remove Alaska and Hawaii from the states vector because there is no NLCD data for these states. Next select only the 5 largest states in area
 
 ```{r states_size}
-states_large <- dplyr::filter(states, !name %in% c("Alaska", "Hawaii")) %>% 
-  dplyr::mutate(area_m = as.numeric(sf::st_area(geometry))) %>% 
-  dplyr::arrange(-area_m) %>% 
+states_large <- dplyr::filter(states, !name %in% c("Alaska", "Hawaii")) |> 
+  dplyr::mutate(area_m = as.numeric(sf::st_area(geometry))) |> 
+  dplyr::arrange(-area_m) |> 
   head(n = 5)
 ```
 
@@ -74,7 +74,7 @@ Now, pick one state (your home state, a state you recently visited, a state you 
 ```{r crop}
 kansas <- dplyr::filter(states, name == "Kansas")
 
-nlcd_kansas <- terra::crop(x = nlcd, y = kansas) %>% 
+nlcd_kansas <- terra::crop(x = nlcd, y = kansas) |> 
   terra::mask(mask = kansas)
 ```
 

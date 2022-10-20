@@ -3,7 +3,7 @@
   <head>
     <title>spatial</title>
     <meta charset="utf-8" />
-    <script src="libs/header-attrs-2.16/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.17/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -26,7 +26,7 @@ background-size: 75%
 
 #### University of Michigan (EEB)
 
-2022-03-25
+2022/10/24
 
 ---
 
@@ -149,9 +149,8 @@ background-size: 10%
 
 
 ```r
-vals &lt;- seq(from = 0, to = 1, length.out = terra::nrow(x)) %&gt;% 
-  rep(times = terra::ncol(x)) %&gt;% 
-  magrittr::multiply_by(runif(n = terra::ncell(x)))
+vals &lt;- runif(n = terra::nrow(x) * 
+                terra::ncol(x))
 
 *terra::values(x) &lt;- vals
 *x$lyr.2 &lt;- vals * -1
@@ -168,9 +167,9 @@ vals &lt;- seq(from = 0, to = 1, length.out = terra::nrow(x)) %&gt;%
 ## coord. ref. : lon/lat WGS 84 (EPSG:4326) 
 ## sources     : memory  
 ##               memory  
-## names       :     lyr.1,      lyr.2 
-## min values  : 0.0000000, -0.9833264 
-## max values  : 0.9833264,  0.0000000
+## names       :        lyr.1,         lyr.2 
+## min values  : 0.0006893259, -0.9999481156 
+## max values  : 0.9999481156, -0.0006893259
 ```
 ]
 
@@ -207,23 +206,23 @@ terra::as.data.frame(x, xy = TRUE)
 
 
 ```
-##            lyr.1        lyr.2
-## [1,] 0.000000000  0.000000000
-## [2,] 0.003823898 -0.003823898
-## [3,] 0.003912146 -0.003912146
-## [4,] 0.034855621 -0.034855621
-## [5,] 0.047909501 -0.047909501
-## [6,] 0.004831926 -0.004831926
+##          lyr.1      lyr.2
+## [1,] 0.3201632 -0.3201632
+## [2,] 0.5526989 -0.5526989
+## [3,] 0.1201288 -0.1201288
+## [4,] 0.7382276 -0.7382276
+## [5,] 0.8010045 -0.8010045
+## [6,] 0.1125737 -0.1125737
 ```
 
 ```
-##     x  y       lyr.1        lyr.2
-## 1 -49 49 0.000000000  0.000000000
-## 2 -47 49 0.003823898 -0.003823898
-## 3 -45 49 0.003912146 -0.003912146
-## 4 -43 49 0.034855621 -0.034855621
-## 5 -41 49 0.047909501 -0.047909501
-## 6 -39 49 0.004831926 -0.004831926
+##     x  y     lyr.1      lyr.2
+## 1 -49 49 0.3201632 -0.3201632
+## 2 -47 49 0.5526989 -0.5526989
+## 3 -45 49 0.1201288 -0.1201288
+## 4 -43 49 0.7382276 -0.7382276
+## 5 -41 49 0.8010045 -0.8010045
+## 6 -39 49 0.1125737 -0.1125737
 ```
 
 ]
@@ -250,9 +249,9 @@ c(x, x2)
 ## sources     : memory  
 ##               memory  
 ##               memory  
-## names       :     lyr.1,      lyr.2, lyr.1 
-## min values  : 0.0000000, -0.9833264,     0 
-## max values  : 0.9833264,  0.0000000,     0
+## names       :        lyr.1,         lyr.2, lyr.1 
+## min values  : 0.0006893259, -0.9999481156,     0 
+## max values  : 0.9999481156, -0.0006893259,     0
 ```
 
 ]
@@ -286,7 +285,7 @@ background-size: 10%
 ## color table : 1 
 ## categories  : NLCD Land Cover Class, Histogram, Red, Green, Blue, Opacity 
 ## name        :        NLCD Land Cover Class 
-## min value   :                           NA 
+## min value   :                 Unclassified 
 ## max value   : Emergent Herbaceous Wetlands
 ```
 
@@ -316,7 +315,7 @@ bbox &lt;- terra::ext(-84.023438, -83.320313, 42.032974, 42.553080)
 
 raster_crop &lt;- terra::project(terra::rast(bbox), terra::crs(nlcd))
 
-*nlcd_crop &lt;- terra::crop(x = nlcd, y = raster_crop) %&gt;%
+*nlcd_crop &lt;- terra::crop(x = nlcd, y = raster_crop) |&gt;
   terra::project(y = "epsg:4326")
 ```
 
@@ -380,13 +379,13 @@ background-size: 10%
 
 
 ```r
-cities &lt;- sf::st_read("data/cities-mi.shp") %&gt;% 
+cities &lt;- sf::st_read("data/cities-mi.shp") |&gt; 
   sf::st_transform(crs = terra::crs(nlcd))
 ```
 
 ```
 ## Reading layer `cities-mi' from data source 
-##   `/Users/mhesselbarth/Dropbox (University of Michigan)/06_Talks/Advanced-R-Workshop/slides/spatial/data/cities-mi.shp' 
+##   `/Users/mhessel/Dropbox (University of Michigan)/06-Talks/Advanced-R-Workshop/slides/spatial/data/cities-mi.shp' 
 ##   using driver `ESRI Shapefile'
 ## Simple feature collection with 1773 features and 7 fields
 ## Geometry type: POINT
@@ -399,13 +398,13 @@ cities &lt;- sf::st_read("data/cities-mi.shp") %&gt;%
 
 
 ```r
-states &lt;- sf::st_read("data/provinces.shp") %&gt;%
+states &lt;- sf::st_read("data/provinces.shp") |&gt;
   sf::st_transform(crs = terra::crs(nlcd))
 ```
 
 ```
 ## Reading layer `provinces' from data source 
-##   `/Users/mhesselbarth/Dropbox (University of Michigan)/06_Talks/Advanced-R-Workshop/slides/spatial/data/provinces.shp' 
+##   `/Users/mhessel/Dropbox (University of Michigan)/06-Talks/Advanced-R-Workshop/slides/spatial/data/provinces.shp' 
 ##   using driver `ESRI Shapefile'
 ## Simple feature collection with 51 features and 83 fields
 ## Geometry type: MULTIPOLYGON
@@ -466,11 +465,11 @@ background-size: 10%
 
 
 ```r
-(regions &lt;- dplyr::filter(states, !name %in% c("Alaska", "Hawaii")) %&gt;%
-  dplyr::select(name, region) %&gt;%
-  dplyr::mutate(area_m = as.numeric(sf::st_area(geometry))) %&gt;%
-  dplyr::group_by(region) %&gt;%
-* dplyr::summarise(area_m = sum(area_m), area_km = area_m / 1000000) %&gt;%
+(regions &lt;- dplyr::filter(states, !name %in% c("Alaska", "Hawaii")) |&gt;
+  dplyr::select(name, region) |&gt;
+  dplyr::mutate(area_m = as.numeric(sf::st_area(geometry))) |&gt;
+  dplyr::group_by(region) |&gt;
+* dplyr::summarise(area_m = sum(area_m), area_km = area_m / 1000000) |&gt;
   dplyr::arrange(-area_km))
 ```
 
@@ -548,7 +547,7 @@ plot(nlcd)
 plot(states_mainland$geometry, add = TRUE)
 ```
 
-&lt;img src="spatial_files/figure-html/plot_vec_ras-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="spatial_files/figure-html/plot_vec_ras-1.png" width="45%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -560,7 +559,7 @@ plot(states_mainland$geometry, add = TRUE)
 
 
 ```r
-nlcd_mi &lt;- terra::crop(x = nlcd, y = state_mi) %&gt;% 
+nlcd_mi &lt;- terra::crop(x = nlcd, y = state_mi) |&gt; 
   terra::mask(mask = state_mi)
 ```
 

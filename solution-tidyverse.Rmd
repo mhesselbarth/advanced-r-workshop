@@ -1,7 +1,7 @@
 ---
 title: "Solution _Using the tidyverse_"
 author: "Maximilian H.K. Hesselbarth"
-date: "`r Sys.Date()`"
+date: 2022/10/24
 editor_options: 
   chunk_output_type: console
 ---
@@ -46,9 +46,9 @@ names(penguins_raw)
 Next, for easier data handling, clean the column names by removing all special characters (e.g., brackets, units, ...) and replacing all white spaces with an underscore. Last, makle sure all column names are either all lower case or all upper case
 
 ```{r names}
-col_names <- names(penguins_raw) %>% 
-  stringr::str_remove_all(pattern = " \\([^()]+\\)") %>% 
-  stringr::str_replace_all(pattern = " ", replacement = "_") %>% 
+col_names <- names(penguins_raw) |> 
+  stringr::str_remove_all(pattern = " \\([^()]+\\)") |> 
+  stringr::str_replace_all(pattern = " ", replacement = "_") |> 
   stringr::str_to_lower()
 
 names(penguins_raw) <- col_names
@@ -63,7 +63,7 @@ penguins_cln <- tidyr::drop_na(penguins_raw, delta_15_n, delta_13_c)
 Filter the data set to include only the 50% smallest individuals in terms of body mass. Select the individual id, species, the culmen dimensions, and the sex columns. Save this into a new `tibble` called `penguins_small` (or something similar).
 
 ```{r filter}
-penguins_small <- dplyr::filter(penguins_cln, body_mass <= quantile(body_mass, 0.5)) %>% 
+penguins_small <- dplyr::filter(penguins_cln, body_mass <= quantile(body_mass, 0.5)) |> 
   dplyr::select(individual_id, species, tidyselect::starts_with("culmen"), sex)
 ```
 
@@ -79,10 +79,10 @@ penguins_small <-
 Calculate the relative number (%) of individuals within each group and the ratio between the minimum culmen length and depth as well as between the maximum culmen length and depth. Add a `sex_new` column again (`culmen_class 1 = "male"`, `culmen_class 2 = "female"`, `culmen_class 0 = "mixed`). Save the result as `penguings_sum`.
 
 ```{r groupby}
-penguings_sum <- dplyr::group_by(penguins_small, culmen_class) %>% 
+penguings_sum <- dplyr::group_by(penguins_small, culmen_class) |> 
   dplyr::summarise(n_rel = dplyr::n() / nrow(penguins_small) * 100, 
                    ratio_min = min(culmen_length) / min(culmen_depth), 
-                   ratio_max = max(culmen_length) / max(culmen_depth)) %>% 
+                   ratio_max = max(culmen_length) / max(culmen_depth)) |> 
   dplyr::mutate(sex_new = dplyr::case_when(culmen_class == 0 ~ "mixed", 
                                            culmen_class == 1 ~ "male", 
                                            culmen_class == 2 ~ "female"))
@@ -107,10 +107,12 @@ Use the `map` function to fit a linear model (`flipper_length_mm ~ body_mass_g`)
 ```{r map}
 library(broom)
 
-dplyr::group_by(penguins, species) %>% 
-  dplyr::group_split() %>% 
-  purrr::map_dfr(function(i) lm(data = i, flipper_length_mm ~ body_mass_g) %>% 
-               broom::glance() %>% cbind(species = unique(i$species), .))
+dplyr::group_by(penguins, species) |> 
+  dplyr::group_split() |> 
+  purrr::map_dfr(function(i) {
+    lm_model <- lm(data = i, flipper_length_mm ~ body_mass_g)
+    cbind(species = unique(i$species), broom::glance(lm_model))
+  })
 ```
 
 ```{r end_meme, echo = FALSE, fig.align = "center", out.width = '50%'}
