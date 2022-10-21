@@ -4,7 +4,7 @@ title: "Advanced R workshop"
 
 **Date**: Monday, October 24, 2022
 
-This homepage contains all materials used during the **Advanced `R` workshop** taught at the University of Michigan [EEB department](https://lsa.umich.edu/eeb). The workshops is organized by Katrina Munsterman and Max Hesselbarth. Additionally, Teresa Pegan, Anna Redgrave and Nikesh Dahal offered to help during the workshop, which is highly appreciated! 
+This homepage contains all materials used during the **Advanced `R` workshop** taught at the University of Michigan [EEB department](https://lsa.umich.edu/eeb). The workshops is organized by Katrina Munsterman and Max Hesselbarth. Additionally, Teresa Pegan and Anna Redgrave offered to help during the workshop, which is highly appreciated! 
 
 The introductory slides for each topic can be found under the "Slides" menu item. For each topic there is an exercise and a corresponding solution, which can be found under the "Exercise" and "Solution" menu items.
 
@@ -18,7 +18,7 @@ In case you have any questions, please contact [mhessel\<at>umich.edu](mailto:mh
 
 ### Packages used for exercise
 
-- palmerpenguins, tidyverse, (broom), magrittr, cowplot, sf, terra, tmap
+- palmerpenguins, tidyverse, (broom), cowplot, sf, terra
 
 <br> <br>
 
