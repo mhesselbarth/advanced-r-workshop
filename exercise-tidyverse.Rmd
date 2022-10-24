@@ -19,7 +19,7 @@ knitr::include_graphics("img/tidy_tools.png", auto_pdf = FALSE)
 ```
 
 ```{r download, echo = FALSE}
-download_link(link = "https://raw.githubusercontent.com/mhesselbarth/advanced-r-workshop/main/exercise_tidyverse.Rmd",
+download_link(link = "https://raw.githubusercontent.com/mhesselbarth/advanced-r-workshop/main/exercise-tidyverse.Rmd",
               button_label = "Download .Rmd file", button_type = "danger")
 ```
 

@@ -19,7 +19,7 @@ knitr::include_graphics("img/sf.png", auto_pdf = FALSE)
 ```
 
 ```{r download, echo = FALSE}
-download_link(link = "https://raw.githubusercontent.com/mhesselbarth/advanced-r-workshop/main/solution_spatial.Rmd",
+download_link(link = "https://raw.githubusercontent.com/mhesselbarth/advanced-r-workshop/main/solution-spatial.Rmd",
               button_label = "Download .Rmd file", 
               button_type = "danger")
 ```
