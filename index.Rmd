@@ -36,6 +36,6 @@ Please note that the Advanced `R` workshop project is released with a [Contribut
 
 <br> <br> <br> <br>
 
-```{r index_logo, echo = FALSE, fig.align = "center", out.width = '50%'}
-knitr::include_graphics("img/UMich.png", auto_pdf = FALSE)
-```
+<!-- # ```{r index_logo, echo = FALSE, fig.align = "center", out.width = '50%'} -->
+<!-- # knitr::include_graphics("img/UMich.png", auto_pdf = FALSE) -->
+<!-- # ``` -->
